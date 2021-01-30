@@ -89,7 +89,7 @@ extern  int DeltaSpeedL;
 extern  int SpeedLz1_16;
 extern  int DeltaSpeedL1;
 
-extern  int32 PowerL;
+extern  long PowerL;
 extern  int PowerL16;
 
 extern  int Iaz;
@@ -197,7 +197,7 @@ extern  int DeltaSpeedR1;
 extern	int 	AmplR;
 extern	float 	AlphaR;
 
-extern	int32 PowerR;
+extern	long PowerR;
 extern	int PowerR16;
 
 extern	void RookerR();

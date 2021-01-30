@@ -155,10 +155,10 @@ void CalcDeltaIdR()
 
 	fUmR += (UmR - fUmR)/25;
 
-	fE_MaxR += ((F_(Udz)*1.15/2.0) - fE_MaxR)/koeff.K17;
+	fE_MaxR += (((float)(Udz)*1.15/2.0) - fE_MaxR)/koeff.K17;
 
 	E_MaxR = fE_MaxR;
-	E_LineR = F_(abs(SpeedR))*0.0686*koeff.K15;
+	E_LineR = (float)(abs(SpeedR))*0.0686*koeff.K15;
 
 	if(E_LineR < 50) E_LineR=50;
 	if(E_MaxR < 200) E_MaxR=200;
@@ -172,7 +172,7 @@ void CalcDeltaIdR()
 
 		//MinMaxLimitInt(-540,540,&dER);
 
-		sdER += (F_(dER)/1000.0)*F_(koeff.KiE);
+		sdER += ((float)(dER)/1000.0)*(float)(koeff.KiE);
 
 		//if(sdER > 540) sdER=540;
 		//if(sdER < -540) sdER=-540;
@@ -209,7 +209,7 @@ void SpeedRegR()
 
 	DeltaSpeedR = (SpeedRz - IqzR)/5;
 
-	SpeedRz1 += F_(DeltaSpeedR)*(F_(koeff.K7)/2500.0);
+	SpeedRz1 += (float)(DeltaSpeedR)*((float)(koeff.K7)/2500.0);
 
 	if(koeff.K18 > 2500)
 		koeff.K18 = 2500;
@@ -280,12 +280,12 @@ IqR --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipR)
 	//fIdRf = MPR.RM*IdzR;
 
 	//	1/Sec	equal	rad/sec
-	DeltaOmegaSlipR = (MPR.LM*F_(IqR)*(F_(koeff.K9)/10.0))/(fIdRf*MPR.TR + 0.001);
+	DeltaOmegaSlipR = (MPR.LM*(float)(IqR)*((float)(koeff.K9)/10.0))/(fIdRf*MPR.TR + 0.001);
 
 	//  rad
 	ThetaSlipR += DeltaOmegaSlipR*dt;
 
-	//ThetaSlipR += (F_(SpeedR*koeff.K9)/1000.0)*dt;
+	//ThetaSlipR += ((float)(SpeedR*koeff.K9)/1000.0)*dt;
 
 	RadianLimit(&ThetaSlipR);
 
@@ -309,9 +309,9 @@ void RegR(){
 	SpeedAndAngleR();
 
 	//32400/2*M_PI = 5156.62
-	fThetaR = F_(ThetaR)/5215.19;
+	fThetaR = (float)(ThetaR)/5215.19;
 
-	//fThetaR += F_(koeff.k10)/100000.0;
+	//fThetaR += (float)(koeff.k10)/100000.0;
 
 	CalcDeltaIdR();
 
@@ -350,9 +350,9 @@ void RegR(){
 			IqRCurLim = Slider.s4;
 
 			if(SpeedRz < Slider.s5)
-				sSpeedRz += F_(koeff.K16)/100.0;
+				sSpeedRz += (float)(koeff.K16)/100.0;
 			else
-				sSpeedRz -= F_(koeff.K16)/100.0;
+				sSpeedRz -= (float)(koeff.K16)/100.0;
 
 			SpeedRz = sSpeedRz;
 
@@ -382,11 +382,11 @@ void RegR(){
 		MinMaxLimitInt(5,900,&IdzR);
 
 		DeltaIdR = IdzR - IdR;
-		SIdR += F_(DeltaIdR*koeff.Ki)/25.0;
+		SIdR += (float)(DeltaIdR*koeff.Ki)/25.0;
 
 		MinMaxLimitFloat(-18000,18000,&SIdR);
 
-		UUdR = F_(DeltaIdR*koeff.Kp)/25.0 + SIdR + (DeltaIdR - DeltaIdOldR)*koeff.Kd;
+		UUdR = (float)(DeltaIdR*koeff.Kp)/25.0 + SIdR + (DeltaIdR - DeltaIdOldR)*koeff.Kd;
 		DeltaIdOldR = DeltaIdR;
 
 // @@@@@ IdReg end
@@ -413,12 +413,12 @@ void RegR(){
 		iffR = (fUmR - 12500)/63;
 		MinMaxLimitInt(0,79,&iffR);
 
-		UdSIR = F_(ConvertVParamToSI(UUdR))/FourieK[iffR];
-		UqSIR = F_(ConvertVParamToSI(UUqR))/FourieK[iffR];
+		UdSIR = (float)(ConvertVParamToSI(UUdR))/FourieK[iffR];
+		UqSIR = (float)(ConvertVParamToSI(UUqR))/FourieK[iffR];
 
 		PowerR = (L_(UdSIR)*L_(IdzR) + L_(UqSIR)*L_(IqzR))/666;
 
-		PowerR = F_(PowerR);
+		PowerR = (float)(PowerR);
 
 		PowerR16 = PowerR;
 
@@ -431,11 +431,11 @@ void RegR(){
 		MinMaxLimitInt(-2000,abs(IqRCurLim),&IqzR);
 
 		DeltaIqR = IqzR - IqR;
-		SIqR += F_(DeltaIqR*koeff.Ki)/25.0;
+		SIqR += (float)(DeltaIqR*koeff.Ki)/25.0;
 
 		MinMaxLimitFloat(-18000,18000,&SIqR);
 
-		UUqR = F_(DeltaIqR*koeff.Kp)/25.0 + SIqR + (DeltaIqR - DeltaIqOldR)*koeff.Kd;
+		UUqR = (float)(DeltaIqR*koeff.Kp)/25.0 + SIqR + (DeltaIqR - DeltaIqOldR)*koeff.Kd;
 		DeltaIqOldR = DeltaIqR;
 
 // @@@@@ IqReg end
@@ -478,7 +478,7 @@ void RegR(){
 		{
 
 			AmplR 	= Slider.s4;
-			AlphaR	+= F_(Slider.s5)/10000.0; /* -10 10*/
+			AlphaR	+= (float)(Slider.s5)/10000.0; /* -10 10*/
 
 			HandleReg(&UUAR,&UUBR,&UUCR,&AmplR,&AlphaR);
 
@@ -511,8 +511,8 @@ void ELCalcR(){
 			UAlphaSIR = ConvertVParamToSI(UAlphaR);
 			UBetaSIR  = ConvertVParamToSI(UBetaR);
 
-			UAlphaSIR = (int)(F_(UAlphaSIR)/FourieK[iffR]);
-			UBetaSIR = (int)(F_(UBetaSIR)/FourieK[iffR]);
+			UAlphaSIR = (int)((float)(UAlphaSIR)/FourieK[iffR]);
+			UBetaSIR = (int)((float)(UBetaSIR)/FourieK[iffR]);
 
 			DeltaIAlphaR = IAlphaR - OldIAlphaR;
 			DeltaIBetaR = IBetaR - OldIBetaR;
@@ -523,7 +523,7 @@ void ELCalcR(){
 			OldIAlphaR = IAlphaR;
 			OldIBetaR = IBetaR;
 */
-			fE_ampR += F_((GetHypByLegs(UdSIR,UqSIR) - fE_ampR))/F_(koeff.KFiltE);
+			fE_ampR += (float)((GetHypByLegs(UdSIR,UqSIR) - fE_ampR))/(float)(koeff.KFiltE);
 
 			E_ampR = fE_ampR;
 

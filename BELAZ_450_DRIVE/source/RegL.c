@@ -196,10 +196,10 @@ void CalcDeltaIdL()
 
 	fUmL += (UmL - fUmL)/25;
 
-	fE_MaxL += ((F_(Udz)*1.15/2.0) - fE_MaxL)/koeff.K17;
+	fE_MaxL += (((float)(Udz)*1.15/2.0) - fE_MaxL)/koeff.K17;
 
 	E_MaxL = fE_MaxL;
-	E_LineL = F_(abs(SpeedL))*0.0686*koeff.K15;
+	E_LineL = (float)(abs(SpeedL))*0.0686*koeff.K15;
 
 	if(E_LineL < 50) E_LineL=50;
 	if(E_MaxL < 200) E_MaxL=200;
@@ -213,7 +213,7 @@ void CalcDeltaIdL()
 
 		//MinMaxLimitInt(-540,540,&dEL);
 
-		sdEL += (F_(dEL)/1000.0)*F_(koeff.KiE);
+		sdEL += ((float)(dEL)/1000.0)*(float)(koeff.KiE);
 
 		//if(sdEL > 540) sdEL=540;
 		//if(sdEL < -540) sdEL=-540;
@@ -241,7 +241,7 @@ void SpeedRegL()
 
 	DeltaSpeedL = (SpeedLz - IqzL)/5;
 
-	SpeedLz1 += F_(DeltaSpeedL)*(F_(koeff.K7)/2500.0);
+	SpeedLz1 += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
 
 	if(koeff.K18 > 2500)
 		koeff.K18 = 2500;
@@ -293,7 +293,7 @@ void SpeedRegL()
 
 		MinMaxLimitInt(-1500,1500,&DeltaSpeedL);
 
-		SummDeltaSpeed += F_(DeltaSpeedL)/F_(koeff.K2_Rvg);
+		SummDeltaSpeed += (float)(DeltaSpeedL)/(float)(koeff.K2_Rvg);
 
 		MinMaxLimitFloat(-2000,2000,&SummDeltaSpeed);
 
@@ -327,12 +327,12 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 	//fIdLf = MPL.LM*IdzL;
 
 	//	1/Sec	equal	rad/sec
-	DeltaOmegaSlipL = (MPL.LM*F_(IqL)*(F_(koeff.K9)/10.0))/(fIdLf*MPL.TR + 0.001);
+	DeltaOmegaSlipL = (MPL.LM*(float)(IqL)*((float)(koeff.K9)/10.0))/(fIdLf*MPL.TR + 0.001);
 
 	//  rad
 	ThetaSlipL += DeltaOmegaSlipL*dt;
 
-	//ThetaSlipL += (F_(SpeedL*koeff.K9)/1000.0)*dt;
+	//ThetaSlipL += ((float)(SpeedL*koeff.K9)/1000.0)*dt;
 
 	RadianLimit(&ThetaSlipL);
 
@@ -359,11 +359,11 @@ void RegL(){
 
 	//32400/2*M_PI = 5156.62
 	//32768/2*M_PI = 5215.19
-	fThetaL = F_(ThetaL)/5215.19;
+	fThetaL = (float)(ThetaL)/5215.19;
 	
 	ThetaL6 = (long)ThetaL*6L;
 	ThetaL6 &= 0x7FFF;
-	fThetaL6 = F_(ThetaL)/5215.19;
+	fThetaL6 = (float)(ThetaL)/5215.19;
 
 	CalcDeltaIdL();
 
@@ -402,9 +402,9 @@ void RegL(){
 			IqLCurLim = Slider.s1;
 
 			if(SpeedLz < Slider.s2)
-				sSpeedLz += F_(koeff.K16)/100.0;
+				sSpeedLz += (float)(koeff.K16)/100.0;
 			else
-				sSpeedLz -= F_(koeff.K16)/100.0;
+				sSpeedLz -= (float)(koeff.K16)/100.0;
 
 			SpeedLz = sSpeedLz;
 
@@ -434,11 +434,11 @@ void RegL(){
 		MinMaxLimitInt(5,900,&IdzL);
 
 		DeltaIdL = IdzL - IdL;
-		SIdL += F_(DeltaIdL*koeff.Ki)/25.0;
+		SIdL += (float)(DeltaIdL*koeff.Ki)/25.0;
 
 		MinMaxLimitFloat(-18000,18000,&SIdL);
 
-		UUdL = F_(DeltaIdL*koeff.Kp)/25.0 + SIdL + (DeltaIdL - DeltaIdOldL)*koeff.Kd;
+		UUdL = (float)(DeltaIdL*koeff.Kp)/25.0 + SIdL + (DeltaIdL - DeltaIdOldL)*koeff.Kd;
 		DeltaIdOldL = DeltaIdL;
 
 // @@@@@ IdReg end
@@ -476,11 +476,11 @@ void RegL(){
 		MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
 
 		DeltaIqL = IqzL - IqL;
-		SIqL += F_(DeltaIqL*koeff.Ki)/25.0;
+		SIqL += (float)(DeltaIqL*koeff.Ki)/25.0;
 
 		MinMaxLimitFloat(-18000,18000,&SIqL);
 
-		UUqL = F_(DeltaIqL*koeff.Kp)/25.0 + SIqL + (DeltaIqL - DeltaIqOldL)*koeff.Kd;
+		UUqL = (float)(DeltaIqL*koeff.Kp)/25.0 + SIqL + (DeltaIqL - DeltaIqOldL)*koeff.Kd;
 		DeltaIqOldL = DeltaIqL;
 
 // @@@@@ IqReg end
@@ -501,16 +501,16 @@ CrossComL();
 		iffL = (fUmL - 12500)/63;
 		MinMaxLimitInt(0,79,&iffL);
 
-		UdSIL = F_(ConvertVParamToSI(UUdL))/FourieK[iffL];
-		UqSIL = F_(ConvertVParamToSI(UUqL))/FourieK[iffL];
+		UdSIL = (float)(ConvertVParamToSI(UUdL))/FourieK[iffL];
+		UqSIL = (float)(ConvertVParamToSI(UUqL))/FourieK[iffL];
 
 		PowerL = (L_(UdSIL)*L_(IdzL) + L_(UqSIL)*L_(IqzL))/666;
 
-		PowerL = F_(PowerL);
+		PowerL = (float)(PowerL);
 
 		PowerL16 = PowerL;
 
-		//IfRMSL = F_(GetHypByLegs(IdzL,IqzL))/1.4142;
+		//IfRMSL = (float)(GetHypByLegs(IdzL,IqzL))/1.4142;
 
 
 		InvPark(&UAlphaL,&UBetaL,UUdL,UUqL,fThetaL);
@@ -536,7 +536,7 @@ CrossComL();
 		{
 
 			AmplL 	= Slider.s1;
-			AlphaL	+= F_(Slider.s2)/10000.0; /* -10 10*/
+			AlphaL	+= (float)(Slider.s2)/10000.0; /* -10 10*/
 
 			HandleReg(&UUAL,&UUBL,&UUCL,&AmplL,&AlphaL);
 
@@ -641,7 +641,7 @@ CrossComL();
 
 		EPwm5Regs.CMPA.half.CMPA = ChopReg;
 
-		ChopOpen = (F_(ChopReg)/F_(25000))*100.0;
+		ChopOpen = ((float)(ChopReg)/(float)(25000))*100.0;
 /*****************************************************************/
 // EOF
 /*****************************************************************/
@@ -653,8 +653,8 @@ void ELCalcL(){
 		/*	UAlphaSIL = ConvertVParamToSI(UAlphaL);
 			UBetaSIL  = ConvertVParamToSI(UBetaL);
 
-			UAlphaSIL = (int)(F_(UAlphaSIL)/FourieK[iffL]);
-			UBetaSIL = (int)(F_(UBetaSIL)/FourieK[iffL]);
+			UAlphaSIL = (int)((float)(UAlphaSIL)/FourieK[iffL]);
+			UBetaSIL = (int)((float)(UBetaSIL)/FourieK[iffL]);
 
 			DeltaIAlphaL = IAlphaL - OldIAlphaL;
 			DeltaIBetaL = IBetaL - OldIBetaL;
@@ -665,7 +665,7 @@ void ELCalcL(){
 			OldIAlphaL = IAlphaL;
 			OldIBetaL = IBetaL;
 
-			fE_ampL += F_((GetHypByLegs(UdSIL,UqSIL) - fE_ampL))/F_(koeff.KFiltE);
+			fE_ampL += (float)((GetHypByLegs(UdSIL,UqSIL) - fE_ampL))/(float)(koeff.KFiltE);
 
 			E_ampL = fE_ampL;
 
