@@ -11,71 +11,71 @@ void ELRegR();
 #pragma CODE_SECTION(ELRegR,"ramfuncs")
 
 //REFT MOTOR
-int16 IaR=0;
-int16 IbR=0;
-int16 IcR=0;
+int IaR=0;
+int IbR=0;
+int IcR=0;
 
-int16 IAlphaR=0;
-int16 IBetaR=0;
+int IAlphaR=0;
+int IBetaR=0;
 
-int16 IdzR=0;
+int IdzR=0;
 float IdzRx=0;
-int16 IdR=0;
+int IdR=0;
 float SIdR=0;
-int16 DeltaIdOldR=0;
-int16 DeltaIdR=0;
-int16 UUdR=0;
+int DeltaIdOldR=0;
+int DeltaIdR=0;
+int UUdR=0;
 
-int16 IqzR=0;
-int16 IqR=0;
+int IqzR=0;
+int IqR=0;
 float SIqR=0;
-int16 DeltaIqOldR=0;
-int16 DeltaIqR=0;
-int16 UUqR=0;
+int DeltaIqOldR=0;
+int DeltaIqR=0;
+int UUqR=0;
 
 
-int16 UdSIR=0;
-int16 UqSIR=0;
+int UdSIR=0;
+int UqSIR=0;
 
 float fE_MaxR=0;
-int16 E_MaxR=0;
-int16 E_LineR=0;
-int16 E_ampR=0;    		// Амплитуда фазного ЭДС после фильтра (Вольты)
+int E_MaxR=0;
+int E_LineR=0;
+int E_ampR=0;    		// Амплитуда фазного ЭДС после фильтра (Вольты)
 float fE_ampR=0;    	// Амплитуда фазного ЭДС до фильтра (Вольты)
-int16 UAlphaSIR=0;		// Мгновенное значение напряжения по оси альфа (Вольты)
-int16 UBetaSIR=0;		// Мгновенное значение напряжения по оси бета (Вольты)
-int16 DeltaIAlphaR=0;
-int16 DeltaIBetaR=0;
-int16 OldIAlphaR=0;
-int16 OldIBetaR=0;
-int16 EAlphaInstR=0;
-int16 EBetaInstR=0;
+int UAlphaSIR=0;		// Мгновенное значение напряжения по оси альфа (Вольты)
+int UBetaSIR=0;		// Мгновенное значение напряжения по оси бета (Вольты)
+int DeltaIAlphaR=0;
+int DeltaIBetaR=0;
+int OldIAlphaR=0;
+int OldIBetaR=0;
+int EAlphaInstR=0;
+int EBetaInstR=0;
 
-int16 Ez_ampR=0;
-int16 SER=0;
+int Ez_ampR=0;
+int SER=0;
 
-int16 IqRCurLim=0;
-int16 IqRMAX=0;
-int16 fIqRMAX=0;
+int IqRCurLim=0;
+int IqRMAX=0;
+int fIqRMAX=0;
 
-int16 UAlphaR=0;
-int16 UBetaR=0;
+int UAlphaR=0;
+int UBetaR=0;
 
-int16 UUAR=0;
-int16 UUBR=0;
-int16 UUCR=0;
+int UUAR=0;
+int UUBR=0;
+int UUCR=0;
 
-//int16 ChopReg=0;
+//int ChopReg=0;
 
 float fIdRf=0;
 int iIdRf=0;
 
-int16 iSlipR=0;
+int iSlipR=0;
 
 float DeltaOmegaSlipR,ThetaSlipR=0;
 
 
-int16 RTheta;
+int RTheta;
 
 float fThetaR=0;
 
@@ -110,8 +110,8 @@ int DeltaSpeedR1=0;
 int dER=0;
 float sdER=0;
 
-int32 PowerR=0;
-int16 PowerR16=0;
+long PowerR=0;
+int PowerR16=0;
 
 int iffR=0;
 

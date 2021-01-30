@@ -9,83 +9,83 @@ void ELCalcL();
 #pragma CODE_SECTION(ELCalcL,"ramfuncs")
 
 //LEFT MOTOR
-int16 IaL=0;
-int16 IbL=0;
-int16 IcL=0;
+int IaL=0;
+int IbL=0;
+int IcL=0;
 
-int16 IAlphaL=0;
-int16 IBetaL=0;
+int IAlphaL=0;
+int IBetaL=0;
 
-int16 IdzL=0;
+int IdzL=0;
 float IdzLx=0;
-int16 IdL=0;
+int IdL=0;
 float SIdL=0;
-int16 DeltaIdOldL=0;
-int16 DeltaIdL=0;
-int16 UUdL=0;
+int DeltaIdOldL=0;
+int DeltaIdL=0;
+int UUdL=0;
 
-int16 IqzL=0;
-int16 IqL=0;
+int IqzL=0;
+int IqL=0;
 float SIqL=0;
-int16 DeltaIqOldL=0;
-int16 DeltaIqL=0;
-int16 UUqL=0;
+int DeltaIqOldL=0;
+int DeltaIqL=0;
+int UUqL=0;
 
 
-int16 UdSIL=0;
-int16 UqSIL=0;
+int UdSIL=0;
+int UqSIL=0;
 
 float fE_MaxL=0;
-int16 E_MaxL=0;
-int16 E_LineL=0;
-int16 E_ampL=0;    		// Амплитуда фазного ЭДС после фильтра (Вольты)
+int E_MaxL=0;
+int E_LineL=0;
+int E_ampL=0;    		// Амплитуда фазного ЭДС после фильтра (Вольты)
 float fE_ampL=0;    	// Амплитуда фазного ЭДС до фильтра (Вольты)
-int16 UAlphaSIL=0;		// Мгновенное значение напряжения по оси альфа (Вольты)
-int16 UBetaSIL=0;		// Мгновенное значение напряжения по оси бета (Вольты)
-int16 DeltaIAlphaL=0;
-int16 DeltaIBetaL=0;
-int16 OldIAlphaL=0;
-int16 OldIBetaL=0;
-int16 EAlphaInstL=0;
-int16 EBetaInstL=0;
+int UAlphaSIL=0;		// Мгновенное значение напряжения по оси альфа (Вольты)
+int UBetaSIL=0;		// Мгновенное значение напряжения по оси бета (Вольты)
+int DeltaIAlphaL=0;
+int DeltaIBetaL=0;
+int OldIAlphaL=0;
+int OldIBetaL=0;
+int EAlphaInstL=0;
+int EBetaInstL=0;
 
-int16 Ez_ampL=0;
-int16 SEL=0;
+int Ez_ampL=0;
+int SEL=0;
 
-int16 IqLCurLim=0;
-int16 IqLMAX=0;
-int16 fIqLMAX=0;
+int IqLCurLim=0;
+int IqLMAX=0;
+int fIqLMAX=0;
 
-int16 UAlphaL=0;
-int16 UBetaL=0;
+int UAlphaL=0;
+int UBetaL=0;
 
-int16 UUAL=0;
-int16 UUBL=0;
-int16 UUCL=0;
+int UUAL=0;
+int UUBL=0;
+int UUCL=0;
 
-int16 ChopReg=0;
+int ChopReg=0;
 
 float fIdLf=0;
 int iIdLf=0;
 
-int16 iSlipL=0;
+int iSlipL=0;
 
 float DeltaOmegaSlipL,ThetaSlipL=0;
 
 
-int16 LTheta;
+int LTheta;
 
 int TCN=0;
 
-int32 SQRT=0;
-int16 SIN16=0;
-int16 SIN16Count=0;
+long SQRT=0;
+int SIN16=0;
+int SIN16Count=0;
 
 float fThetaL=0;
 
 int C=0;
 
-int16 Theta16=0;
+int Theta16=0;
 
 void SpeedRegL();
 
@@ -105,8 +105,8 @@ float sdEL=0;
 int UkdL=0;
 int UkqL=0;
 
-int32 PowerL=0;
-int16 PowerL16=0;
+long PowerL=0;
+int PowerL16=0;
 
 void CalcDeltaIdL();
 void RegLToZero();
@@ -125,7 +125,7 @@ int DeltaSpeedL1=0;
 
 float SummDeltaSpeed=0;
 
-Uint16 SpeedTestCount=0;
+unsigned int SpeedTestCount=0;
 float sSpeedLz=0.0;
 float fIqurLimL=0;
 
@@ -136,9 +136,9 @@ int Icz=0;
 int IAlphaz=0;
 int Ibetaz=0;
 
-Uint16 ChopOpen=0;
+unsigned int ChopOpen=0;
 
-Uint16 ThetaL6=0;
+unsigned int ThetaL6=0;
 float  fThetaL6=0;
 
 int SIN6=0;
@@ -155,15 +155,15 @@ int IfRMSL=0;
 int 	AmplL=0;
 float 	AlphaL=0;
 
-int16 PowerUvtr=0;
-int16 PowerByGen=0;
-int16 fPowerByGen=0;
+int PowerUvtr=0;
+int PowerByGen=0;
+int fPowerByGen=0;
 
-int16 SummChopReg=0;
-int16 dUdChop=0;
+int SummChopReg=0;
+int dUdChop=0;
 
-int16 IqLMAXBrake=0;
-int16 ChopRegX=0;
+int IqLMAXBrake=0;
+int ChopRegX=0;
 
 void RegLToZero()
 {
