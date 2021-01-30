@@ -1,5 +1,8 @@
+#ifndef MATLAB
 #include "hfa.h"
-
+#else
+#include "reg.h"
+#endif
 
 struct MashineParam MPL;
 struct MashineParam MPR;
@@ -12,9 +15,11 @@ void LookerL();
 void RegL();
 void ELCalcL();
 
+#ifndef MATLAB
 #pragma CODE_SECTION(LookerL,"ramfuncs")
 #pragma CODE_SECTION(RegL,"ramfuncs")
 #pragma CODE_SECTION(ELCalcL,"ramfuncs")
+#endif
 
 //LEFT MOTOR
 int IaL=0;
@@ -97,7 +102,9 @@ int Theta16=0;
 
 void SpeedRegL();
 
+#ifndef MATLAB
 #pragma CODE_SECTION(SpeedRegL,"ramfuncs")
+#endif
 
 int DeltaSpeedL=0;
 
@@ -120,9 +127,11 @@ void CalcDeltaIdL();
 void RegLToZero();
 void CrossComL();
 
+#ifndef MATLAB
 #pragma CODE_SECTION(CalcDeltaIdL,"ramfuncs")
 #pragma CODE_SECTION(RegLToZero,"ramfuncs")
 #pragma CODE_SECTION(CrossComL,"ramfuncs")
+#endif
 
 float AFSpeedzL=0;
 int   AFSpeedzL16=0;

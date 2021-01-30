@@ -1,15 +1,20 @@
+#ifndef MATLAB
 #include "hfa.h"
+#else
+#include "reg.h"
+#endif
 
 void LookerR();
 void RegR();
 void ELCalcR();
 void ELRegR();
 
+#ifndef MATLAB
 #pragma CODE_SECTION(LookerR,"ramfuncs")
 #pragma CODE_SECTION(RegR,"ramfuncs")
 #pragma CODE_SECTION(ELCalcR,"ramfuncs")
 #pragma CODE_SECTION(ELRegR,"ramfuncs")
-
+#endif
 //REFT MOTOR
 int IaR=0;
 int IbR=0;
@@ -81,7 +86,9 @@ float fThetaR=0;
 
 void SpeedRegR();
 
+#ifndef MATLAB
 #pragma CODE_SECTION(SpeedRegR,"ramfuncs")
+#endif
 
 int DeltaSpeedR=0;
 
@@ -117,11 +124,15 @@ int iffR=0;
 
 void CalcDeltaIdR();
 
+#ifndef MATLAB
 #pragma CODE_SECTION(CalcDeltaIdR,"ramfuncs")
+#endif
 
 void RegRToZero();
 
+#ifndef MATLAB
 #pragma CODE_SECTION(RegRToZero,"ramfuncs")
+#endif
 
 void RegRToZero()
 {
