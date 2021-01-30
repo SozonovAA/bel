@@ -199,8 +199,9 @@ extern float fOmegaR;
 
 
 void CrossComR();
-
+#ifndef MATLAB
 #pragma CODE_SECTION(CrossComR,"ramfuncs")
+#endif
 
 void CrossComR()
 {
@@ -344,8 +345,9 @@ void RegR(){
 
 	//Разрешение импульсов только для настольной отладки
 	//st.ReftImp=1;
-
+#ifndef MATLAB
 	if(GS.STATE.bit.RightImp)
+#endif
 	{
 
 		if(Debug == 3)

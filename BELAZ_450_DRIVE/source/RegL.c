@@ -209,7 +209,7 @@ void CalcDeltaIdL()
 	UmL = GetHypByLegs(UUdL,UUqL);
 
 	if(UmL >= 17500)
-	UmL = 17500;
+		UmL = 17500;
 
 	fUmL += (UmL - fUmL)/25;
 
@@ -228,14 +228,14 @@ void CalcDeltaIdL()
 	else
 		dEL = E_MaxL - E_ampL;
 
-		//MinMaxLimitInt(-540,540,&dEL);
+	//MinMaxLimitInt(-540,540,&dEL);
 
-		sdEL += ((float)(dEL)/1000.0)*(float)(koeff.KiE);
+	sdEL += ((float)(dEL)/1000.0)*(float)(koeff.KiE);
 
-		//if(sdEL > 540) sdEL=540;
-		//if(sdEL < -540) sdEL=-540;
+	//if(sdEL > 540) sdEL=540;
+	//if(sdEL < -540) sdEL=-540;
 
-		IdzL = L_(dEL)*koeff.KpE/10.0 + sdEL;
+	IdzL = L_(dEL)*koeff.KpE/10.0 + sdEL;
 
 	MinMaxLimitInt(0,100,&DeltaIdzL);
 
@@ -283,7 +283,7 @@ void SpeedRegL()
 			if(PowerL < -1000) IqzL++;
 			else
 				if(IqzL > -(Brake-13)*20)
-			IqzL--;
+					IqzL--;
 
 			SpeedLz1 = SpeedL;
 		}
@@ -322,7 +322,7 @@ void SpeedRegL()
 void LookerL(){
 
 	TCN++;
-/*
+	/*
 		_____________
 		|	LM		|
 IdL	--->| ---------	|---------
@@ -334,7 +334,7 @@ IdL	--->| ---------	|---------
 IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
         |  TR  |                     |  p  |
         |______|                     |_____|
-*/
+	 */
 	//DAT2=1;
 	MagneticSaturation(IdL,&MPL.LM);
 	//DAT2=0;
@@ -377,7 +377,7 @@ void RegL(){
 	//32400/2*M_PI = 5156.62
 	//32768/2*M_PI = 5215.19
 	fThetaL = (float)(ThetaL)/5215.19;
-	
+
 	ThetaL6 = (long)ThetaL*6L;
 	ThetaL6 &= 0x7FFF;
 	fThetaL6 = (float)(ThetaL)/5215.19;
@@ -402,8 +402,9 @@ void RegL(){
 
 	//Разрешение импульсов только для настольной отладки
 	//st.LeftImp=1;
-
+#ifndef MATLAB
 	if(GS.STATE.bit.LeftImp)
+#endif
 	{
 
 		if(Debug == 3)
@@ -437,16 +438,16 @@ void RegL(){
 			if(Drive < 13) Drive = 13;
 
 			if(cmd.DNR == DRIVE)
-					SpeedLz = (Drive-13)*20;
+				SpeedLz = (Drive-13)*20;
 			if(cmd.DNR == REVERSE)
-					SpeedLz = -(Drive-13)*20;
+				SpeedLz = -(Drive-13)*20;
 
 		}
 
 		Clark(IaL,IbL,IcL,&IAlphaL,&IBetaL);
 		Park(IAlphaL,IBetaL,&IdL,&IqL,fThetaL);
 
-// ##### IdReg bgn
+		// ##### IdReg bgn
 
 		MinMaxLimitInt(5,900,&IdzL);
 
@@ -458,17 +459,17 @@ void RegL(){
 		UUdL = (float)(DeltaIdL*koeff.Kp)/25.0 + SIdL + (DeltaIdL - DeltaIdOldL)*koeff.Kd;
 		DeltaIdOldL = DeltaIdL;
 
-// @@@@@ IdReg end
+		// @@@@@ IdReg end
 
-// ##### Считаем ток отсечки bgn
+		// ##### Считаем ток отсечки bgn
 
 
 		//избегаем деление на 0
 		if(UqSIL >= 0 && UqSIL < 10)
-		UqSIL = 10;
+			UqSIL = 10;
 
 		if(UqSIL < 0 && UqSIL > -10)
-		UqSIL = -10;
+			UqSIL = -10;
 
 		//if(PowerMax < 300000) PowerMax = 300000;
 		//if(PowerMax > 1600000) PowerMax = 1600000;
@@ -484,9 +485,9 @@ void RegL(){
 
 
 
-// @@@@@ Считаем ток отсечки end
+		// @@@@@ Считаем ток отсечки end
 
-// ##### IqReg bgn
+		// ##### IqReg bgn
 
 		SpeedRegL();
 
@@ -500,9 +501,9 @@ void RegL(){
 		UUqL = (float)(DeltaIqL*koeff.Kp)/25.0 + SIqL + (DeltaIqL - DeltaIqOldL)*koeff.Kd;
 		DeltaIqOldL = DeltaIqL;
 
-// @@@@@ IqReg end
+		// @@@@@ IqReg end
 
-CrossComL();
+		CrossComL();
 
 		if(koeff.K20)
 		{
@@ -560,11 +561,11 @@ CrossComL();
 		}
 
 		//SIN6 = ((float)koeff.K_UdzDrive)*sin(fThetaL6);
-/*
+		/*
 		UUAL = UUAL*FourieK[iffL];
 		UUBL = UUBL*FourieK[iffL];
 		UUCL = UUCL*FourieK[iffL];
-*/
+		 */
 
 		UUAL += HALF_PWM_HEIGHT;// - SIN6;
 		UUBL += HALF_PWM_HEIGHT;// - SIN6;
@@ -588,10 +589,11 @@ CrossComL();
 		if(UUCL <= MIN_PWM) UUCL = 0;
 		if(UUCL >= MAX_PWM) UUCL = 25000;
 
+#ifndef MATLAB
 		EPwm1Regs.CMPA.half.CMPA = UUAL;
 		EPwm2Regs.CMPA.half.CMPA = UUBL;
 		EPwm3Regs.CMPA.half.CMPA = UUCL;
-
+#endif
 		/*if(Debug == 0){
 
 			if((Ud - Udz) > 50)
@@ -602,11 +604,12 @@ CrossComL();
 		}*/
 
 	}
+
 	else //if(GS.STATE.bit.LeftImp)
 		RegLToZero();
 
-//	if(Debug == 4)
-//	ChopReg = Slider.s6;
+	//	if(Debug == 4)
+	//	ChopReg = Slider.s6;
 
 	dUdChop = (Ud - Udz);
 
@@ -626,48 +629,50 @@ CrossComL();
 	if(ChopReg < ChopRegX) ChopReg = ChopRegX;
 
 	if(Debug == 2 || Debug == 5)
-	ChopReg = Slider.s3;
+		ChopReg = Slider.s3;
 
-//	if( Debug == 5)
-//	{}
-		// Расчеты/Мощность УВТР.xls)
-		PowerUvtr = (Ud >> 5)*(Ud >> 5)*2.73;
+	//	if( Debug == 5)
+	//	{}
+	// Расчеты/Мощность УВТР.xls)
+	PowerUvtr = (Ud >> 5)*(Ud >> 5)*2.73;
 
-		// (1024/1000)*(3*Um*Id)/2^0.5
-		PowerByGen = (Ugen >> 5)*(Igen >> 5)*2.17;
-		fPowerByGen += (PowerByGen - fPowerByGen)/10;
+	// (1024/1000)*(3*Um*Id)/2^0.5
+	PowerByGen = (Ugen >> 5)*(Igen >> 5)*2.17;
+	fPowerByGen += (PowerByGen - fPowerByGen)/10;
 
 
-/*
+	/*
 	if(Debug == 6 || Debug == 5 || Debug == 2 || Debug == 3)
 	{
 			ChopReg = Slider.s3;
 	}*/
 
-		if(ChopReg <= 390) ChopReg = 0;
-		if(ChopReg >= 24610) ChopReg = 25000;
+	if(ChopReg <= 390) ChopReg = 0;
+	if(ChopReg >= 24610) ChopReg = 25000;
 
-		if(Debug == 0)
+	if(Debug == 0)
+	{
+		//сброс напряжения при установке нейтрали
+		if(Ud > koeff.UdChStop && Ud < (koeff.UdInvStop + 10) && !EX_CONTROL_PIN)
 		{
-			//сброс напряжения при установке нейтрали
-			if(Ud > koeff.UdChStop && Ud < (koeff.UdInvStop + 10) && !EX_CONTROL_PIN)
-			{
-				ChopReg = 1000;
-			}
+			ChopReg = 1000;
 		}
+	}
 
-		EPwm5Regs.CMPA.half.CMPA = ChopReg;
+#ifndef MATLAB
+	EPwm5Regs.CMPA.half.CMPA = ChopReg;
+#endif
 
-		ChopOpen = ((float)(ChopReg)/(float)(25000))*100.0;
-/*****************************************************************/
-// EOF
-/*****************************************************************/
+	ChopOpen = ((float)(ChopReg)/(float)(25000))*100.0;
+	/*****************************************************************/
+	// EOF
+	/*****************************************************************/
 }
 
 void ELCalcL(){
 
 
-		/*	UAlphaSIL = ConvertVParamToSI(UAlphaL);
+	/*	UAlphaSIL = ConvertVParamToSI(UAlphaL);
 			UBetaSIL  = ConvertVParamToSI(UBetaL);
 
 			UAlphaSIL = (int)((float)(UAlphaSIL)/FourieK[iffL]);
@@ -679,16 +684,16 @@ void ELCalcL(){
 			EAlphaInstL = UAlphaSIL - IAlphaL*MPL.RS - (MPL.LS*DeltaIAlphaL)/dt;
 			EBetaInstL = UBetaSIL - IBetaL*MPL.RS - (MPL.LS*DeltaIBetaL)/dt;*/
 
-			OldIAlphaL = IAlphaL;
-			OldIBetaL = IBetaL;
+	OldIAlphaL = IAlphaL;
+	OldIBetaL = IBetaL;
 
-			fE_ampL += (float)((GetHypByLegs(UdSIL,UqSIL) - fE_ampL))/(float)(koeff.KFiltE);
+	fE_ampL += (float)((GetHypByLegs(UdSIL,UqSIL) - fE_ampL))/(float)(koeff.KFiltE);
 
-			E_ampL = fE_ampL;
+	E_ampL = fE_ampL;
 
-			XmL = fOmegaL*MPL.LM;
+	XmL = fOmegaL*MPL.LM;
 
-			ImL = fE_ampL/XmL;
+	ImL = fE_ampL/XmL;
 
 }
 
