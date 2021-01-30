@@ -1,7 +1,7 @@
 #ifndef MATLAB
 #include "hfa.h"
 #else
-#include "reg.h"
+#include "BELAZ_450_DRIVE\include\REGs.h"
 #endif
 
 struct MashineParam MPL;
