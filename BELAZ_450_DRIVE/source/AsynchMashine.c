@@ -1,7 +1,6 @@
 #include "hfa.h"
 
-struct MashineParam MPL;
-struct MashineParam MPR;
+
 
 void CalcCurMParms(struct MashineParam *M);
 void StaticMparams(struct MashineParam *M);

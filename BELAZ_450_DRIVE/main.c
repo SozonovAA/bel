@@ -90,9 +90,8 @@ interrupt void ecap4_isr(void);
 #pragma CODE_SECTION(memcpy,"ramfuncs")
 
 //struct ALTERA_REGS altera_regs;
-struct KOEFF koeff;
 
-struct GS_ GS;
+
 
 void init_koeff();
 
@@ -111,7 +110,6 @@ int D11=0;
 
 //POSSPEED qep_posspeed=POSSPEED_DEFAULTS;
 
-struct SSlider Slider;
 
 Uint16 Debug=0;
 

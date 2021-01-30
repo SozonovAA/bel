@@ -1,87 +1,94 @@
+#ifndef MATLAB
 #include "hfa.h"
+#else
+#include "reg.h"
+#endif
 
 void LookerR();
 void RegR();
 void ELCalcR();
 void ELRegR();
 
+#ifndef MATLAB
 #pragma CODE_SECTION(LookerR,"ramfuncs")
 #pragma CODE_SECTION(RegR,"ramfuncs")
 #pragma CODE_SECTION(ELCalcR,"ramfuncs")
 #pragma CODE_SECTION(ELRegR,"ramfuncs")
-
+#endif
 //REFT MOTOR
-int16 IaR=0;
-int16 IbR=0;
-int16 IcR=0;
+int IaR=0;
+int IbR=0;
+int IcR=0;
 
-int16 IAlphaR=0;
-int16 IBetaR=0;
+int IAlphaR=0;
+int IBetaR=0;
 
-int16 IdzR=0;
+int IdzR=0;
 float IdzRx=0;
-int16 IdR=0;
+int IdR=0;
 float SIdR=0;
-int16 DeltaIdOldR=0;
-int16 DeltaIdR=0;
-int16 UUdR=0;
+int DeltaIdOldR=0;
+int DeltaIdR=0;
+int UUdR=0;
 
-int16 IqzR=0;
-int16 IqR=0;
+int IqzR=0;
+int IqR=0;
 float SIqR=0;
-int16 DeltaIqOldR=0;
-int16 DeltaIqR=0;
-int16 UUqR=0;
+int DeltaIqOldR=0;
+int DeltaIqR=0;
+int UUqR=0;
 
 
-int16 UdSIR=0;
-int16 UqSIR=0;
+int UdSIR=0;
+int UqSIR=0;
 
 float fE_MaxR=0;
-int16 E_MaxR=0;
-int16 E_LineR=0;
-int16 E_ampR=0;    		// Амплитуда фазного ЭДС после фильтра (Вольты)
+int E_MaxR=0;
+int E_LineR=0;
+int E_ampR=0;    		// Амплитуда фазного ЭДС после фильтра (Вольты)
 float fE_ampR=0;    	// Амплитуда фазного ЭДС до фильтра (Вольты)
-int16 UAlphaSIR=0;		// Мгновенное значение напряжения по оси альфа (Вольты)
-int16 UBetaSIR=0;		// Мгновенное значение напряжения по оси бета (Вольты)
-int16 DeltaIAlphaR=0;
-int16 DeltaIBetaR=0;
-int16 OldIAlphaR=0;
-int16 OldIBetaR=0;
-int16 EAlphaInstR=0;
-int16 EBetaInstR=0;
+int UAlphaSIR=0;		// Мгновенное значение напряжения по оси альфа (Вольты)
+int UBetaSIR=0;		// Мгновенное значение напряжения по оси бета (Вольты)
+int DeltaIAlphaR=0;
+int DeltaIBetaR=0;
+int OldIAlphaR=0;
+int OldIBetaR=0;
+int EAlphaInstR=0;
+int EBetaInstR=0;
 
-int16 Ez_ampR=0;
-int16 SER=0;
+int Ez_ampR=0;
+int SER=0;
 
-int16 IqRCurLim=0;
-int16 IqRMAX=0;
-int16 fIqRMAX=0;
+int IqRCurLim=0;
+int IqRMAX=0;
+int fIqRMAX=0;
 
-int16 UAlphaR=0;
-int16 UBetaR=0;
+int UAlphaR=0;
+int UBetaR=0;
 
-int16 UUAR=0;
-int16 UUBR=0;
-int16 UUCR=0;
+int UUAR=0;
+int UUBR=0;
+int UUCR=0;
 
-//int16 ChopReg=0;
+//int ChopReg=0;
 
 float fIdRf=0;
 int iIdRf=0;
 
-int16 iSlipR=0;
+int iSlipR=0;
 
 float DeltaOmegaSlipR,ThetaSlipR=0;
 
 
-int16 RTheta;
+int RTheta;
 
 float fThetaR=0;
 
 void SpeedRegR();
 
+#ifndef MATLAB
 #pragma CODE_SECTION(SpeedRegR,"ramfuncs")
+#endif
 
 int DeltaSpeedR=0;
 
@@ -110,18 +117,22 @@ int DeltaSpeedR1=0;
 int dER=0;
 float sdER=0;
 
-int32 PowerR=0;
-int16 PowerR16=0;
+long PowerR=0;
+int PowerR16=0;
 
 int iffR=0;
 
 void CalcDeltaIdR();
 
+#ifndef MATLAB
 #pragma CODE_SECTION(CalcDeltaIdR,"ramfuncs")
+#endif
 
 void RegRToZero();
 
+#ifndef MATLAB
 #pragma CODE_SECTION(RegRToZero,"ramfuncs")
+#endif
 
 void RegRToZero()
 {
@@ -155,10 +166,10 @@ void CalcDeltaIdR()
 
 	fUmR += (UmR - fUmR)/25;
 
-	fE_MaxR += ((F_(Udz)*1.15/2.0) - fE_MaxR)/koeff.K17;
+	fE_MaxR += (((float)(Udz)*1.15/2.0) - fE_MaxR)/koeff.K17;
 
 	E_MaxR = fE_MaxR;
-	E_LineR = F_(abs(SpeedR))*0.0686*koeff.K15;
+	E_LineR = (float)(abs(SpeedR))*0.0686*koeff.K15;
 
 	if(E_LineR < 50) E_LineR=50;
 	if(E_MaxR < 200) E_MaxR=200;
@@ -172,7 +183,7 @@ void CalcDeltaIdR()
 
 		//MinMaxLimitInt(-540,540,&dER);
 
-		sdER += (F_(dER)/1000.0)*F_(koeff.KiE);
+		sdER += ((float)(dER)/1000.0)*(float)(koeff.KiE);
 
 		//if(sdER > 540) sdER=540;
 		//if(sdER < -540) sdER=-540;
@@ -188,8 +199,9 @@ extern float fOmegaR;
 
 
 void CrossComR();
-
+#ifndef MATLAB
 #pragma CODE_SECTION(CrossComR,"ramfuncs")
+#endif
 
 void CrossComR()
 {
@@ -209,7 +221,7 @@ void SpeedRegR()
 
 	DeltaSpeedR = (SpeedRz - IqzR)/5;
 
-	SpeedRz1 += F_(DeltaSpeedR)*(F_(koeff.K7)/2500.0);
+	SpeedRz1 += (float)(DeltaSpeedR)*((float)(koeff.K7)/2500.0);
 
 	if(koeff.K18 > 2500)
 		koeff.K18 = 2500;
@@ -280,12 +292,12 @@ IqR --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipR)
 	//fIdRf = MPR.RM*IdzR;
 
 	//	1/Sec	equal	rad/sec
-	DeltaOmegaSlipR = (MPR.LM*F_(IqR)*(F_(koeff.K9)/10.0))/(fIdRf*MPR.TR + 0.001);
+	DeltaOmegaSlipR = (MPR.LM*(float)(IqR)*((float)(koeff.K9)/10.0))/(fIdRf*MPR.TR + 0.001);
 
 	//  rad
 	ThetaSlipR += DeltaOmegaSlipR*dt;
 
-	//ThetaSlipR += (F_(SpeedR*koeff.K9)/1000.0)*dt;
+	//ThetaSlipR += ((float)(SpeedR*koeff.K9)/1000.0)*dt;
 
 	RadianLimit(&ThetaSlipR);
 
@@ -309,9 +321,9 @@ void RegR(){
 	SpeedAndAngleR();
 
 	//32400/2*M_PI = 5156.62
-	fThetaR = F_(ThetaR)/5215.19;
+	fThetaR = (float)(ThetaR)/5215.19;
 
-	//fThetaR += F_(koeff.k10)/100000.0;
+	//fThetaR += (float)(koeff.k10)/100000.0;
 
 	CalcDeltaIdR();
 
@@ -333,8 +345,9 @@ void RegR(){
 
 	//Разрешение импульсов только для настольной отладки
 	//st.ReftImp=1;
-
+#ifndef MATLAB
 	if(GS.STATE.bit.RightImp)
+#endif
 	{
 
 		if(Debug == 3)
@@ -350,9 +363,9 @@ void RegR(){
 			IqRCurLim = Slider.s4;
 
 			if(SpeedRz < Slider.s5)
-				sSpeedRz += F_(koeff.K16)/100.0;
+				sSpeedRz += (float)(koeff.K16)/100.0;
 			else
-				sSpeedRz -= F_(koeff.K16)/100.0;
+				sSpeedRz -= (float)(koeff.K16)/100.0;
 
 			SpeedRz = sSpeedRz;
 
@@ -382,11 +395,11 @@ void RegR(){
 		MinMaxLimitInt(5,900,&IdzR);
 
 		DeltaIdR = IdzR - IdR;
-		SIdR += F_(DeltaIdR*koeff.Ki)/25.0;
+		SIdR += (float)(DeltaIdR*koeff.Ki)/25.0;
 
 		MinMaxLimitFloat(-18000,18000,&SIdR);
 
-		UUdR = F_(DeltaIdR*koeff.Kp)/25.0 + SIdR + (DeltaIdR - DeltaIdOldR)*koeff.Kd;
+		UUdR = (float)(DeltaIdR*koeff.Kp)/25.0 + SIdR + (DeltaIdR - DeltaIdOldR)*koeff.Kd;
 		DeltaIdOldR = DeltaIdR;
 
 // @@@@@ IdReg end
@@ -413,12 +426,12 @@ void RegR(){
 		iffR = (fUmR - 12500)/63;
 		MinMaxLimitInt(0,79,&iffR);
 
-		UdSIR = F_(ConvertVParamToSI(UUdR))/FourieK[iffR];
-		UqSIR = F_(ConvertVParamToSI(UUqR))/FourieK[iffR];
+		UdSIR = (float)(ConvertVParamToSI(UUdR))/FourieK[iffR];
+		UqSIR = (float)(ConvertVParamToSI(UUqR))/FourieK[iffR];
 
 		PowerR = (L_(UdSIR)*L_(IdzR) + L_(UqSIR)*L_(IqzR))/666;
 
-		PowerR = F_(PowerR);
+		PowerR = (float)(PowerR);
 
 		PowerR16 = PowerR;
 
@@ -431,11 +444,11 @@ void RegR(){
 		MinMaxLimitInt(-2000,abs(IqRCurLim),&IqzR);
 
 		DeltaIqR = IqzR - IqR;
-		SIqR += F_(DeltaIqR*koeff.Ki)/25.0;
+		SIqR += (float)(DeltaIqR*koeff.Ki)/25.0;
 
 		MinMaxLimitFloat(-18000,18000,&SIqR);
 
-		UUqR = F_(DeltaIqR*koeff.Kp)/25.0 + SIqR + (DeltaIqR - DeltaIqOldR)*koeff.Kd;
+		UUqR = (float)(DeltaIqR*koeff.Kp)/25.0 + SIqR + (DeltaIqR - DeltaIqOldR)*koeff.Kd;
 		DeltaIqOldR = DeltaIqR;
 
 // @@@@@ IqReg end
@@ -478,7 +491,7 @@ void RegR(){
 		{
 
 			AmplR 	= Slider.s4;
-			AlphaR	+= F_(Slider.s5)/10000.0; /* -10 10*/
+			AlphaR	+= (float)(Slider.s5)/10000.0; /* -10 10*/
 
 			HandleReg(&UUAR,&UUBR,&UUCR,&AmplR,&AlphaR);
 
@@ -511,8 +524,8 @@ void ELCalcR(){
 			UAlphaSIR = ConvertVParamToSI(UAlphaR);
 			UBetaSIR  = ConvertVParamToSI(UBetaR);
 
-			UAlphaSIR = (int)(F_(UAlphaSIR)/FourieK[iffR]);
-			UBetaSIR = (int)(F_(UBetaSIR)/FourieK[iffR]);
+			UAlphaSIR = (int)((float)(UAlphaSIR)/FourieK[iffR]);
+			UBetaSIR = (int)((float)(UBetaSIR)/FourieK[iffR]);
 
 			DeltaIAlphaR = IAlphaR - OldIAlphaR;
 			DeltaIBetaR = IBetaR - OldIBetaR;
@@ -523,7 +536,7 @@ void ELCalcR(){
 			OldIAlphaR = IAlphaR;
 			OldIBetaR = IBetaR;
 */
-			fE_ampR += F_((GetHypByLegs(UdSIR,UqSIR) - fE_ampR))/F_(koeff.KFiltE);
+			fE_ampR += (float)((GetHypByLegs(UdSIR,UqSIR) - fE_ampR))/(float)(koeff.KFiltE);
 
 			E_ampR = fE_ampR;
 

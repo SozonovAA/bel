@@ -14,21 +14,7 @@
 */
 
 
-struct MashineParam{
-		float LS;
-		float LR;
-		float LM;
-		float RR;
-		float RS;
-		float K1;
-		float K2;
-		float L1;
-		float TS;
-		float TR;
-};
 
-extern struct MashineParam MPL;
-extern struct MashineParam MPR;
 
 /*
 
