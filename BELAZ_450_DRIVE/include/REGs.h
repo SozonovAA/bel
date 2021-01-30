@@ -4,7 +4,10 @@
  *  Created on: 04.10.2018
  *      Author: smirnov_as
  */
-
+#ifdef MATLAB
+#include "math.h"
+#define HALF_PWM_HEIGHT			12500
+#endif
 #ifndef REGS_H_
 #define REGS_H_
 
@@ -230,6 +233,17 @@ extern		int ConvertVParamToSI(int Param);
 extern		int GetHypByLegs(int Leg1,int Leg2);
 extern		int GetCatByHypNLeg(int Leg1,int Hyp);
 extern		int ConvertVParamToRU(int Param);
+
+// MATH CONSTANT
+#define M_PI        			3.14159
+#define _3SQRT2 				1.73205
+#define _2SQRT2 				1.41421
+#define _1DIV3SQRT2				0.57735
+
+
+#define _2PIdiv3				2.09439
+#define _4PIdiv3				4.18878
+#define CONST					28		//U/f=CONST
 #endif
 
 // структуры

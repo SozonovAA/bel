@@ -89,7 +89,7 @@ void Clark(int A,int B,int C,int *Alpha,int *Beta)
 	//ABC ----> Alpha/Beta
 
 	*Alpha = A;
-	*Beta  = I_(((float)(B) - (float)(C))/_3SQRT2);
+	*Beta  = (int)(((float)(B) - (float)(C))/_3SQRT2);
 
 }
 
@@ -195,9 +195,11 @@ int ConvertVParamToSI(int Param)
 int GetHypByLegs(int Leg1,int Leg2){
 
 	int Hyp=0;
-
+#ifndef MATLAB
 	Hyp = _IQ1sqrt((L_(Leg1)*L_(Leg1) + L_(Leg2)*L_(Leg2)) >> 1);
-
+#else
+	Hyp = sqrt((long)(Leg1)*(long)(Leg1) + (long)(Leg2)*(long)(Leg2));
+#endif
 	return(Hyp);
 
 }
@@ -208,11 +210,11 @@ int GetCatByHypNLeg(int Leg1,int Hyp){
 
 	int Leg2=0;
 
-	int32 H=0;
-	int32 leg=0;
+	long H=0;
+	long leg=0;
 
-	H = (int32)(Hyp)*(int32)(Hyp);
-	leg = (int32)(Leg1)*(int32)(Leg1);
+	H = (long)(Hyp)*(long)(Hyp);
+	leg = (long)(Leg1)*(long)(Leg1);
 
 	Leg2 = sqrt(H - leg);
 
