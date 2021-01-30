@@ -4,8 +4,12 @@
  *  Created on: 04.10.2018
  *      Author: smirnov_as
  */
+#ifndef FLASH_RUN
+#define MATLAB
+#endif
+
 #ifdef MATLAB
-#include "math.h"
+//#include "math.h"
 #define HALF_PWM_HEIGHT			12500
 #endif
 #ifndef REGS_H_
