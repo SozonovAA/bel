@@ -1,5 +1,13 @@
 #include "hfa.h"
 
+
+struct MashineParam MPL;
+struct MashineParam MPR;
+struct KOEFF koeff;
+struct GS_ GS;
+struct SSlider Slider;
+
+
 void LookerL();
 void RegL();
 void ELCalcL();
