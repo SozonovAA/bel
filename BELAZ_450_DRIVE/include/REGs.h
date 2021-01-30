@@ -20,6 +20,24 @@
 
 #define MIN_PWM					1000
 #define MAX_PWM					(25000-MIN_PWM)
+
+//PINS
+#define RIGHT_INV_CONTROL_PIN	//DAT59
+#define LEFT_INV_CONTROL_PIN	//DAT14
+#define EX_CONTROL_PIN			16//DAT16
+#define CHOP_CONTROL_PIN		//DAT15
+
+// MATH CONSTANT
+#define M_PI        			3.14159
+#define _3SQRT2 				1.73205
+#define _2SQRT2 				1.41421
+#define _1DIV3SQRT2				0.57735
+
+
+#define _2PIdiv3				2.09439
+#define _4PIdiv3				4.18878
+#define CONST					28		//U/f=CONST
+
 #endif
 #ifndef REGS_H_
 #define REGS_H_
@@ -247,16 +265,25 @@ extern		int GetHypByLegs(int Leg1,int Leg2);
 extern		int GetCatByHypNLeg(int Leg1,int Hyp);
 extern		int ConvertVParamToRU(int Param);
 
-// MATH CONSTANT
-#define M_PI        			3.14159
-#define _3SQRT2 				1.73205
-#define _2SQRT2 				1.41421
-#define _1DIV3SQRT2				0.57735
 
 
-#define _2PIdiv3				2.09439
-#define _4PIdiv3				4.18878
-#define CONST					28		//U/f=CONST
+extern		int  SpeedLz ;
+extern		int  SpeedL ;			// скорость левого колеса в об/мин
+extern		int Udz ;
+extern		int Drive ;
+extern		int Brake ;
+extern		unsigned int Debug ;
+extern		unsigned int ThetaL ;		// Тета электрич угол с учетом скольжения
+extern		long PowerMax ;
+extern		int Ugen ;
+extern		int Igen ;
+extern		int Ud ;
+
+struct cmd_
+{
+	int DNR;
+};
+extern struct cmd_ cmd;
 #endif
 
 // структуры
@@ -335,8 +362,9 @@ struct MashineParam{
 
 extern struct MashineParam MPL;
 extern struct MashineParam MPR;
-
+#ifndef MATLAB
 #define cmd						GS.COMMANDS.bit
+#endif
 //________________________COMMANDS
 struct Commands
 {
@@ -354,6 +382,7 @@ struct Commands
 
 	unsigned rsrv:5;
 };
+
 
 
 

@@ -21,6 +21,7 @@ long PowerMax=0;
 int Ugen=0;
 int Igen=0;
 int Ud=0;
+struct cmd_ cmd;
 
 #endif
 struct MashineParam MPL;
@@ -623,8 +624,9 @@ void RegL(){
 		}*/
 
 	}
-
+#ifndef MATLAB
 	else //if(GS.STATE.bit.LeftImp)
+#endif
 		RegLToZero();
 
 	//	if(Debug == 4)
