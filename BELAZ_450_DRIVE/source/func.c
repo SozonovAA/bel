@@ -1,4 +1,8 @@
+#ifndef MATLAB
 #include "hfa.h"
+#else
+#include "reg.h"
+#endif
 
 void _PAUSE(unsigned long step);
 int GetMIN(int A,int B);
