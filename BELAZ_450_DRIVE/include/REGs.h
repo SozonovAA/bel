@@ -211,6 +211,27 @@ extern	int PowerUvtr;
 extern	int PowerByGen;
 extern	int fPowerByGen;
 
+//-------------------------func.c------------------------
+#ifdef MATLAB
+extern		void _PAUSE(unsigned long step);
+extern		int GetMIN(int A,int B);
+extern		int GetMAX(int A,int B);
+extern		int CountUP(int *C,int V);
+extern		void Clark(int A,int B,int C,int *Alpha,int *Beta);
+extern		void InvClark(int *A,int *B,int *C,int Alpha,int Beta);
+extern		void Park(int Alpha,int Beta,int *D,int *Q,float Theta);
+extern		void InvPark(int *Alpha,int *Beta,int D,int Q,float Theta);
+extern		void MagneticSaturation(int Id,float *Lm);
+extern		void HeatWinding(float *Rs);
+extern		void RadianLimit(float *Var);
+extern		void MinMaxLimitInt(int MIN,int MAX,int *Var);
+extern		void MinMaxLimitFloat(int MIN,int MAX,float *Var);
+extern		int ConvertVParamToSI(int Param);
+extern		int GetHypByLegs(int Leg1,int Leg2);
+extern		int GetCatByHypNLeg(int Leg1,int Hyp);
+extern		int ConvertVParamToRU(int Param);
+#endif
+
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

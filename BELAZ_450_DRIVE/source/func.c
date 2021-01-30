@@ -1,23 +1,24 @@
 #include "hfa.h"
 
-void _PAUSE(Uint32 step);
+void _PAUSE(unsigned long step);
 int GetMIN(int A,int B);
 int GetMAX(int A,int B);
 int CountUP(int *C,int V);
-void Clark(int16 A,int16 B,int16 C,int16 *Alpha,int16 *Beta);
-void InvClark(int16 *A,int16 *B,int16 *C,int16 Alpha,int16 Beta);
-void Park(int16 Alpha,int16 Beta,int16 *D,int16 *Q,float Theta);
-void InvPark(int16 *Alpha,int16 *Beta,int16 D,int16 Q,float Theta);
+void Clark(int A,int B,int C,int *Alpha,int *Beta);
+void InvClark(int *A,int *B,int *C,int Alpha,int Beta);
+void Park(int Alpha,int Beta,int *D,int *Q,float Theta);
+void InvPark(int *Alpha,int *Beta,int D,int Q,float Theta);
 void MagneticSaturation(int Id,float *Lm);
 void HeatWinding(float *Rs);
 void RadianLimit(float *Var);
-void MinMaxLimitInt(int16 MIN,int16 MAX,int16 *Var);
-void MinMaxLimitFloat(int16 MIN,int16 MAX,float *Var);
-int16 ConvertVParamToSI(int16 Param);
-int16 GetHypByLegs(int16 Leg1,int16 Leg2);
-int16 GetCatByHypNLeg(int16 Leg1,int16 Hyp);
-int16 ConvertVParamToRU(int16 Param);
+void MinMaxLimitInt(int MIN,int MAX,int *Var);
+void MinMaxLimitFloat(int MIN,int MAX,float *Var);
+int ConvertVParamToSI(int Param);
+int GetHypByLegs(int Leg1,int Leg2);
+int GetCatByHypNLeg(int Leg1,int Hyp);
+int ConvertVParamToRU(int Param);
 
+#ifndef MATLAB
 #pragma CODE_SECTION(_PAUSE,"ramfuncs")
 #pragma CODE_SECTION(GetMIN,"ramfuncs")
 #pragma CODE_SECTION(GetMAX,"ramfuncs")
@@ -35,13 +36,13 @@ int16 ConvertVParamToRU(int16 Param);
 #pragma CODE_SECTION(GetHypByLegs,"ramfuncs")
 #pragma CODE_SECTION(GetCatByHypNLeg,"ramfuncs")
 #pragma CODE_SECTION(ConvertVParamToRU,"ramfuncs")
-
+#endif
 
 /*****************************************************************/
 
-void _PAUSE(Uint32 step)
+void _PAUSE(unsigned long step)
 {
-	Uint32 i;
+	unsigned long i;
 	for(i=0;i<=step;i++)
 	{
 		asm("NOP");
@@ -83,16 +84,16 @@ int CountUP(int *C,int V){
 /* ____Clark____________Park____InvPark ___________InvClark____*/
 /***************************************************************/
 
-void Clark(int16 A,int16 B,int16 C,int16 *Alpha,int16 *Beta)
+void Clark(int A,int B,int C,int *Alpha,int *Beta)
 {
 	//ABC ----> Alpha/Beta
 
 	*Alpha = A;
-	*Beta  = I_((F_(B) - F_(C))/_3SQRT2);
+	*Beta  = I_(((float)(B) - (float)(C))/_3SQRT2);
 
 }
 
-void InvClark(int16 *A,int16 *B,int16 *C,int16 Alpha,int16 Beta)
+void InvClark(int *A,int *B,int *C,int Alpha,int Beta)
 {
 	//Alpha/Beta -------> ABC
 
@@ -102,21 +103,21 @@ void InvClark(int16 *A,int16 *B,int16 *C,int16 Alpha,int16 Beta)
 
 }
 
-void Park(int16 Alpha,int16 Beta,int16 *D,int16 *Q,float Theta)
+void Park(int Alpha,int Beta,int *D,int *Q,float Theta)
 {
 	//Alpha/Beta ---> DQ
 
-	*D = F_(Beta)*sin(Theta) + F_(Alpha)*cos(Theta);
-	*Q = F_(Beta)*cos(Theta) - F_(Alpha)*sin(Theta);
+	*D = (float)(Beta)*sin(Theta) + (float)(Alpha)*cos(Theta);
+	*Q = (float)(Beta)*cos(Theta) - (float)(Alpha)*sin(Theta);
 
 }
 
-void InvPark(int16 *Alpha,int16 *Beta,int16 D,int16 Q,float Theta)
+void InvPark(int *Alpha,int *Beta,int D,int Q,float Theta)
 {
 	//DQ ------> Alpha/Beta
 
-	*Alpha = F_(D)*cos(Theta) - F_(Q)*sin(Theta);
-	*Beta  = F_(D)*sin(Theta) + F_(Q)*cos(Theta);
+	*Alpha = (float)(D)*cos(Theta) - (float)(Q)*sin(Theta);
+	*Beta  = (float)(D)*sin(Theta) + (float)(Q)*cos(Theta);
 
 }
 
@@ -132,7 +133,7 @@ void RadianLimit(float *Var)
 
 /*****************************************************************/
 
-void MinMaxLimitInt(int16 MIN,int16 MAX,int16 *Var)
+void MinMaxLimitInt(int MIN,int MAX,int *Var)
 {
 
 	if(*Var >= MAX) *Var = MAX;
@@ -142,7 +143,7 @@ void MinMaxLimitInt(int16 MIN,int16 MAX,int16 *Var)
 
 /*****************************************************************/
 
-void MinMaxLimitFloat(int16 MIN,int16 MAX,float *Var)
+void MinMaxLimitFloat(int MIN,int MAX,float *Var)
 {
 
 	if(*Var >= MAX) *Var = MAX;
@@ -181,17 +182,17 @@ void HeatWinding(float *Rs)
 
 /*****************************************************************/
 
-int16 ConvertVParamToSI(int16 Param)
+int ConvertVParamToSI(int Param)
 {
 
-	Param = (Param / F_(HALF_PWM_HEIGHT))*(Udz/2.0);
+	Param = (Param / (float)(HALF_PWM_HEIGHT))*(Udz/2.0);
 
 	return(Param);
 }
 
 /*****************************************************************/
 
-int16 GetHypByLegs(int16 Leg1,int16 Leg2){
+int GetHypByLegs(int Leg1,int Leg2){
 
 	int Hyp=0;
 
@@ -203,7 +204,7 @@ int16 GetHypByLegs(int16 Leg1,int16 Leg2){
 
 /*****************************************************************/
 
-int16 GetCatByHypNLeg(int16 Leg1,int16 Hyp){
+int GetCatByHypNLeg(int Leg1,int Hyp){
 
 	int Leg2=0;
 
@@ -221,10 +222,10 @@ int16 GetCatByHypNLeg(int16 Leg1,int16 Hyp){
 
 /*****************************************************************/
 
-int16 ConvertVParamToRU(int16 Param)
+int ConvertVParamToRU(int Param)
 {
 
-	Param = (Param / F_((Ud >> 1)))*HALF_PWM_HEIGHT;
+	Param = (Param / (float)((Ud >> 1)))*HALF_PWM_HEIGHT;
 
 	return(Param);
 
