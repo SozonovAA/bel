@@ -11,6 +11,15 @@
 #ifdef MATLAB
 //#include "math.h"
 #define HALF_PWM_HEIGHT			12500
+
+#define DRIVE					1
+#define REVERSE					2
+#define NEUTRAL					0
+
+#define dt						0.000666
+
+#define MIN_PWM					1000
+#define MAX_PWM					(25000-MIN_PWM)
 #endif
 #ifndef REGS_H_
 #define REGS_H_

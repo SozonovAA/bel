@@ -8,6 +8,21 @@
 #include "BELAZ_450_DRIVE\include\REGs.h"
 #endif
 
+
+#ifdef MATLAB
+int  SpeedLz=0;
+int  SpeedL=0;			// скорость левого колеса в об/мин
+int Udz=0;
+int Drive=0;
+int Brake=0;
+unsigned int Debug=0;
+unsigned int ThetaL=0;		// Тета электрич угол с учетом скольжения
+long PowerMax=0;
+int Ugen=0;
+int Igen=0;
+int Ud=0;
+
+#endif
 struct MashineParam MPL;
 struct MashineParam MPR;
 struct KOEFF koeff;
@@ -239,7 +254,7 @@ void CalcDeltaIdL()
 	//if(sdEL > 540) sdEL=540;
 	//if(sdEL < -540) sdEL=-540;
 
-	IdzL = L_(dEL)*koeff.KpE/10.0 + sdEL;
+	IdzL = (long)(dEL)*koeff.KpE/10.0 + sdEL;
 
 	MinMaxLimitInt(0,100,&DeltaIdzL);
 
@@ -478,8 +493,8 @@ void RegL(){
 		//if(PowerMax < 300000) PowerMax = 300000;
 		//if(PowerMax > 1600000) PowerMax = 1600000;
 
-		//IqLMAX = ((PowerMax >> 1) - L_(UdSIL)*L_(IdzL))/L_(UqSIL)/1.4142;
-		IqLMAX = (PowerMax*0.666 - L_(UdSIL)*L_(IdzL))/L_(UqSIL);
+		//IqLMAX = ((PowerMax >> 1) - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL)/1.4142;
+		IqLMAX = (PowerMax*0.666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
 
 		MinMaxLimitInt(-2000,2000,&IqLMAX);
 
@@ -526,7 +541,7 @@ void RegL(){
 		UdSIL = (float)(ConvertVParamToSI(UUdL))/FourieK[iffL];
 		UqSIL = (float)(ConvertVParamToSI(UUqL))/FourieK[iffL];
 
-		PowerL = (L_(UdSIL)*L_(IdzL) + L_(UqSIL)*L_(IqzL))/666;
+		PowerL = ((long)(UdSIL)*(long)(IdzL) + (long)(UqSIL)*(long)(IqzL))/666;
 
 		PowerL = (float)(PowerL);
 

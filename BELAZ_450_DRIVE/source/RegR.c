@@ -15,10 +15,7 @@ void ELRegR();
 #pragma CODE_SECTION(ELCalcR,"ramfuncs")
 #pragma CODE_SECTION(ELRegR,"ramfuncs")
 #endif
-#ifdef MATLAB
 
-
-#endif
 //REFT MOTOR
 int IaR=0;
 int IbR=0;
