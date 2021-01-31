@@ -26,7 +26,7 @@
  * | See matlabroot/simulink/src/sfuntmpl_doc.c for a more detailed template |
  *  ------------------------------------------------------------------------- 
  *
- * Created: Sun Jan 31 16:03:10 2021
+ * Created: Sun Jan 31 16:30:25 2021
  */
 
 #define S_FUNCTION_LEVEL 2
@@ -86,7 +86,7 @@
 #define IN_2_BIAS             0
 #define IN_2_SLOPE            0.125
 
-#define NUM_OUTPUTS           1
+#define NUM_OUTPUTS           2
 /* Output Port  0 */
 #define OUT_PORT_0_NAME       PWM
 #define OUTPUT_0_WIDTH        7
@@ -103,6 +103,22 @@
 #define OUT_0_FRACTIONLENGTH  3
 #define OUT_0_BIAS            0
 #define OUT_0_SLOPE           0.125
+/* Output Port  1 */
+#define OUT_PORT_1_NAME       Out
+#define OUTPUT_1_WIDTH        1
+#define OUTPUT_DIMS_1_COL     1
+#define OUTPUT_1_DTYPE        real_T
+#define OUTPUT_1_COMPLEX      COMPLEX_NO
+#define OUT_1_FRAME_BASED     FRAME_NO
+#define OUT_1_BUS_BASED       1
+#define OUT_1_BUS_NAME        BusObject
+#define OUT_1_DIMS            1-D
+#define OUT_1_ISSIGNED        1
+#define OUT_1_WORDLENGTH      8
+#define OUT_1_FIXPOINTSCALING 1
+#define OUT_1_FRACTIONLENGTH  3
+#define OUT_1_BIAS            0
+#define OUT_1_SLOPE           0.125
 
 #define NPARAMS               0
 
@@ -123,12 +139,27 @@
 /* %%%-SFUNWIZ_defines_Changes_END --- EDIT HERE TO _BEGIN */
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #include "simstruc.h"
+#include "TMS320F28335_bus.h"
+/*
+ * Code Generation Environment flag (simulation or standalone target).
+ */
+ static int_T isSimulationTarget;
+/* Utility function prototypes. */
+static int_T GetRTWEnvironmentMode(SimStruct *S);
+/* Macro used to check if Simulation mode is set to accelerator */
+#define isBusDWorkPresent  ( ( ( !ssRTWGenIsCodeGen(S) || isSimulationTarget ) && !ssIsExternalSim(S) ) || ssIsRapidAcceleratorActive(S) )
 
+typedef struct {
+    int_T offset;
+    int_T elemSize;
+    int_T numElems;
+} busInfoStruct;
 
 extern void TMS320F28335_Outputs_wrapper(const real_T *Lpars,
 			const real_T *Rpars,
 			const real_T *FromKabine,
-			real_T *PWM);
+			real_T *PWM,
+			BusObject *Out);
 /*====================*
  * S-function methods *
  *====================*/
@@ -178,12 +209,65 @@ static void mdlInitializeSizes(SimStruct *S)
 
 
     if (!ssSetNumOutputPorts(S, NUM_OUTPUTS)) return;
-    outputDimsInfo.width = OUTPUT_0_WIDTH;
-    ssSetOutputPortDimensionInfo(S, 0, &outputDimsInfo);
-    ssSetOutputPortFrameData(S, 0, OUT_0_FRAME_BASED);
+    /* Output Port 0 */
+    ssSetOutputPortWidth(S, 0, OUTPUT_0_WIDTH);
     ssSetOutputPortDataType(S, 0, SS_DOUBLE);
     ssSetOutputPortComplexSignal(S, 0, OUTPUT_0_COMPLEX);
-    ssSetOutputPortComplexSignal(S, 0, OUTPUT_0_COMPLEX);
+    /* Output Port 1 */
+
+  /* Register BusObject datatype for Output port 1 */
+
+    #if defined(MATLAB_MEX_FILE)
+    if (ssGetSimMode(S) != SS_SIMMODE_SIZES_CALL_ONLY)
+    {
+      DTypeId dataTypeIdReg;
+      ssRegisterTypeFromNamedObject(S, "BusObject", &dataTypeIdReg);
+      if(dataTypeIdReg == INVALID_DTYPE_ID) return;
+        ssSetOutputPortDataType(S, 1, dataTypeIdReg);
+    }
+    #endif
+
+    ssSetBusOutputObjectName(S, 1, (void *) "BusObject");
+    ssSetOutputPortWidth(S, 1, OUTPUT_1_WIDTH);
+    ssSetOutputPortComplexSignal(S, 1, OUTPUT_1_COMPLEX);
+    ssSetBusOutputAsStruct(S, 1,OUT_1_BUS_BASED);
+    ssSetOutputPortBusMode(S, 1, SL_BUS_MODE);
+
+    if (ssRTWGenIsCodeGen(S)) {
+        isSimulationTarget = GetRTWEnvironmentMode(S);
+        if (isSimulationTarget == -1) {
+            ssSetErrorStatus(S, " Unable to determine a valid code generation environment mode");
+            return;
+        }
+        isSimulationTarget |= ssRTWGenIsModelReferenceSimTarget(S);
+    }
+    
+    /* Set the number of dworks */
+    if (!isBusDWorkPresent) {
+        if (!ssSetNumDWork(S, 0)) return;
+    } else {
+        if (!ssSetNumDWork(S, 1)) return;
+    }
+
+    if (isBusDWorkPresent) {
+
+      /*
+       * Configure the dwork 0 (OutBUS)
+       */
+#if defined(MATLAB_MEX_FILE)
+      if (ssGetSimMode(S) != SS_SIMMODE_SIZES_CALL_ONLY) {
+        DTypeId dataTypeIdReg;
+        ssRegisterTypeFromNamedObject(S, "BusObject", &dataTypeIdReg);
+        if (dataTypeIdReg == INVALID_DTYPE_ID) return;
+        ssSetDWorkDataType(S, 0, dataTypeIdReg);
+      }
+#endif
+      
+      ssSetDWorkUsageType(S, 0, SS_DWORK_USED_AS_DWORK);
+      ssSetDWorkName(S, 0, "OutBUS");
+      ssSetDWorkWidth(S, 0, DYNAMICALLY_SIZED);
+      ssSetDWorkComplexSignal(S, 0, COMPLEX_NO);
+    }
     ssSetNumPWork(S, 0);
 
     ssSetNumSampleTimes(S, 1);
@@ -250,6 +334,23 @@ static void mdlSetDefaultPortDataTypes(SimStruct *S)
     ssSetOutputPortDataType(S, 0, SS_DOUBLE);
 }
 
+#define MDL_SET_WORK_WIDTHS
+#if defined(MDL_SET_WORK_WIDTHS) && defined(MATLAB_MEX_FILE)
+
+static void mdlSetWorkWidths(SimStruct *S)
+{
+/* Set the width of DWork(s) used for marshalling the IOs */
+    if (isBusDWorkPresent) {
+
+        /* Update dwork 0 */
+        ssSetDWorkWidth(S, 0, ssGetOutputPortWidth(S, 1));
+
+    }
+
+}
+
+#endif
+
 #define MDL_START  /* Change to #undef to remove function */
 #if defined(MDL_START)
 /* Function: mdlStart =======================================================
@@ -260,6 +361,23 @@ static void mdlSetDefaultPortDataTypes(SimStruct *S)
  */
 static void mdlStart(SimStruct *S)
 {
+    /* Bus Information */
+    slDataTypeAccess *dta = ssGetDataTypeAccess(S);
+    const char *bpath = ssGetPath(S);
+	DTypeId BusObjectId = ssGetDataTypeId(S, "BusObject");
+
+	busInfoStruct *busInfo = (busInfoStruct *)malloc(2*sizeof(busInfoStruct));
+	if(busInfo==NULL) {
+        ssSetErrorStatus(S, "Memory allocation failure");
+        return;
+    }
+
+      /* Calculate offsets of all primitive elements of the bus */
+
+	busInfo[0].offset   = dtaGetDataTypeElementOffset(dta, bpath, BusObjectId, 0);
+	busInfo[0].elemSize = dtaGetDataTypeSize(dta, bpath, ssGetDataTypeId(S, "double"));
+	busInfo[0].numElems = 1;
+	ssSetUserData(S, busInfo);
 }
 #endif /*  MDL_START */
 
@@ -272,8 +390,19 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     const real_T *Rpars = (real_T *) ssGetInputPortRealSignal(S, 1);
     const real_T *FromKabine = (real_T *) ssGetInputPortRealSignal(S, 2);
     real_T *PWM = (real_T *) ssGetOutputPortRealSignal(S, 0);
+    char *Out = (char *) ssGetOutputPortSignal(S, 1);
 
-    TMS320F28335_Outputs_wrapper(Lpars, Rpars, FromKabine, PWM);
+	busInfoStruct* busInfo = (busInfoStruct *) ssGetUserData(S);
+
+	/* Temporary bus copy declarations */
+	BusObject _OutBUS;
+
+	/* Copy input bus into temporary structure */
+
+    TMS320F28335_Outputs_wrapper(Lpars, Rpars, FromKabine, PWM, &_OutBUS);
+
+	/* Copy temporary structure into output bus */
+	(void) memcpy(Out + busInfo[0].offset, &_OutBUS.IaL, busInfo[0].elemSize * busInfo[0].numElems);
 
 }
 
@@ -285,9 +414,56 @@ static void mdlOutputs(SimStruct *S, int_T tid)
  */
 static void mdlTerminate(SimStruct *S)
 {
+    /* Free stored bus information */
+    busInfoStruct *busInfo = (busInfoStruct *) ssGetUserData(S);
+    if(busInfo != NULL) {
+        free(busInfo);
+    }
 
 }
 
+static int_T GetRTWEnvironmentMode(SimStruct *S)
+{
+    int_T status = -1;
+    mxArray *plhs[1];
+    mxArray *prhs[1];
+    mxArray * err;
+    
+    /*
+     * Get the name of the Simulink block diagram
+     */
+    prhs[0] = mxCreateString(ssGetModelName(ssGetRootSS(S)));
+    plhs[0] = NULL;
+    
+    /*
+     * Call "isSimulationTarget = rtwenvironmentmode(modelName)" in MATLAB
+     */
+    err = mexCallMATLABWithTrap(1, plhs, 1, prhs, "rtwenvironmentmode");
+    mxDestroyArray(prhs[0]);
+    
+    /*
+     * Set the error status if an error occurred
+     */
+    if (err) {
+        if (plhs[0]) {
+            mxDestroyArray(plhs[0]);
+            plhs[0] = NULL;
+        }
+        ssSetErrorStatus(S, "Unknown error during call to 'rtwenvironmentmode'.");
+        return -1;
+    }
+    
+    /*
+     * Get the value returned by rtwenvironmentmode(modelName)
+    */
+    if (plhs[0]) {
+        status = (int_T) (mxGetScalar(plhs[0]) != 0);
+        mxDestroyArray(plhs[0]);
+        plhs[0] = NULL;
+    }
+    
+    return (status);
+}
 
 #ifdef  MATLAB_MEX_FILE    /* Is this file being compiled as a MEX-file? */
 #include "simulink.c"      /* MEX-file interface mechanism */

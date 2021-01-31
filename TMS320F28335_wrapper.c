@@ -10,7 +10,7 @@
 #include "rtwtypes.h"
 #endif
 
-
+#include "TMS320F28335_bus.h"
 
 /* %%%-SFUNWIZ_wrapper_includes_Changes_BEGIN --- EDIT HERE TO _END */
 #include <math.h>
@@ -34,7 +34,8 @@
 void TMS320F28335_Outputs_wrapper(const real_T *Lpars,
 			const real_T *Rpars,
 			const real_T *FromKabine,
-			real_T *PWM)
+			real_T *PWM,
+			BusObject *Out)
 {
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_BEGIN --- EDIT HERE TO _END */
 IaL = Lpars[0];
@@ -44,6 +45,7 @@ ElectricAngleL = Lpars[3];
 Ud = Lpars[4];
 SpeedL = Lpars[5];
 
+Out[0].IaL=IaL;
 RegL();
 RegR();
 

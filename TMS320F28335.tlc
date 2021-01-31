@@ -1,5 +1,5 @@
 %% File : TMS320F28335.tlc
-%% Created : Sun Jan 31 16:03:10 2021
+%% Created : Sun Jan 31 16:30:25 2021
 %%
 %% Description: 
 %%   Simulink Coder wrapper functions interface generated for 
@@ -22,6 +22,58 @@
 %%      generated code.
 %%
 %function BlockTypeSetup(block, system) Output
+
+  %if IsModelReferenceSimTarget() || CodeFormat == "S-Function" || ::isRAccel
+    %assign hFileName = "TMS320F28335_accel_wrapper"
+    %assign hFileNameMacro = FEVAL("upper", hFileName)
+    %openfile hFile = "%<hFileName>.h"
+    %selectfile hFile
+    #ifndef _%<hFileNameMacro>_H_
+    #define _%<hFileNameMacro>_H_
+
+    #include "tmwtypes.h"
+    #ifdef __cplusplus
+    extern "C" {
+    #endif
+    extern void TMS320F28335_Outputs_wrapper_accel(const real_T *Lpars,
+			const real_T *Rpars,
+			const real_T *FromKabine,
+			real_T *PWM,
+			void *Out, void *__OutBUS);
+    #ifdef __cplusplus
+    }
+    #endif
+    #endif
+    %closefile hFile
+
+    %assign cFileName = "TMS320F28335_accel_wrapper"
+    %openfile cFile = "%<cFileName>.c"
+    %selectfile cFile
+    #include <string.h>
+    #include "tmwtypes.h"
+    #include "TMS320F28335_bus.h"
+
+    void TMS320F28335_Outputs_wrapper_accel(const real_T *Lpars,
+			const real_T *Rpars,
+			const real_T *FromKabine,
+			real_T *PWM,
+			void *Out, void *__OutBUS){
+    TMS320F28335_Outputs_wrapper(Lpars,
+			Rpars,
+			FromKabine,
+			PWM,
+			(BusObject *) __OutBUS);
+
+    %assign dTypeId = LibBlockOutputSignalDataTypeId(1)
+    %<SLibAssignUserStructToSLStruct(dTypeId, "(char *) Out", "(*(BusObject *) __OutBUS)", 1)>
+    }
+
+    %closefile cFile
+
+    %<LibAddToCommonIncludes("%<hFileName>.h")>
+    %<LibAddToModelSources("%<cFileName>")>
+
+  %else
   %openfile externs
 
     #ifdef __cplusplus
@@ -33,7 +85,8 @@
     extern void TMS320F28335_Outputs_wrapper(const real_T *Lpars,
 			const real_T *Rpars,
 			const real_T *FromKabine,
-			real_T *PWM);
+			real_T *PWM,
+			BusObject *Out);
 
     extern void TMS320F28335_Terminate_wrapper(void);
 
@@ -42,6 +95,8 @@
     #endif
   %closefile externs
   %<LibCacheExtern(externs)>
+
+  %endif
   %%
 %endfunction
 
@@ -57,7 +112,15 @@
   %assign pu1 = LibBlockInputSignalAddr(1, "", "", 0)
   %assign pu2 = LibBlockInputSignalAddr(2, "", "", 0)
   %assign py0 = LibBlockOutputSignalAddr(0, "", "", 0)
-  TMS320F28335_Outputs_wrapper(%<pu0>, %<pu1>, %<pu2>, %<py0>);
+  %assign py1 = LibBlockOutputSignalAddr(1, "", "", 0)
+  
+  %if IsModelReferenceSimTarget() || CodeFormat == "S-Function" || ::isRAccel
+    %assign OutBUS_ptr = LibBlockDWorkAddr(OutBUS, "", "", 0)
+    TMS320F28335_Outputs_wrapper_accel(%<pu0>, %<pu1>, %<pu2>, %<py0>, %<py1>, %<OutBUS_ptr>);
+  %else
+    TMS320F28335_Outputs_wrapper(%<pu0>, %<pu1>, %<pu2>, %<py0>, %<py1>);
+  %endif
+
   %%
 %endfunction
 
