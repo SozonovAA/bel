@@ -33,7 +33,7 @@
 void TMS320F28335_Outputs_wrapper(const real_T *Lpars,
 			const real_T *Rpars,
 			const real_T *FromKabine,
-			real_T *y0)
+			real_T *PWM)
 {
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_BEGIN --- EDIT HERE TO _END */
 RegR();

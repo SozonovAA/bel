@@ -26,7 +26,7 @@
  * | See matlabroot/simulink/src/sfuntmpl_doc.c for a more detailed template |
  *  ------------------------------------------------------------------------- 
  *
- * Created: Sun Jan 31 14:48:37 2021
+ * Created: Sun Jan 31 15:18:10 2021
  */
 
 #define S_FUNCTION_LEVEL 2
@@ -88,8 +88,8 @@
 
 #define NUM_OUTPUTS           1
 /* Output Port  0 */
-#define OUT_PORT_0_NAME       y0
-#define OUTPUT_0_WIDTH        1
+#define OUT_PORT_0_NAME       PWM
+#define OUTPUT_0_WIDTH        7
 #define OUTPUT_DIMS_0_COL     1
 #define OUTPUT_0_DTYPE        real_T
 #define OUTPUT_0_COMPLEX      COMPLEX_NO
@@ -128,7 +128,7 @@
 extern void TMS320F28335_Outputs_wrapper(const real_T *Lpars,
 			const real_T *Rpars,
 			const real_T *FromKabine,
-			real_T *y0);
+			real_T *PWM);
 /*====================*
  * S-function methods *
  *====================*/
@@ -219,30 +219,6 @@ static void mdlSetOutputPortDimensionInfo(SimStruct        *S,
     if (!ssSetOutputPortDimensionInfo(S, port, dimsInfo)) return;
 }
 #endif
-#define MDL_SET_DEFAULT_PORT_DIMENSION_INFO
-static void mdlSetDefaultPortDimensionInfo(SimStruct *S)
-{
-    DECL_AND_INIT_DIMSINFO(portDimsInfo);
-    int_T dims[2] = { INPUT_0_WIDTH, 1 };
-    bool  frameIn = ssGetInputPortFrameData(S, 0) == FRAME_YES;
-
-    /* Neither the input nor the output ports have been set */
-
-    portDimsInfo.width   = INPUT_0_WIDTH;
-    portDimsInfo.numDims = frameIn ? 2 : 1;
-    portDimsInfo.dims    = frameIn ? dims : &portDimsInfo.width;
-    if (ssGetInputPortNumDimensions(S, 0) == (-1)) {  
-        ssSetInputPortDimensionInfo(S, 0, &portDimsInfo);
-    }
-    portDimsInfo.width   = OUTPUT_0_WIDTH;
-    dims[0]              = OUTPUT_0_WIDTH;
-    dims[1]              = 1;
-    portDimsInfo.dims    = frameIn ? dims : &portDimsInfo.width;
-    if (ssGetOutputPortNumDimensions(S, 0) == (-1)) {  
-        ssSetOutputPortDimensionInfo(S, 0, &portDimsInfo);
-    }
-    return;
-}
 
 /* Function: mdlInitializeSampleTimes =========================================
  * Abstract:
@@ -295,9 +271,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     const real_T *Lpars = (real_T *) ssGetInputPortRealSignal(S, 0);
     const real_T *Rpars = (real_T *) ssGetInputPortRealSignal(S, 1);
     const real_T *FromKabine = (real_T *) ssGetInputPortRealSignal(S, 2);
-    real_T *y0 = (real_T *) ssGetOutputPortRealSignal(S, 0);
+    real_T *PWM = (real_T *) ssGetOutputPortRealSignal(S, 0);
 
-    TMS320F28335_Outputs_wrapper(Lpars, Rpars, FromKabine, y0);
+    TMS320F28335_Outputs_wrapper(Lpars, Rpars, FromKabine, PWM);
 
 }
 

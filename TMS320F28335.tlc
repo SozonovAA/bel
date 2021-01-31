@@ -1,5 +1,5 @@
 %% File : TMS320F28335.tlc
-%% Created : Sun Jan 31 14:48:37 2021
+%% Created : Sun Jan 31 15:18:10 2021
 %%
 %% Description: 
 %%   Simulink Coder wrapper functions interface generated for 
@@ -33,7 +33,7 @@
     extern void TMS320F28335_Outputs_wrapper(const real_T *Lpars,
 			const real_T *Rpars,
 			const real_T *FromKabine,
-			real_T *y0);
+			real_T *PWM);
 
     extern void TMS320F28335_Terminate_wrapper(void);
 
