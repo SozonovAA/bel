@@ -36,7 +36,7 @@ void TMS320F28335_Outputs_wrapper(const real_T *Lpars,
 			real_T *y0)
 {
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_BEGIN --- EDIT HERE TO _END */
- 
+RegR();
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_END --- EDIT HERE TO _BEGIN */
 }
 

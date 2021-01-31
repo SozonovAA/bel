@@ -7,6 +7,14 @@
 #else
 #include "BELAZ_450_DRIVE\include\REGs.h"
 #endif
+#ifndef MATLAB
+struct MashineParam MPL;
+struct MashineParam MPR;
+struct GS_ GS;
+struct KOEFF koeff;
+#endif
+struct SSlider Slider;
+
 
 
 #ifdef MATLAB
@@ -23,14 +31,14 @@ int Igen=0;
 int Ud=0;
 struct cmd_ cmd;
 
+struct KOEFF koeff={2500, 1070, 2000, 350, 444, 400, 80, 350, 250, 40, 182, 300, 75, 25, 12345, 12345, 0
+					12345, 75, 15, 1, 2, 50, 10, 10, 2, 670, 1000, 1300, 2000, 0,0,0, 1, 10, 10, 1, 50, 10,
+					0, 2500, 8, 30, 4, 2000, 50, 0, 1, 0, 50};
+struct MashineParam MPL={0.00015, 0.00014, 0.0067, 0.00483, 0.0072, 0.9781, 0.9795, 0.00028736, 0.03991, 1.4161};
+struct MashineParam MPR={0.00015, 0.00014, 0.0067, 0.00483, 0.0072, 0.9781, 0.9795, 0.00028736, 0.03991, 1.4161};
+
 #endif
-struct MashineParam MPL;
-struct MashineParam MPR;
-struct KOEFF koeff;
-#ifndef MATLAB
-struct GS_ GS;
-#endif
-struct SSlider Slider;
+
 
 
 void LookerL();
