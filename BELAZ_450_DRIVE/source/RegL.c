@@ -529,7 +529,9 @@ void RegL(){
 
 		SpeedRegL();
 
-		IqzL = 1000;
+		IqzL = 200;
+
+		IqLCurLim = 500;
 
 		MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
 
