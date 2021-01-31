@@ -1,5 +1,5 @@
 %% File : TMS320F28335.tlc
-%% Created : Sun Jan 31 16:30:25 2021
+%% Created : Sun Jan 31 17:21:28 2021
 %%
 %% Description: 
 %%   Simulink Coder wrapper functions interface generated for 
@@ -62,10 +62,10 @@
 			Rpars,
 			FromKabine,
 			PWM,
-			(BusObject *) __OutBUS);
+			(DebugInfL *) __OutBUS);
 
     %assign dTypeId = LibBlockOutputSignalDataTypeId(1)
-    %<SLibAssignUserStructToSLStruct(dTypeId, "(char *) Out", "(*(BusObject *) __OutBUS)", 1)>
+    %<SLibAssignUserStructToSLStruct(dTypeId, "(char *) Out", "(*(DebugInfL *) __OutBUS)", 1)>
     }
 
     %closefile cFile
@@ -86,7 +86,7 @@
 			const real_T *Rpars,
 			const real_T *FromKabine,
 			real_T *PWM,
-			BusObject *Out);
+			DebugInfL *Out);
 
     extern void TMS320F28335_Terminate_wrapper(void);
 
