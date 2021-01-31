@@ -303,6 +303,8 @@ struct cmd_
 	int DNR;
 };
 extern struct cmd_ cmd;
+
+extern float ElectricAngleL;
 #endif
 
 // структуры

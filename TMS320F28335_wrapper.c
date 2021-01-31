@@ -14,6 +14,7 @@
 
 /* %%%-SFUNWIZ_wrapper_includes_Changes_BEGIN --- EDIT HERE TO _END */
 #include <math.h>
+#include "BELAZ_450_DRIVE\include\REGs.h"
 /* %%%-SFUNWIZ_wrapper_includes_Changes_END --- EDIT HERE TO _BEGIN */
 #define u_width 7
 #define y_width 1
@@ -36,7 +37,23 @@ void TMS320F28335_Outputs_wrapper(const real_T *Lpars,
 			real_T *PWM)
 {
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_BEGIN --- EDIT HERE TO _END */
+IaL = Lpars[0];
+IbL = Lpars[1];
+IcL = Lpars[2];
+ElectricAngleL = Lpars[3];
+Ud = Lpars[4];
+SpeedL = Lpars[5];
+
+RegL();
 RegR();
+
+PWM[0] = UUAL;
+PWM[1] = UUBL;
+PWM[2] = UUCL;
+PWM[3] = UUAR;
+PWM[4] = UUBR;
+PWM[5] = UUCR;
+PWM[6] = ChopReg;
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_END --- EDIT HERE TO _BEGIN */
 }
 
