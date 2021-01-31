@@ -27,7 +27,9 @@ struct cmd_ cmd;
 struct MashineParam MPL;
 struct MashineParam MPR;
 struct KOEFF koeff;
+#ifndef MATLAB
 struct GS_ GS;
+#endif
 struct SSlider Slider;
 
 
@@ -386,14 +388,15 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 
 void RegL(){
 
+#ifndef MATLAB
 	DizelOutPowerMax();
-
+#endif
 	LookerL();
 
 	SpeedTestCount++;
-
+#ifndef MATLAB
 	SpeedAndAngleL();
-
+#endif
 	//32400/2*M_PI = 5156.62
 	//32768/2*M_PI = 5215.19
 	fThetaL = (float)(ThetaL)/5215.19;
@@ -575,9 +578,9 @@ void RegL(){
 
 			AmplL 	= Slider.s1;
 			AlphaL	+= (float)(Slider.s2)/10000.0; /* -10 10*/
-
+#ifndef MATLAB
 			HandleReg(&UUAL,&UUBL,&UUCL,&AmplL,&AlphaL);
-
+#endif
 		}
 
 		//SIN6 = ((float)koeff.K_UdzDrive)*sin(fThetaL6);

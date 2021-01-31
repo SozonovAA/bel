@@ -1,3 +1,7 @@
+#ifndef FLASH_RUN
+#define MATLAB
+#endif
+
 #ifndef MATLAB
 #include "hfa.h"
 #else
