@@ -629,9 +629,9 @@ void RegL(){
 	}
 #ifndef MATLAB
 	else //if(GS.STATE.bit.LeftImp)
-#endif
-		RegLToZero();
 
+		RegLToZero();
+#endif
 	//	if(Debug == 4)
 	//	ChopReg = Slider.s6;
 

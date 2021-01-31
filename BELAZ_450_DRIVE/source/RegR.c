@@ -8,6 +8,12 @@
 #include "BELAZ_450_DRIVE\include\REGs.h"
 #endif
 
+#ifdef MATLAB
+int SpeedRz=0;
+int SpeedR=0;			// скорость левого колеса в об/мин
+unsigned int ThetaR=0;		// Тета электрич угол с учетом скольжения
+#endif
+
 void LookerR();
 void RegR();
 void ELCalcR();
@@ -193,7 +199,7 @@ void CalcDeltaIdR()
 		//if(sdER > 540) sdER=540;
 		//if(sdER < -540) sdER=-540;
 
-		IdzR = L_(dER)*koeff.KpE/10.0 + sdER;
+		IdzR = (long)(dER)*koeff.KpE/10.0 + sdER;
 
 	MinMaxLimitInt(0,100,&DeltaIdzR);
 
@@ -318,12 +324,14 @@ IqR --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipR)
 float sSpeedRz=0.0;
 float fIqurRimR=0;
 void RegR(){
-
+#ifndef MATLAB
 	DizelOutPowerMax();
+		#endif
 
 	LookerR();
-
+#ifndef MATLAB
 	SpeedAndAngleR();
+		#endif
 
 	//32400/2*M_PI = 5156.62
 	fThetaR = (float)(ThetaR)/5215.19;
@@ -421,8 +429,8 @@ void RegR(){
 		//if(PowerMax < 300000) PowerMax = 300000;
 		//if(PowerMax > 1600000) PowerMax = 1600000;
 
-		//IqRMAX = ((PowerMax >> 1) - L_(UdSIR)*L_(IdzR))/L_(UqSIR)/1.4142; XZ!!!
-		IqRMAX = (PowerMax*0.666 - L_(UdSIR)*L_(IdzR))/L_(UqSIR);
+		//IqRMAX = ((PowerMax >> 1) - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR)/1.4142; XZ!!!
+		IqRMAX = (PowerMax*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
 
 		MinMaxLimitInt(-2000,2000,&IqRMAX);
 
@@ -434,7 +442,7 @@ void RegR(){
 		UdSIR = (float)(ConvertVParamToSI(UUdR))/FourieK[iffR];
 		UqSIR = (float)(ConvertVParamToSI(UUqR))/FourieK[iffR];
 
-		PowerR = (L_(UdSIR)*L_(IdzR) + L_(UqSIR)*L_(IqzR))/666;
+		PowerR = ((long)(UdSIR)*(long)(IdzR) + (long)(UqSIR)*(long)(IqzR))/666;
 
 		PowerR = (float)(PowerR);
 
@@ -497,8 +505,9 @@ void RegR(){
 
 			AmplR 	= Slider.s4;
 			AlphaR	+= (float)(Slider.s5)/10000.0; /* -10 10*/
-
+#ifndef MATLAB
 			HandleReg(&UUAR,&UUBR,&UUCR,&AmplR,&AlphaR);
+		#endif
 
 		}
 
@@ -512,14 +521,17 @@ void RegR(){
 		if(UUBR >= MAX_PWM) UUBR = 25000;
 		if(UUCR <= MIN_PWM) UUCR = 0;
 		if(UUCR >= MAX_PWM) UUCR = 25000;
-
+#ifndef MATLAB
 		EPwm1Regs.CMPB = UUAR;
 		EPwm2Regs.CMPB = UUBR;
 		EPwm6Regs.CMPA.half.CMPA = UUCR;
+		#endif
 
 	}
+#ifndef MATLAB
 	else
 		RegRToZero();
+		#endif
 
 
 }
