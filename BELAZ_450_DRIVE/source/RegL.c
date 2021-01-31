@@ -182,8 +182,7 @@ float  fThetaL6=0;
 
 int SIN6=0;
 
-extern float fOmegaL;
-
+float fOmegaL=0;
 int iffL=0;
 
 int ImL=0;

@@ -29,8 +29,8 @@ Uint16 PosR;
 float PosFR=0;
 
 int CountForDeltaPosR=0;
+extern float fOmegaR;
 
-float fOmegaR=0;
 float fOldOmegaR=0;
 int OmegaR=0;
 int OldThetaR=0;

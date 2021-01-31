@@ -36,7 +36,8 @@ Uint16 PosL;
 
 int CountForDeltaPosL=0;
 
-float fOmegaL=0;
+extern float fOmegaL;
+
 float fOldOmegaL=0;
 int OmegaL=0;
 int OldThetaL=0;

@@ -26,7 +26,7 @@
  * | See matlabroot/simulink/src/sfuntmpl_doc.c for a more detailed template |
  *  ------------------------------------------------------------------------- 
  *
- * Created: Sun Jan 31 12:26:05 2021
+ * Created: Sun Jan 31 12:31:21 2021
  */
 
 #define S_FUNCTION_LEVEL 2
@@ -113,7 +113,7 @@
 #define CONT_STATES_IC        [0]
 
 #define SFUNWIZ_GENERATE_TLC  1
-#define SOURCEFILES           "__SFB__BELAZ_450_DRIVE\source\RegL.c__SFB__BELAZ_450_DRIVE\source\RegR.c"
+#define SOURCEFILES           "__SFB__BELAZ_450_DRIVE\source\RegL.c__SFB__BELAZ_450_DRIVE\source\RegR.c__SFB__BELAZ_450_DRIVE\source\func.c"
 #define PANELINDEX            8
 #define USE_SIMSTRUCT         0
 #define SHOW_COMPILE_STEPS    0

@@ -205,8 +205,7 @@ void CalcDeltaIdR()
 
 }
 
-extern float fOmegaR;
-
+float fOmegaR=0;
 
 
 void CrossComR();

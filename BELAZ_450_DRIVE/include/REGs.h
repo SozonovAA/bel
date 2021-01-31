@@ -247,6 +247,25 @@ extern	int fPowerByGen;
 
 //-------------------------func.c------------------------
 #ifdef MATLAB
+#ifndef null
+#define null ((void *) 0)
+#endif
+
+#ifndef TRUE
+#define TRUE    1
+#endif
+
+#ifndef FALSE
+#define FALSE   0
+#endif
+
+#ifndef true
+#define true    1
+#endif
+
+#ifndef false
+#define false   0
+#endif
 extern		void _PAUSE(unsigned long step);
 extern		int GetMIN(int A,int B);
 extern		int GetMAX(int A,int B);
