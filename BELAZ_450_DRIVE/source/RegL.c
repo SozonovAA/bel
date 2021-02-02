@@ -485,8 +485,6 @@ void RegL(){
 
 		// ##### IdReg bgn
 
-		IdzL = 500;
-
 		MinMaxLimitInt(5,900,&IdzL);
 
 		DeltaIdL = IdzL - IdL;
@@ -528,10 +526,6 @@ void RegL(){
 		// ##### IqReg bgn
 
 		SpeedRegL();
-
-		IqzL = 200;
-
-		IqLCurLim = 500;
 
 		MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
 
