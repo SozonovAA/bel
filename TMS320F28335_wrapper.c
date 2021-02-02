@@ -44,7 +44,14 @@ IbL = Lpars[1];
 IcL = Lpars[2];
 ElectricAngleL = Lpars[3];
 Ud = Lpars[4];
-SpeedL = Lpars[5];
+SpeedL = Lpars[6];
+
+IaR = Rpars[0];
+IbR = Rpars[1];
+IcR = Rpars[2];
+ElectricAngleR = Rpars[3];
+Ud = Rpars[4];
+SpeedR = Rpars[6];
 
 Out_L[0].IaL=IaL;
 Out_L[0].IbL = IbL;
@@ -181,6 +188,9 @@ Out_R[0].AmplR = AmplR;
 Out_R[0].AlphaR = AlphaR;
 Out_R[0].PowerR = PowerR;
 Out_R[0].PowerR16 = PowerR16;
+
+SpeedLz = FromKabine[0]*20;
+SpeedRz = FromKabine[0]*20;
 
 RegL();
 RegR();

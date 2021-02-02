@@ -26,7 +26,7 @@
  * | See matlabroot/simulink/src/sfuntmpl_doc.c for a more detailed template |
  *  ------------------------------------------------------------------------- 
  *
- * Created: Tue Feb 02 14:34:17 2021
+ * Created: Tue Feb 02 22:26:14 2021
  */
 
 #define S_FUNCTION_LEVEL 2
@@ -70,7 +70,7 @@
 #define IN_1_SLOPE            0.125
 /* Input Port  2 */
 #define IN_PORT_2_NAME        FromKabine
-#define INPUT_2_WIDTH         1
+#define INPUT_2_WIDTH         3
 #define INPUT_DIMS_2_COL      1
 #define INPUT_2_DTYPE         real_T
 #define INPUT_2_COMPLEX       COMPLEX_NO

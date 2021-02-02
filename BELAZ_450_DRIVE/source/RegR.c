@@ -12,6 +12,7 @@
 int SpeedRz=0;
 int SpeedR=0;			// скорость левого колеса в об/мин
 unsigned int ThetaR=0;		// Тета электрич угол с учетом скольжения
+float ElectricAngleR=0;
 #endif
 
 void LookerR();
@@ -168,7 +169,9 @@ void RegRToZero()
 
 void CalcDeltaIdR()
 {
-
+#ifdef MATLAB
+	Udz = 940;
+#endif
 
 	UmR = GetHypByLegs(UUdR,UUqR);
 
@@ -228,7 +231,9 @@ void CrossComR()
 
 void SpeedRegR()
 {
-
+#ifdef MATLAB
+	cmd.DNR = 1;
+#endif
 	DeltaSpeedR = (SpeedRz - IqzR)/5;
 
 	SpeedRz1 += (float)(DeltaSpeedR)*((float)(koeff.K7)/2500.0);
@@ -323,6 +328,11 @@ IqR --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipR)
 float sSpeedRz=0.0;
 float fIqurRimR=0;
 void RegR(){
+
+#ifdef MATLAB
+	PowerMax=800000;
+#endif
+
 #ifndef MATLAB
 	DizelOutPowerMax();
 		#endif
@@ -330,12 +340,14 @@ void RegR(){
 	LookerR();
 #ifndef MATLAB
 	SpeedAndAngleR();
-		#endif
 
 	//32400/2*M_PI = 5156.62
 	fThetaR = (float)(ThetaR)/5215.19;
 
-	//fThetaR += (float)(koeff.k10)/100000.0;
+#else
+	fThetaR = ThetaSlipR + ElectricAngleR;
+	RadianLimit(&fThetaR);
+#endif
 
 	CalcDeltaIdR();
 
@@ -392,11 +404,12 @@ void RegR(){
 
 			if(Drive < 13) Drive = 13;
 
+#ifndef MATLAB
 			if(cmd.DNR == DRIVE)
 					SpeedRz = (Drive-13)*20;
 			if(cmd.DNR == REVERSE)
 					SpeedRz = -(Drive-13)*20;
-
+#endif
 		}
 
 		Clark(IaR,IbR,IcR,&IAlphaR,&IBetaR);
@@ -481,6 +494,9 @@ void RegR(){
 
 		InvPark(&UAlphaR,&UBetaR,UUdR,UUqR,fThetaR);
 		InvClark(&UUAR,&UUBR,&UUCR,UAlphaR,UBetaR);
+
+		InvPark(&IAlphaR,&IBetaR,IdzR,IqzR,fThetaR);
+		InvClark(&Iaz,&Ibz,&Icz,IAlphaR,IBetaR);
 
 		ELCalcR();
 
