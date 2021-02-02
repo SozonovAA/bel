@@ -709,7 +709,7 @@ void RegL(){
 void ELCalcL(){
 
 
-	/*	UAlphaSIL = ConvertVParamToSI(UAlphaL);
+		UAlphaSIL = ConvertVParamToSI(UAlphaL);
 			UBetaSIL  = ConvertVParamToSI(UBetaL);
 
 			UAlphaSIL = (int)((float)(UAlphaSIL)/FourieK[iffL]);
@@ -719,12 +719,15 @@ void ELCalcL(){
 			DeltaIBetaL = IBetaL - OldIBetaL;
 
 			EAlphaInstL = UAlphaSIL - IAlphaL*MPL.RS - (MPL.LS*DeltaIAlphaL)/dt;
-			EBetaInstL = UBetaSIL - IBetaL*MPL.RS - (MPL.LS*DeltaIBetaL)/dt;*/
+			EBetaInstL = UBetaSIL - IBetaL*MPL.RS - (MPL.LS*DeltaIBetaL)/dt;
 
 	OldIAlphaL = IAlphaL;
 	OldIBetaL = IBetaL;
 
-	fE_ampL += (float)((GetHypByLegs(UdSIL,UqSIL) - fE_ampL))/(float)(koeff.KFiltE);
+	fE_ampL += (float)((GetHypByLegs(EAlphaInstL,EBetaInstL) - fE_ampL))/(float)(koeff.KFiltE);
+
+
+	//fE_ampL += (float)((GetHypByLegs(UdSIL,UqSIL) - fE_ampL))/(float)(koeff.KFiltE);
 
 	E_ampL = fE_ampL;
 

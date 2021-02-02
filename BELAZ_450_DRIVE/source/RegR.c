@@ -536,7 +536,7 @@ void RegR(){
 }
 
 void ELCalcR(){
-/*
+
 			UAlphaSIR = ConvertVParamToSI(UAlphaR);
 			UBetaSIR  = ConvertVParamToSI(UBetaR);
 
@@ -551,8 +551,10 @@ void ELCalcR(){
 
 			OldIAlphaR = IAlphaR;
 			OldIBetaR = IBetaR;
-*/
-			fE_ampR += (float)((GetHypByLegs(UdSIR,UqSIR) - fE_ampR))/(float)(koeff.KFiltE);
+
+			fE_ampR += (float)((GetHypByLegs(EAlphaInstR,EBetaInstR) - fE_ampR))/(float)(koeff.KFiltE);
+
+			//fE_ampR += (float)((GetHypByLegs(UdSIR,UqSIR) - fE_ampR))/(float)(koeff.KFiltE);
 
 			E_ampR = fE_ampR;
 
