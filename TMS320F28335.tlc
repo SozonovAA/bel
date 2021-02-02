@@ -1,5 +1,5 @@
 %% File : TMS320F28335.tlc
-%% Created : Sun Jan 31 17:21:28 2021
+%% Created : Tue Feb 02 14:34:17 2021
 %%
 %% Description: 
 %%   Simulink Coder wrapper functions interface generated for 
@@ -39,7 +39,8 @@
 			const real_T *Rpars,
 			const real_T *FromKabine,
 			real_T *PWM,
-			void *Out, void *__OutBUS);
+			void *Out_L, void *__Out_LBUS,
+			void *Out_R, void *__Out_RBUS);
     #ifdef __cplusplus
     }
     #endif
@@ -57,15 +58,20 @@
 			const real_T *Rpars,
 			const real_T *FromKabine,
 			real_T *PWM,
-			void *Out, void *__OutBUS){
+			void *Out_L, void *__Out_LBUS,
+			void *Out_R, void *__Out_RBUS){
     TMS320F28335_Outputs_wrapper(Lpars,
 			Rpars,
 			FromKabine,
 			PWM,
-			(DebugInfL *) __OutBUS);
+			(DebugInfL *) __Out_LBUS,
+			(DebugInfR *) __Out_RBUS);
 
     %assign dTypeId = LibBlockOutputSignalDataTypeId(1)
-    %<SLibAssignUserStructToSLStruct(dTypeId, "(char *) Out", "(*(DebugInfL *) __OutBUS)", 1)>
+    %<SLibAssignUserStructToSLStruct(dTypeId, "(char *) Out_L", "(*(DebugInfL *) __Out_LBUS)", 1)>
+
+    %assign dTypeId = LibBlockOutputSignalDataTypeId(2)
+    %<SLibAssignUserStructToSLStruct(dTypeId, "(char *) Out_R", "(*(DebugInfR *) __Out_RBUS)", 2)>
     }
 
     %closefile cFile
@@ -86,7 +92,8 @@
 			const real_T *Rpars,
 			const real_T *FromKabine,
 			real_T *PWM,
-			DebugInfL *Out);
+			DebugInfL *Out_L,
+			DebugInfR *Out_R);
 
     extern void TMS320F28335_Terminate_wrapper(void);
 
@@ -113,12 +120,14 @@
   %assign pu2 = LibBlockInputSignalAddr(2, "", "", 0)
   %assign py0 = LibBlockOutputSignalAddr(0, "", "", 0)
   %assign py1 = LibBlockOutputSignalAddr(1, "", "", 0)
+  %assign py2 = LibBlockOutputSignalAddr(2, "", "", 0)
   
   %if IsModelReferenceSimTarget() || CodeFormat == "S-Function" || ::isRAccel
-    %assign OutBUS_ptr = LibBlockDWorkAddr(OutBUS, "", "", 0)
-    TMS320F28335_Outputs_wrapper_accel(%<pu0>, %<pu1>, %<pu2>, %<py0>, %<py1>, %<OutBUS_ptr>);
+    %assign Out_LBUS_ptr = LibBlockDWorkAddr(Out_LBUS, "", "", 0)
+    %assign Out_RBUS_ptr = LibBlockDWorkAddr(Out_RBUS, "", "", 0)
+    TMS320F28335_Outputs_wrapper_accel(%<pu0>, %<pu1>, %<pu2>, %<py0>, %<py1>, %<Out_LBUS_ptr>, %<py2>, %<Out_RBUS_ptr>);
   %else
-    TMS320F28335_Outputs_wrapper(%<pu0>, %<pu1>, %<pu2>, %<py0>, %<py1>);
+    TMS320F28335_Outputs_wrapper(%<pu0>, %<pu1>, %<pu2>, %<py0>, %<py1>, %<py2>);
   %endif
 
   %%

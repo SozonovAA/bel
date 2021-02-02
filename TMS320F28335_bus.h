@@ -88,6 +88,76 @@ typedef struct {
 } DebugInfL;
 #endif
 
+
+#ifndef _DEFINED_TYPEDEF_FOR_DebugInfR_
+#define _DEFINED_TYPEDEF_FOR_DebugInfR_ 
+typedef struct {
+  real_T IaR;
+  real_T IbR;
+  real_T IcR;
+  real_T IAlphaR;
+  real_T IBetaR;
+  real_T IdzR;
+  real_T IdR;
+  real_T SIdR;
+  real_T DeltaIdOldR;
+  real_T DeltaIdR;
+  real_T UUdR;
+  real_T IqzR;
+  real_T IqR;
+  real_T SIqR;
+  real_T DeltaIqOldR;
+  real_T DeltaIqR;
+  real_T UUqR;
+  real_T UdSIR;
+  real_T UqSIR;
+  real_T E_ampR;
+  real_T fE_ampR;
+  real_T UAlphaSIR;
+  real_T UBetaSIR;
+  real_T DeltaIAlphaR;
+  real_T DeltaIBetaR;
+  real_T OldIAlphaR;
+  real_T OldIBetaR;
+  real_T EAlphaInstR;
+  real_T EBetaInstR;
+  real_T E_MaxR;
+  real_T E_LineR;
+  real_T Ez_ampR;
+  real_T SER;
+  real_T IqRCurLim;
+  real_T IqRMAX;
+  real_T fIqRMAX;
+  real_T UAlphaR;
+  real_T UBetaR;
+  real_T UUAR;
+  real_T UUBR;
+  real_T UUCR;
+  real_T ChopReg;
+  real_T UUqzR;
+  real_T fUmR;
+  real_T UmR;
+  real_T DeltaIdzR;
+  real_T dUUqR;
+  real_T sdUUqR;
+  real_T UkdR;
+  real_T UkqR;
+  real_T ThetaSlipR;
+  real_T fThetaR;
+  real_T EbyFreqR;
+  real_T RmR16;
+  real_T FreqR16;
+  real_T AFSpeedzR16;
+  real_T DeltaSpeedR;
+  real_T SpeedRz1_16;
+  real_T DeltaSpeedR1;
+  real_T AmplR;
+  real_T AlphaR;
+  real_T PowerR;
+  real_T PowerR16;
+} DebugInfR;
+#endif
+
 /* Read only - ENDS */
 
 
