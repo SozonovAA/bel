@@ -288,6 +288,8 @@ extern		int ConvertVParamToRU(int Param);
 
 extern		int  SpeedLz ;
 extern		int  SpeedL ;			// скорость левого колеса в об/мин
+extern		int  SpeedRz ;
+extern		int  SpeedR ;			// скорость левого колеса в об/мин
 extern		int Udz ;
 extern		int Drive ;
 extern		int Brake ;
@@ -305,6 +307,7 @@ struct cmd_
 extern struct cmd_ cmd;
 
 extern float ElectricAngleL;
+extern float ElectricAngleR;
 #endif
 
 // структуры

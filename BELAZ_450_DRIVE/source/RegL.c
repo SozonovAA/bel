@@ -242,7 +242,11 @@ void CalcDeltaIdL()
 
 	fUmL += (UmL - fUmL)/25;
 
-	fE_MaxL += (((float)(Udz)*1.15/2.0) - fE_MaxL)/koeff.K17;
+#ifdef MATLAB
+	Udz = 940;
+#endif
+
+	fE_MaxL += (((float)(Udz)*1.10/2.0) - fE_MaxL)/koeff.K17;
 
 	E_MaxL = fE_MaxL;
 	E_LineL = (float)(abs(SpeedL))*0.0686*koeff.K15;
@@ -284,6 +288,10 @@ void CrossComL()
 
 void SpeedRegL()
 {
+
+#ifdef MATLAB
+	cmd.DNR = 1;
+#endif
 
 	DeltaSpeedL = (SpeedLz - IqzL)/5;
 
@@ -395,6 +403,10 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 
 void RegL(){
 
+#ifdef MATLAB
+	PowerMax=800000;
+#endif
+
 #ifndef MATLAB
 	DizelOutPowerMax();
 #endif
@@ -472,12 +484,12 @@ void RegL(){
 			IqLCurLim = abs(fIqLMAX);
 
 			if(Drive < 13) Drive = 13;
-
+#ifndef MATLAB
 			if(cmd.DNR == DRIVE)
 				SpeedLz = (Drive-13)*20;
 			if(cmd.DNR == REVERSE)
 				SpeedLz = -(Drive-13)*20;
-
+#endif
 		}
 
 		Clark(IaL,IbL,IcL,&IAlphaL,&IBetaL);
@@ -486,6 +498,8 @@ void RegL(){
 		// ##### IdReg bgn
 
 		MinMaxLimitInt(5,900,&IdzL);
+
+
 
 		DeltaIdL = IdzL - IdL;
 		SIdL += (float)(DeltaIdL*koeff.Ki)/25.0;
@@ -709,7 +723,7 @@ void RegL(){
 void ELCalcL(){
 
 
-		UAlphaSIL = ConvertVParamToSI(UAlphaL);
+			UAlphaSIL = ConvertVParamToSI(UAlphaL);
 			UBetaSIL  = ConvertVParamToSI(UBetaL);
 
 			UAlphaSIL = (int)((float)(UAlphaSIL)/FourieK[iffL]);
@@ -721,19 +735,19 @@ void ELCalcL(){
 			EAlphaInstL = UAlphaSIL - IAlphaL*MPL.RS - (MPL.LS*DeltaIAlphaL)/dt;
 			EBetaInstL = UBetaSIL - IBetaL*MPL.RS - (MPL.LS*DeltaIBetaL)/dt;
 
-	OldIAlphaL = IAlphaL;
-	OldIBetaL = IBetaL;
+			OldIAlphaL = IAlphaL;
+			OldIBetaL = IBetaL;
 
-	fE_ampL += (float)((GetHypByLegs(EAlphaInstL,EBetaInstL) - fE_ampL))/(float)(koeff.KFiltE);
+			fE_ampL += (float)((GetHypByLegs(EAlphaInstL,EBetaInstL) - fE_ampL))/(float)(koeff.KFiltE);
 
 
-	//fE_ampL += (float)((GetHypByLegs(UdSIL,UqSIL) - fE_ampL))/(float)(koeff.KFiltE);
+			//fE_ampL += (float)((GetHypByLegs(UdSIL,UqSIL) - fE_ampL))/(float)(koeff.KFiltE);
 
-	E_ampL = fE_ampL;
+			E_ampL = fE_ampL;
 
-	XmL = fOmegaL*MPL.LM;
+			XmL = fOmegaL*MPL.LM;
 
-	ImL = fE_ampL/XmL;
+			ImL = fE_ampL/XmL;
 
 }
 
