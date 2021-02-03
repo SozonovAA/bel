@@ -320,7 +320,7 @@ void SpeedRegL()
 		if(Brake > 13 && SpeedL > 40)
 		{
 
-			if(PowerL < -1000) IqSummInBrakeL += 0.1*kBrake;
+			if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
 			else
 				if(IqSummInBrakeL > -(Brake-13)*20)
 					IqSummInBrakeL -= 0.1*kBrake;

@@ -249,6 +249,7 @@ extern	int PowerR16;
 extern	void RookerR();
 extern	void RegR();
 
+extern	PowerBrakeMax;
 
 /*******************************************************/
 extern	float FourieK[];

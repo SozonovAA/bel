@@ -132,10 +132,12 @@ float sdER=0;
 long PowerR=0;
 int PowerR16=0;
 
+int PowerBrakeMax=-1000;
+
 int iffR=0;
 
 float IqSummInBrakeR=0;
-float kBrake=0.4;
+float kBrake=5;
 
 void CalcDeltaIdR();
 
@@ -261,7 +263,7 @@ void SpeedRegR()
 		if(Brake > 13 && SpeedR > 40)
 		{
 
-			if(PowerR < -1000) IqSummInBrakeR += 0.1*kBrake;
+			if(PowerR < PowerBrakeMax) IqSummInBrakeR += 0.1*kBrake;
 			else
 				if(IqSummInBrakeR > -(Brake-13)*20)
 					IqSummInBrakeR -= 0.1*kBrake;
