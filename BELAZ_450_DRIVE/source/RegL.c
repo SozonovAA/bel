@@ -325,7 +325,7 @@ void SpeedRegL()
 			SpeedLz1 = SpeedL;
 		}
 		else
-			IqzL = DeltaSpeedL1*koeff.K10;
+			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0;
 	}
 	if(cmd.DNR == REVERSE)
 	{
@@ -335,7 +335,7 @@ void SpeedRegL()
 			SpeedLz1 = SpeedL;
 		}
 		else
-			IqzL = DeltaSpeedL1*koeff.K10;
+			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0;
 	}
 
 	SpeedLz1_16 = SpeedLz1;

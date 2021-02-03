@@ -266,7 +266,7 @@ void SpeedRegR()
 			SpeedRz1 = SpeedR;
 		}
 		else
-			IqzR = DeltaSpeedR1*koeff.K10;
+			IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0;
 	}
 	if(cmd.DNR == REVERSE)
 	{
@@ -276,7 +276,7 @@ void SpeedRegR()
 			SpeedRz1 = SpeedR;
 		}
 		else
-			IqzR = DeltaSpeedR1*koeff.K10;
+			IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0;
 	}
 
 	SpeedRz1_16 = SpeedRz1;
