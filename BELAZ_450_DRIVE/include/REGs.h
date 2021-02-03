@@ -397,6 +397,19 @@ struct MashineParam{
 		float TR;
 };
 
+void ELCalc(int *, int , int *, int , int , int *, int *,  int , int ,int *, int *,
+			int *, int *, struct MashineParam , int *, int *, int *, int *,	float *, int *);
+
+void Looker(int , struct MashineParam , float *, float *, int , float *, int *);
+
+void CrossCom(int *, int *, float *, struct MashineParam, int, int);
+
+void SpeedReg(int *, int , int *, float *, struct KOEFF , int *,const int , int *,
+				int , int *, unsigned int , float *);
+
+void CalcDeltaId(int *, int , int , int *, int , float *,int *, int *, const int , int *, const int, float *, int *, int *);
+
+
 extern struct MashineParam MPL;
 extern struct MashineParam MPR;
 #ifndef MATLAB

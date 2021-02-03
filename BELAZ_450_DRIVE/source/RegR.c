@@ -27,6 +27,12 @@ void ELRegR();
 #pragma CODE_SECTION(ELRegR,"ramfuncs")
 #endif
 
+int URsAlpha_R=0;
+int URsBeta_R=0;
+int ULsAlpha_R=0;
+int ULsBeta_R=0;
+
+
 //REFT MOTOR
 int IaR=0;
 int IbR=0;
@@ -561,10 +567,6 @@ void RegR(){
 
 }
 
-int URsAlpha_R=0;
-int URsBeta_R=0;
-int ULsAlpha_R=0;
-int ULsBeta_R=0;
 
 void ELCalcR(){
 
