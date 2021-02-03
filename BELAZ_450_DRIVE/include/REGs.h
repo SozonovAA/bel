@@ -41,6 +41,7 @@
 #endif
 #ifndef REGS_H_
 #define REGS_H_
+extern float SummDeltaSpeed;
 
 //LEFT MOTOR
 extern	int IaL;
