@@ -211,6 +211,9 @@ int dUdChop=0;
 int IqLMAXBrake=0;
 int ChopRegX=0;
 
+float IqSummInBrakeL=0;
+extern float kBrake;
+
 void RegLToZero()
 {
 
@@ -317,15 +320,20 @@ void SpeedRegL()
 		if(Brake > 13 && SpeedL > 40)
 		{
 
-			if(PowerL < -1000) IqzL++;
+			if(PowerL < -1000) IqSummInBrakeL += 0.1*kBrake;
 			else
-				if(IqzL > -(Brake-13)*20)
-					IqzL--;
+				if(IqSummInBrakeL > -(Brake-13)*20)
+					IqSummInBrakeL -= 0.1*kBrake;
+
+			IqzL = IqSummInBrakeL;
 
 			SpeedLz1 = SpeedL;
 		}
 		else
-			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0;
+			{
+				IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0;
+				IqSummInBrakeL = IqzL;
+			}
 	}
 	if(cmd.DNR == REVERSE)
 	{

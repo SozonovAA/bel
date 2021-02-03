@@ -134,6 +134,9 @@ int PowerR16=0;
 
 int iffR=0;
 
+float IqSummInBrakeR=0;
+float kBrake=0.4;
+
 void CalcDeltaIdR();
 
 #ifndef MATLAB
@@ -258,15 +261,20 @@ void SpeedRegR()
 		if(Brake > 13 && SpeedR > 40)
 		{
 
-			if(PowerR < -1000) IqzR++;
+			if(PowerR < -1000) IqSummInBrakeR += 0.1*kBrake;
 			else
-				if(IqzR > -(Brake-13)*20)
-			IqzR--;
+				if(IqSummInBrakeR > -(Brake-13)*20)
+					IqSummInBrakeR -= 0.1*kBrake;
+
+			IqzR = IqSummInBrakeR;
 
 			SpeedRz1 = SpeedR;
 		}
 		else
-			IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0;
+			{
+				IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0;
+				IqSummInBrakeR = IqzR;
+			}
 	}
 	if(cmd.DNR == REVERSE)
 	{
