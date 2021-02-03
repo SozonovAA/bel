@@ -172,7 +172,133 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 
 	 *iId_X_f=*fId_X_f;
 }	
+/*
+ * Функция реализует регулятор скорости
+ * Во входных параметрах заменять _Х_ на R/L.
+ * SpeedReg(&DeltaSpeedR,  SpeedRz, &IqzR, &SpeedRz1, koeff, &DeltaSpeedR1,SpeedR, &Brake,
+		PowerR, &SpeedRz1_16, Debug, &SummDeltaSpeed);
+ * SpeedReg(&DeltaSpeedL,  SpeedLz, &IqzL, &SpeedLz1, koeff, &DeltaSpeedL1,SpeedR, &Brake,
+		PowerL, &SpeedLz1_16, Debug, &SummDeltaSpeed);
+ */
+void SpeedReg(int *DeltaSpeed_X, int Speed_X_z, int *Iqz_X, float *Speed_X_z1,
+		struct KOEFF koeff, int *DeltaSpeed_X_1,const int Speed_X, int *Brake,
+		int Power_X, int *Speed_X_z1_16, unsigned int Debug, float *SummDeltaSpeed)
+{
 
+#ifdef MATLAB
+	cmd.DNR = 1;
+#endif
+
+	*DeltaSpeed_X = (Speed_X_z - (*Iqz_X))/5;
+
+	*Speed_X_z1 += (float)(*DeltaSpeed_X)*((float)(koeff.K7)/2500.0);
+
+	if(koeff.K18 > 2500)
+		koeff.K18 = 2500;
+	if(koeff.K18 < 100)
+		koeff.K18 = 100;
+
+	if(*Speed_X_z1 > koeff.K18)
+		*Speed_X_z1 = koeff.K18; //SpeedLz;
+
+	if(*Speed_X_z1 < -500)
+		*Speed_X_z1 = -500; //SpeedRz;
+
+
+	*DeltaSpeed_X_1 = *Speed_X_z1 - Speed_X;
+
+	if(*Brake < 13) *Brake = 13;
+
+	if(cmd.DNR == DRIVE)
+	{
+		if(*Brake > 13 && Speed_X > 40)
+		{
+
+			if(Power_X < -1000) (*Iqz_X)++;
+			else
+				if((*Iqz_X) > -(*Brake-13)*20)
+					(*Iqz_X)--;
+
+			*Speed_X_z1 = Speed_X;
+		}
+		else
+			(*Iqz_X) = (*DeltaSpeed_X_1)*koeff.K10;
+	}
+	if(cmd.DNR == REVERSE)
+	{
+		if(*Brake > 13 && Speed_X < -40)
+		{
+			(*Iqz_X) = (*Brake-13)*20;
+			*Speed_X_z1 = Speed_X;
+		}
+		else
+			(*Iqz_X) = (*DeltaSpeed_X_1)*koeff.K10;
+	}
+
+	*Speed_X_z1_16 = *Speed_X_z1;
+
+	if(Debug == 4)
+	{
+
+		*DeltaSpeed_X  = Speed_X_z - Speed_X ;
+
+		MinMaxLimitInt(-1500,1500, DeltaSpeed_X );
+
+		*SummDeltaSpeed += (float)(*DeltaSpeed_X )/(float)(koeff.K2_Rvg);
+
+		MinMaxLimitFloat(-2000,2000,SummDeltaSpeed);
+
+		(*Iqz_X) = *DeltaSpeed_X*koeff.K8 + *SummDeltaSpeed;
+	}
+}
+/*
+ * Функция реализует расчёт Id с учётом значения ЭДС.
+ * Во входных параметрах заменять _Х_ на R/L.
+ * CalcDeltaId(&UmL, UUdL, UUqL, &fUmL, Udz, &fE_MaxL,&E_MaxL, &E_LineL, SpeedL, &dEL, E_ampL, &sdEL, &IdzL, &DeltaIdzL);
+ * CalcDeltaId(&UmR, UUdR, UUqR, &fUmR, Udz, &fE_MaxR,&E_MaxR, &E_LineR, SpeedR, &dER, E_ampR, &sdER, &IdzR, &DeltaIdzR);
+ */
+void CalcDeltaId(int *Um_X, int UUd_X, int UUq_X, int *fUm_X, int Udz, float *fE_Max_X,
+		int *E_Max_X, int *E_Line_X, const int Speed_X, int *dE_X, const int E_amp_X,
+		float *sdE_X, int *Idz_X, int *DeltaIdz_X)
+{
+
+	*Um_X = GetHypByLegs(UUd_X,UUq_X);
+
+	if(*Um_X >= 17500)
+		*Um_X = 17500;
+
+	*fUm_X += (*Um_X - *fUm_X)/25;
+
+#ifdef MATLAB
+	Udz = 940;
+#endif
+
+	*fE_Max_X += (((float)(Udz)*1.10/2.0) - *fE_Max_X)/koeff.K17;
+
+	*E_Max_X = *fE_Max_X;
+	*E_Line_X = (float)(abs(Speed_X))*0.0686*koeff.K15;
+
+	if(*E_Line_X < 50) *E_Line_X=50;
+	if(*E_Max_X < 200) *E_Max_X=200;
+
+	if(*E_Line_X<*E_Max_X)
+
+		*dE_X = *E_Line_X - E_amp_X;
+
+	else
+		*dE_X = *E_Max_X - E_amp_X;
+
+	//MinMaxLimitInt(-540,540,&dEL);
+
+	*sdE_X += ((float)(*dE_X)/1000.0)*(float)(koeff.KiE);
+
+	//if(sdEL > 540) sdEL=540;
+	//if(sdEL < -540) sdEL=-540;
+
+	*Idz_X = (long)(*dE_X)*koeff.KpE/10.0 + *sdE_X;
+
+	MinMaxLimitInt(0,100,DeltaIdz_X);
+}
 
 
 
@@ -185,4 +311,8 @@ void Looker(int , struct MashineParam , float *, float *, int , float *, int *);
 
 void CrossCom(int *, int *, float *, struct MashineParam, int, int);
 
-				
+void SpeedReg(int *, int , int *, float *, struct KOEFF , int *,const int , int *,
+				int , int *, unsigned int , float *);
+
+void CalcDeltaId(int *, int , int , int *, int , float *,int *, int *, const int , int *, const int, float *, int *, int *);
+			
