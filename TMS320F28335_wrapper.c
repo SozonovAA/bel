@@ -53,6 +53,15 @@ ElectricAngleR = Rpars[3];
 Ud = Rpars[4];
 SpeedR = Rpars[6];
 
+Out_L[0].SpeedLz = SpeedLz;
+Out_L[0].SpeedL = SpeedL;
+Out_L[0].Udz = Udz;
+Out_L[0].Drive = Drive;
+Out_L[0].Brake = Brake;
+Out_L[0].Debug = Debug;
+Out_L[0].ThetaL = ThetaL;
+Out_L[0].PowerMax = PowerMax;
+Out_L[0].Ud = 0;
 Out_L[0].IaL=IaL;
 Out_L[0].IbL = IbL;
 Out_L[0].IcL = IcL;
@@ -125,6 +134,8 @@ Out_L[0].IfRMSL = IfRMSL;
 Out_L[0].AmplL = AmplL;
 Out_L[0].AlphaL = AlphaL;
 
+Out_R[0].SpeedRz = SpeedRz;
+Out_R[0].SpeedR = SpeedR;
 Out_R[0].IaR = IaR;
 Out_R[0].IbR = IbR;
 Out_R[0].IcR = IcR;

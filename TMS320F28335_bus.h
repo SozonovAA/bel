@@ -14,6 +14,15 @@
 #ifndef _DEFINED_TYPEDEF_FOR_DebugInfL_
 #define _DEFINED_TYPEDEF_FOR_DebugInfL_ 
 typedef struct {
+  real_T SpeedLz;
+  real_T SpeedL;
+  real_T Udz;
+  real_T Drive;
+  real_T Brake;
+  real_T Debug;
+  real_T ThetaL;
+  real_T PowerMax;
+  real_T Ud;
   real_T IaL;
   real_T IbL;
   real_T IcL;
@@ -92,6 +101,8 @@ typedef struct {
 #ifndef _DEFINED_TYPEDEF_FOR_DebugInfR_
 #define _DEFINED_TYPEDEF_FOR_DebugInfR_ 
 typedef struct {
+  real_T SpeedRz;
+  real_T SpeedR;
   real_T IaR;
   real_T IbR;
   real_T IcR;
