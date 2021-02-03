@@ -81,6 +81,8 @@ extern	int EBetaInstL;
 extern  int E_MaxL;
 extern  int E_LineL;
 
+
+
 extern	int Ez_ampL;
 extern	int SEL;
 
@@ -185,6 +187,11 @@ extern	int EAlphaInstR;
 extern	int EBetaInstR;
 extern  int E_MaxR;
 extern  int E_LineR;
+
+extern  int URsAlpha_R;
+extern  int URsBeta_R;
+extern  int ULsAlpha_R;
+extern  int ULsBeta_R;
 
 extern	int Ez_ampR;
 extern	int SER;
