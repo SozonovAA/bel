@@ -148,7 +148,7 @@ void RegRToZero();
 
 void RegRToZero()
 {
-
+	sdER=0;
 	fUmR=0;
 	sdUUqR=0;
 	SIdR=0;
@@ -199,8 +199,8 @@ void CalcDeltaIdR()
 
 		sdER += ((float)(dER)/1000.0)*(float)(koeff.KiE);
 
-		//if(sdER > 540) sdER=540;
-		//if(sdER < -540) sdER=-540;
+		if(sdER > 540) sdER=540;
+		if(sdER < -540) sdER=-540;
 
 		IdzR = (long)(dER)*koeff.KpE/10.0 + sdER;
 

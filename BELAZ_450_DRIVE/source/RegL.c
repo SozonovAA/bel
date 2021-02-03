@@ -265,8 +265,8 @@ void CalcDeltaIdL()
 
 	sdEL += ((float)(dEL)/1000.0)*(float)(koeff.KiE);
 
-	//if(sdEL > 540) sdEL=540;
-	//if(sdEL < -540) sdEL=-540;
+	if(sdEL > 540) sdEL=540;
+	if(sdEL < -540) sdEL=-540;
 
 	IdzL = (long)(dEL)*koeff.KpE/10.0 + sdEL;
 
