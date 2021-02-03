@@ -1,3 +1,4 @@
+Изменения для файла RegL.C
 struct KOEFF koeff={ 2500, ///*00*/	int IFMAX;		//аварийная уставка фазного тока
 					 1070, ///*01*/	int UdMAX;		//аварийная уставка напряжения в звене постоянного тока
 					 2000, ///*02*/	int IgenMAX;		//аварийная уставка тока генератора
@@ -70,5 +71,118 @@ struct MashineParam MPR={0.00015, //LS
 						 0.03991, //L1
 						 1.4161 //TR};
 						 
-						 
+int URsAlpha_R=0;
+int URsBeta_R=0;
+int ULsAlpha_R=0;
+int ULsBeta_R=0;
+
+/*Функция для расчёта амплитудного значения ЭДС.
+ *
+ * Во входных параметрах заменять _Х_ на R/L.
+ 		ELCalc (&UAlphaSIR, UAlphaR, &UBetaSIR, UBetaR, iffR, &DeltaIAlphaR, &DeltaIBetaR, IAlphaR, IBetaR,
+				   &OldIAlphaR, &OldIBetaR, &URsAlpha_R, &URsBeta_R, MPR, &ULsAlpha_R, &ULsBeta_R, &EAlphaInstR, &EBetaInstR,
+				   &fE_ampR, &E_ampR);
+
+		ELCalc (&UAlphaSIL, UAlphaL, &UBetaSIL, UBetaL, iffL, &DeltaIAlphaL, &DeltaIBetaL, IAlphaL, IBetaL,
+				   &OldIAlphaL, &OldIBetaL, &URsAlpha_L, &URsBeta_L, MPL, &ULsAlpha_L, &ULsBeta_L, &EAlphaInstL, &EBetaInstL,
+				   &fE_ampL, &E_ampL);
+
+ */
+void ELCalc(int *UAlphaSI_X, int UAlpha_X, int *UBetaSI_X, int UBeta_X,
+			int iff_X, int *DeltaIAlpha_X, int *DeltaIBeta_X,  int IAlpha_X, int IBeta_X,
+			int *OldIAlpha_X, int *OldIBeta_X, int *URsAlpha_X, int *URsBeta_X, struct MashineParam MP_X,
+			int *ULsAlpha_X, int *ULsBeta_X, int *EAlphaInst_X, int *EBetaInst_X,
+			float *fE_amp_X, int *E_amp_X){
+
+	//приводим входные параметры к СИ
+	*UAlphaSI_X = ConvertVParamToSI(UAlpha_X);
+	*UBetaSI_X  = ConvertVParamToSI(UBeta_X);
+	//
+	*UAlphaSI_X = (int)((float)(*UAlphaSI_X)/FourieK[iff_X]);
+	*UBetaSI_X = (int)((float)(*UBetaSI_X)/FourieK[iff_X]);
+	//расчёт изменения тока, за время с прошлого вызова функции
+	*DeltaIAlpha_X = IAlpha_X - *OldIAlpha_X;
+	*DeltaIBeta_X = IBeta_X - *OldIBeta_X;
+	//
+	*URsAlpha_X = IAlpha_X*MP_X.RS;
+	*URsBeta_X = IBeta_X*MP_X.RS;
+	//
+	*ULsAlpha_X = (MP_X.LS*(*DeltaIAlpha_X))*1500;//dt;
+	*ULsBeta_X = (MP_X.LS*(*DeltaIBeta_X))*1500;//dt;
+	//
+	*EAlphaInst_X = (*UAlphaSI_X) - (*URsAlpha_X) - (*ULsAlpha_X);
+	*EBetaInst_X = (*UBetaSI_X) - (*URsBeta_X) - (*ULsBeta_X);
+	// значение тока, для последующего расчёта изменения за шаг
+	*OldIAlpha_X = IAlpha_X;
+	*OldIBeta_X = IBeta_X;
+	// Амплитуда фазного ЭДС после фильтра (Вольты)(float)
+	*fE_amp_X += (float)((GetHypByLegs(*EAlphaInst_X,*EBetaInst_X) - *fE_amp_X))/(float)(koeff.KFiltE);
+	// Амплитуда фазного ЭДС после фильтра (Вольты)(int)
+	*E_amp_X = *fE_amp_X;
+}
+
+/* Функция расчёта перекрестных связей
+ * Во входных параметрах заменять _Х_ на R/L.
+ * CrossCom(&UkdL, &UkqL, &fOmegaL, MPL, IqzL, IdzL);
+ * CrossCom(&UkdR, &UkqR, &fOmegaR, MPR, IqzR, IdzR);
+ */
+void CrossCom(int *Ukd_X, int *Ukq_X, float *fOmega_X, struct MashineParam MP_X,
+				int Iqz_X, int Idz_X)
+{
+
+	*Ukd_X = (*fOmega_X)*Iqz_X*(MP_X.LS + (MP_X.LM*MP_X.LR)/(MP_X.LM+MP_X.LR));
+
+	*Ukq_X = -(*fOmega_X)*Idz_X*(MP_X.LM + MP_X.LS);
+
+	ConvertVParamToRU(*Ukd_X);
+	ConvertVParamToRU(*Ukq_X);
+
+}
+
+/*
+ * Функция реализации следящего устройства, для расчёта Тетты с учётом скольжения
+ * Во входных параметрах заменять _Х_ на R/L.
+ * Looker(IdL, MPL, &fIdLf, &DeltaOmegaSlipL, IqL, &ThetaSlipL, &iIdLf);
+ * Looker(IdR, MPR, &fIdRf, &DeltaOmegaSlipR, IqR, &ThetaSlipR, &iIdRf);
+ */
+void Looker(int Id_X, struct MashineParam MP_X, float *fId_X_f, float *DeltaOmegaSlip_X,
+		int Iq_X, float *ThetaSlip_X, int *iId_X_f){
+	/*
+		_____________
+		|	LM		|
+IdL	--->| ---------	|---------
+		|  TR + 1	|	     |
+		|___________|		 |
+							 |
+		________			 |		 _______
+        |  LM  |             v       |  1  |
+IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
+        |  TR  |                     |  p  |
+        |______|                     |_____|
+	 */
+	MagneticSaturation(Id_X,&MP_X.LM);
+	//	A
+	*fId_X_f += (((MP_X.LM*Id_X - (*fId_X_f))/MP_X.TR)*dt);
+	//	1/Sec	equal	rad/sec
+	*DeltaOmegaSlip_X = (MP_X.LM*(float)(Iq_X)*((float)(koeff.K9)/10.0))/((*fId_X_f)*MP_X.TR + 0.001);
+
+	*ThetaSlip_X += (*DeltaOmegaSlip_X)*dt;
+
+	 RadianLimit(ThetaSlip_X);
+
+	 *iId_X_f=*fId_X_f;
+}	
+
+
+
+
+Изменения для файла REGs.h.
+
+void ELCalc(int *, int , int *, int , int , int *, int *,  int , int ,int *, int *,
+			int *, int *, struct MashineParam , int *, int *, int *, int *,	float *, int *);
+
+void Looker(int , struct MashineParam , float *, float *, int , float *, int *);
+
+void CrossCom(int *, int *, float *, struct MashineParam, int, int);
+
 				
