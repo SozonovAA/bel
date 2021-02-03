@@ -551,6 +551,11 @@ void RegR(){
 
 }
 
+int URsAlpha_R=0;
+int URsBeta_R=0;
+int ULsAlpha_R=0;
+int ULsBeta_R=0;
+
 void ELCalcR(){
 
 			UAlphaSIR = ConvertVParamToSI(UAlphaR);
@@ -562,8 +567,17 @@ void ELCalcR(){
 			DeltaIAlphaR = IAlphaR - OldIAlphaR;
 			DeltaIBetaR = IBetaR - OldIBetaR;
 
-			EAlphaInstR = UAlphaSIR - IAlphaR*MPR.RS - (MPR.LS*DeltaIAlphaR)/dt;
-			EBetaInstR = UBetaSIR - IBetaR*MPR.RS - (MPR.LS*DeltaIBetaR)/dt;
+			URsAlpha_R = IAlphaR*MPR.RS;
+			URsBeta_R = IBetaR*MPR.RS;
+
+			ULsAlpha_R = (MPR.LS*DeltaIAlphaR)*1500;//dt;
+			ULsBeta_R = (MPR.LS*DeltaIBetaR)*1500;//dt;
+
+			EAlphaInstR = UAlphaSIR - URsAlpha_R - ULsAlpha_R;
+			EBetaInstR = UBetaSIR - URsBeta_R - ULsBeta_R;
+
+			//EAlphaInstR = UAlphaSIR - IAlphaR*MPR.RS - (MPR.LS*DeltaIAlphaR)/dt;
+			//EBetaInstR = UBetaSIR - IBetaR*MPR.RS - (MPR.LS*DeltaIBetaR)/dt;
 
 			OldIAlphaR = IAlphaR;
 			OldIBetaR = IBetaR;
