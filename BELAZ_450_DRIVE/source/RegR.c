@@ -132,7 +132,12 @@ float sdER=0;
 long PowerR=0;
 int PowerR16=0;
 
+int PowerBrakeMax=-1000;
+
 int iffR=0;
+
+float IqSummInBrakeR=0;
+float kBrake=5;
 
 void CalcDeltaIdR();
 
@@ -148,7 +153,7 @@ void RegRToZero();
 
 void RegRToZero()
 {
-
+	sdER=0;
 	fUmR=0;
 	sdUUqR=0;
 	SIdR=0;
@@ -199,8 +204,8 @@ void CalcDeltaIdR()
 
 		sdER += ((float)(dER)/1000.0)*(float)(koeff.KiE);
 
-		//if(sdER > 540) sdER=540;
-		//if(sdER < -540) sdER=-540;
+		if(sdER > 540) sdER=540;
+		if(sdER < -540) sdER=-540;
 
 		IdzR = (long)(dER)*koeff.KpE/10.0 + sdER;
 
@@ -258,15 +263,20 @@ void SpeedRegR()
 		if(Brake > 13 && SpeedR > 40)
 		{
 
-			if(PowerR < -1000) IqzR++;
+			if(PowerR < PowerBrakeMax) IqSummInBrakeR += 0.1*kBrake;
 			else
-				if(IqzR > -(Brake-13)*20)
-			IqzR--;
+				if(IqSummInBrakeR > -(Brake-13)*20)
+					IqSummInBrakeR -= 0.1*kBrake;
+
+			IqzR = IqSummInBrakeR;
 
 			SpeedRz1 = SpeedR;
 		}
 		else
-			IqzR = DeltaSpeedR1*koeff.K10;
+			{
+				IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0;
+				IqSummInBrakeR = IqzR;
+			}
 	}
 	if(cmd.DNR == REVERSE)
 	{
@@ -276,7 +286,7 @@ void SpeedRegR()
 			SpeedRz1 = SpeedR;
 		}
 		else
-			IqzR = DeltaSpeedR1*koeff.K10;
+			IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0;
 	}
 
 	SpeedRz1_16 = SpeedRz1;

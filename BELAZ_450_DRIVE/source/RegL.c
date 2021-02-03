@@ -211,6 +211,9 @@ int dUdChop=0;
 int IqLMAXBrake=0;
 int ChopRegX=0;
 
+float IqSummInBrakeL=0;
+extern float kBrake;
+
 void RegLToZero()
 {
 
@@ -265,8 +268,8 @@ void CalcDeltaIdL()
 
 	sdEL += ((float)(dEL)/1000.0)*(float)(koeff.KiE);
 
-	//if(sdEL > 540) sdEL=540;
-	//if(sdEL < -540) sdEL=-540;
+	if(sdEL > 540) sdEL=540;
+	if(sdEL < -540) sdEL=-540;
 
 	IdzL = (long)(dEL)*koeff.KpE/10.0 + sdEL;
 
@@ -317,15 +320,20 @@ void SpeedRegL()
 		if(Brake > 13 && SpeedL > 40)
 		{
 
-			if(PowerL < -1000) IqzL++;
+			if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
 			else
-				if(IqzL > -(Brake-13)*20)
-					IqzL--;
+				if(IqSummInBrakeL > -(Brake-13)*20)
+					IqSummInBrakeL -= 0.1*kBrake;
+
+			IqzL = IqSummInBrakeL;
 
 			SpeedLz1 = SpeedL;
 		}
 		else
-			IqzL = DeltaSpeedL1*koeff.K10;
+			{
+				IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0;
+				IqSummInBrakeL = IqzL;
+			}
 	}
 	if(cmd.DNR == REVERSE)
 	{
@@ -335,7 +343,7 @@ void SpeedRegL()
 			SpeedLz1 = SpeedL;
 		}
 		else
-			IqzL = DeltaSpeedL1*koeff.K10;
+			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0;
 	}
 
 	SpeedLz1_16 = SpeedLz1;
