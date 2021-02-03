@@ -142,10 +142,10 @@ void InitAddrArray()
 	AddrArray[62] = (Uint16)&DeltaSpeedR;
 	AddrArray[63] = (Uint16)&SpeedR;
 	AddrArray[64] = (Uint16)&TestV;
-	AddrArray[65] = (Uint16)&TestV;
-	AddrArray[66] = (Uint16)&TestV;
-	AddrArray[67] = (Uint16)&TestV;
-	AddrArray[68] = (Uint16)&TestV;
+	AddrArray[65] = (Uint16)&EAlphaInstL;
+	AddrArray[66] = (Uint16)&EBetaInstL;
+	AddrArray[67] = (Uint16)&EAlphaInstR;
+	AddrArray[68] = (Uint16)&EBetaInstR;
 	AddrArray[69] = (Uint16)&TestV;
 //____________________________________
 	AddrArray[70] = (Uint16)&phi_int;
@@ -163,12 +163,12 @@ void InitAddrArray()
 	AddrArray[81] = (Uint16)&URsBeta_R;//RK1;
 	AddrArray[82] = (Uint16)&ULsAlpha_R;//LK2;
 	AddrArray[83] = (Uint16)&ULsBeta_R;//RK2;
-	AddrArray[84] = (Uint16)&LL1;
-	AddrArray[85] = (Uint16)&RL1;
-	AddrArray[86] = (Uint16)&LTS;
-	AddrArray[87] = (Uint16)&RTS;
-	AddrArray[88] = (Uint16)&LTR;
-	AddrArray[89] = (Uint16)&RTR;
+	AddrArray[84] = (Uint16)&UAlphaSIL;//LL1;
+	AddrArray[85] = (Uint16)&UBetaSIL ;//RL1;
+	AddrArray[86] = (Uint16)&URsAlpha_L;//LTS;
+	AddrArray[87] = (Uint16)&URsBeta_L;//RTS;
+	AddrArray[88] = (Uint16)&ULsAlpha_L;//LTR;
+	AddrArray[89] = (Uint16)&ULsBeta_L;//RTR;
 //____________________________________
 	AddrArray[90] = (Uint16)&PowerUvtr;
 	AddrArray[91] = (Uint16)&PowerByGen;

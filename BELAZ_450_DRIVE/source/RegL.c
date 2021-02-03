@@ -720,6 +720,11 @@ void RegL(){
 	/*****************************************************************/
 }
 
+int URsAlpha_L=0;
+int URsBeta_L=0;
+int ULsAlpha_L=0;
+int ULsBeta_L=0;
+
 void ELCalcL(){
 
 
@@ -732,8 +737,17 @@ void ELCalcL(){
 			DeltaIAlphaL = IAlphaL - OldIAlphaL;
 			DeltaIBetaL = IBetaL - OldIBetaL;
 
-			EAlphaInstL = UAlphaSIL - IAlphaL*MPL.RS - (MPL.LS*DeltaIAlphaL)/dt;
-			EBetaInstL = UBetaSIL - IBetaL*MPL.RS - (MPL.LS*DeltaIBetaL)/dt;
+			URsAlpha_L = IAlphaL*MPR.RS;
+			URsBeta_L = IBetaL*MPR.RS;
+
+			ULsAlpha_L = (MPR.LS*DeltaIAlphaL)*1500;//dt;
+			ULsBeta_L = (MPR.LS*DeltaIBetaL)*1500;//dt;
+
+			EAlphaInstL = UAlphaSIL - URsAlpha_L - ULsAlpha_L;
+			EBetaInstL = UBetaSIL - URsBeta_L - ULsBeta_L;
+
+//			EAlphaInstL = UAlphaSIL - IAlphaL*MPL.RS - (MPL.LS*DeltaIAlphaL)/dt;
+//			EBetaInstL = UBetaSIL - IBetaL*MPL.RS - (MPL.LS*DeltaIBetaL)/dt;
 
 			OldIAlphaL = IAlphaL;
 			OldIBetaL = IBetaL;

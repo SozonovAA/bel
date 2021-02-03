@@ -193,6 +193,11 @@ extern  int URsBeta_R;
 extern  int ULsAlpha_R;
 extern  int ULsBeta_R;
 
+extern  int URsAlpha_L;
+extern  int URsBeta_L;
+extern  int ULsAlpha_L;
+extern  int ULsBeta_L;
+
 extern	int Ez_ampR;
 extern	int SER;
 
