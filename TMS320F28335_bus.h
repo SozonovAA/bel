@@ -14,6 +14,8 @@
 #ifndef _DEFINED_TYPEDEF_FOR_DebugInfL_
 #define _DEFINED_TYPEDEF_FOR_DebugInfL_ 
 typedef struct {
+  real_T UUqLMAX;
+  real_T kIqL;
   real_T URsAlpha_L;
   real_T URsBeta_L;
   real_T ULsAlpha_L;
@@ -105,6 +107,8 @@ typedef struct {
 #ifndef _DEFINED_TYPEDEF_FOR_DebugInfR_
 #define _DEFINED_TYPEDEF_FOR_DebugInfR_ 
 typedef struct {
+  real_T UUqRMAX;
+  real_T kIqR;
   real_T URsAlpha_R;
   real_T URsBeta_R;
   real_T ULsAlpha_R;

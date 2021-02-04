@@ -53,6 +53,8 @@ ElectricAngleR = Rpars[3];
 Ud = Rpars[4];
 SpeedR = Rpars[6];
 
+Out_L[0].UUqLMAX = UUqLMAX ;
+Out_L[0].kIqL = kIqL;
 Out_L[0].URsAlpha_L = URsAlpha_L;
 Out_L[0].URsBeta_L = URsBeta_L;
 Out_L[0].ULsAlpha_L = ULsAlpha_L;
@@ -138,6 +140,8 @@ Out_L[0].IfRMSL = IfRMSL;
 Out_L[0].AmplL = AmplL;
 Out_L[0].AlphaL = AlphaL;
 
+Out_R[0].UUqRMAX = UUqRMAX ;
+Out_R[0].kIqR = kIqR;
 Out_R[0].URsAlpha_R = URsAlpha_R;
 Out_R[0].URsBeta_R = URsBeta_R;
 Out_R[0].ULsAlpha_R = ULsAlpha_R;

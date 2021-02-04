@@ -157,6 +157,9 @@ void RegRToZero();
 #pragma CODE_SECTION(RegRToZero,"ramfuncs")
 #endif
 
+int UUqRMAX;
+float kIqR=1.0;
+
 void RegRToZero()
 {
 	sdER=0;
@@ -186,12 +189,16 @@ void CalcDeltaIdR()
 
 	UmR = GetHypByLegs(UUdR,UUqR);
 
+	if(UUqR>17400) UUqR=17400;
+
+	UUqRMAX = GetCatByHypNLeg(UUqR,17500);
+
 	if(UmR >= 17500)
 	UmR = 17500;
 
 	fUmR += (UmR - fUmR)/25;
 
-	fE_MaxR += (((float)(Udz)*1.15/2.0) - fE_MaxR)/koeff.K17;
+	fE_MaxR += (((float)(Udz)*1.10/2.0) - fE_MaxR)/koeff.K17;
 
 	E_MaxR = fE_MaxR;
 	E_LineR = (float)(abs(SpeedR))*0.0686*koeff.K15;
@@ -483,6 +490,11 @@ void RegR(){
 		SpeedRegR();
 
 		MinMaxLimitInt(-2000,abs(IqRCurLim),&IqzR);
+
+		if(UUqR > UUqRMAX) kIqR = (float)UUqR/(float)17500;
+		else kIqR = 1;
+
+		IqzR*=kIqR;
 
 		DeltaIqR = IqzR - IqR;
 		SIqR += (float)(DeltaIqR*koeff.Ki)/25.0;
