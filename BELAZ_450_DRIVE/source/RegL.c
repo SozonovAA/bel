@@ -64,7 +64,7 @@ struct KOEFF koeff={ 2500, ///*00*/	int IFMAX;		//аварийная уставка фазного тока
 					 0, ///*30*/	int cUgen;
 					 0, ///*31*/	int WriteKoeff;
 					 0, ///*32*/	int WriteDacs;
-					 3, ///*33*/	int K7;
+					 5, ///*33*/	int K7;
 					 10, ///*34*/	int K8;
 					 10, ///*35*/	int K9;
 					 4, ///*36*/	int K10;
@@ -72,7 +72,7 @@ struct KOEFF koeff={ 2500, ///*00*/	int IFMAX;		//аварийная уставка фазного тока
 					 10, ///*38*/	int K12;
 					 0, ///*39*/	int K13;
 					 2500, ///*40*/	int K14;
-					 8, ///*41*/	int K15;
+					 12, ///*41*/	int K15;
 					 30, ///*42*/	int K16;
 					 4, ///*43*/	int K17;
 					 2000, ///*44*/	int K18;
@@ -315,9 +315,9 @@ void CalcDeltaIdL()
 
 	UmL = GetHypByLegs(UUdL,UUqL);
 
-	if(UUqL>17400) UUqL=17400;
+	if(UUdL>17400) UUdL=17400;
 
-	UUqLMAX = GetCatByHypNLeg(UUqL,17500);
+	UUqLMAX = GetCatByHypNLeg(UUdL,17500);
 
 	if(UmL >= 17500)
 		UmL = 17500;
@@ -325,7 +325,7 @@ void CalcDeltaIdL()
 	fUmL += (UmL - fUmL)/25;
 
 #ifdef MATLAB
-	Udz = 940;
+	Udz = 610;
 #endif
 
 	fE_MaxL += (((float)(Udz)*1.10/2.0) - fE_MaxL)/koeff.K17;
@@ -491,7 +491,7 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 void RegL(){
 
 #ifdef MATLAB
-	PowerMax=800000;
+	PowerMax=716000;
 #endif
 
 #ifndef MATLAB
