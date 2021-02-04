@@ -324,6 +324,10 @@ extern float ElectricAngleL;
 extern float ElectricAngleR;
 #endif
 
+extern int UUqRMAX;
+extern float kIqR;
+extern int UUqLMAX;
+extern float kIqL;
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

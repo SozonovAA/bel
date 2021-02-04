@@ -64,10 +64,10 @@ struct KOEFF koeff={ 2500, ///*00*/	int IFMAX;		//аварийная уставка фазного тока
 					 0, ///*30*/	int cUgen;
 					 0, ///*31*/	int WriteKoeff;
 					 0, ///*32*/	int WriteDacs;
-					 1, ///*33*/	int K7;
+					 3, ///*33*/	int K7;
 					 10, ///*34*/	int K8;
 					 10, ///*35*/	int K9;
-					 1, ///*36*/	int K10;
+					 4, ///*36*/	int K10;
 					 50, ///*37*/	int K11;
 					 10, ///*38*/	int K12;
 					 0, ///*39*/	int K13;
@@ -285,6 +285,10 @@ int ChopRegX=0;
 float IqSummInBrakeL=0;
 extern float kBrake;
 
+int UUqLMAX;
+float kIqL=1.0;
+float fkIqL=1.0;
+
 void RegLToZero()
 {
 
@@ -310,6 +314,10 @@ void CalcDeltaIdL()
 {
 
 	UmL = GetHypByLegs(UUdL,UUqL);
+
+	if(UUqL>17400) UUqL=17400;
+
+	UUqLMAX = GetCatByHypNLeg(UUqL,17500);
 
 	if(UmL >= 17500)
 		UmL = 17500;
@@ -622,10 +630,17 @@ void RegL(){
 
 		MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
 
+		if(UUqL > UUqLMAX) kIqL = (float)UUqL/(float)17500;
+		else kIqL = 1;
+
+		fkIqL += (kIqL - fkIqL)/10;
+
+		IqzL*=fkIqL;
+
 		DeltaIqL = IqzL - IqL;
 		SIqL += (float)(DeltaIqL*koeff.Ki)/25.0;
 
-		MinMaxLimitFloat(-18000,18000,&SIqL);
+		MinMaxLimitFloat(-17500,17500,&SIqL);
 
 		UUqL = (float)(DeltaIqL*koeff.Kp)/25.0 + SIqL + (DeltaIqL - DeltaIqOldL)*koeff.Kd;
 		DeltaIqOldL = DeltaIqL;
