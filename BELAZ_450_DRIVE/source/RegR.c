@@ -159,6 +159,7 @@ void RegRToZero();
 
 int UUqRMAX;
 float kIqR=1.0;
+float fkIqR=1.0;
 
 void RegRToZero()
 {
@@ -494,7 +495,9 @@ void RegR(){
 		if(UUqR > UUqRMAX) kIqR = (float)UUqR/(float)17500;
 		else kIqR = 1;
 
-		IqzR*=kIqR;
+		fkIqR += (kIqR - fkIqR)/10;
+
+		IqzR*=fkIqR;
 
 		DeltaIqR = IqzR - IqR;
 		SIqR += (float)(DeltaIqR*koeff.Ki)/25.0;

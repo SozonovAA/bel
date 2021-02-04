@@ -64,10 +64,10 @@ struct KOEFF koeff={ 2500, ///*00*/	int IFMAX;		//аварийная уставка фазного тока
 					 0, ///*30*/	int cUgen;
 					 0, ///*31*/	int WriteKoeff;
 					 0, ///*32*/	int WriteDacs;
-					 8, ///*33*/	int K7;
+					 3, ///*33*/	int K7;
 					 10, ///*34*/	int K8;
 					 10, ///*35*/	int K9;
-					 8, ///*36*/	int K10;
+					 4, ///*36*/	int K10;
 					 50, ///*37*/	int K11;
 					 10, ///*38*/	int K12;
 					 0, ///*39*/	int K13;
@@ -287,6 +287,7 @@ extern float kBrake;
 
 int UUqLMAX;
 float kIqL=1.0;
+float fkIqL=1.0;
 
 void RegLToZero()
 {
@@ -632,7 +633,9 @@ void RegL(){
 		if(UUqL > UUqLMAX) kIqL = (float)UUqL/(float)17500;
 		else kIqL = 1;
 
-		IqzL*=kIqL;
+		fkIqL += (kIqL - fkIqL)/10;
+
+		IqzL*=fkIqL;
 
 		DeltaIqL = IqzL - IqL;
 		SIqL += (float)(DeltaIqL*koeff.Ki)/25.0;
