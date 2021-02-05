@@ -328,6 +328,17 @@ extern int UUqRMAX;
 extern float kIqR;
 extern int UUqLMAX;
 extern float kIqL;
+
+//Диференциал
+extern int  DeltaAxleSpeedL; 		// Разность скорости левого колеса и средней скорости по оси
+extern int  DeltaAxleSpeedR; 		// Разность скорости правого колеса и средней скорости по оси
+extern int  AverageAxleSpeed;		// Средняя скорость оси
+
+extern float deltaAxleProcent; 		// Текущий процент разности скоростей
+extern float deltaAxleProcentMAX;	// Текущий допустимый процент разности скоростей
+
+extern float SummSpeedL;				// Интегратор РС
+extern int   LimitSummSpeedL;		// Ограничение интегратора РС
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

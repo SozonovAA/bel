@@ -14,6 +14,13 @@
 #ifndef _DEFINED_TYPEDEF_FOR_DebugInfL_
 #define _DEFINED_TYPEDEF_FOR_DebugInfL_ 
 typedef struct {
+  real_T DeltaAxleSpeedL;
+  real_T DeltaAxleSpeedR;
+  real_T AverageAxleSpeed;
+  real_T deltaAxleProcent;
+  real_T deltaAxleProcentMAX;
+  real_T SummSpeedL;
+  real_T LimitSummSpeedL;
   real_T UUqLMAX;
   real_T kIqL;
   real_T URsAlpha_L;

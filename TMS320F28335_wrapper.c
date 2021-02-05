@@ -53,6 +53,13 @@ ElectricAngleR = Rpars[3];
 Ud = Rpars[4];
 SpeedR = Rpars[6];
 
+Out_L[0].DeltaAxleSpeedL = DeltaAxleSpeedL;
+Out_L[0].DeltaAxleSpeedR = DeltaAxleSpeedR;
+Out_L[0].AverageAxleSpeed = AverageAxleSpeed;
+Out_L[0].deltaAxleProcent = deltaAxleProcent;
+Out_L[0].deltaAxleProcentMAX = deltaAxleProcentMAX;
+Out_L[0].SummSpeedL = SummSpeedL;
+Out_L[0].LimitSummSpeedL = LimitSummSpeedL;
 Out_L[0].UUqLMAX = UUqLMAX ;
 Out_L[0].kIqL = kIqL;
 Out_L[0].URsAlpha_L = URsAlpha_L;
