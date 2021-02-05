@@ -398,7 +398,7 @@ void SpeedRegL()
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
 	DeltaAxleSpeedL = AverageAxleSpeed - SpeedL;
 
-	if(DeltaAxleSpeedL > -100 && DeltaAxleSpeedL < 100)
+	if(DeltaAxleSpeedL > -40 && DeltaAxleSpeedL < 40)
 		DeltaAxleSpeedL = 0;
 
 	if (0<AverageAxleSpeed && AverageAxleSpeed<1) AverageAxleSpeed=1;
@@ -411,6 +411,9 @@ void SpeedRegL()
 	}
 	else
 		LimitSummSpeedL=0;
+
+	if(LimitSummSpeedL > 700) LimitSummSpeedL = 700;
+	if(LimitSummSpeedL < -700) LimitSummSpeedL = -700;
 
 	SummSpeedL += (float)DeltaAxleSpeedL/25.0;
 
