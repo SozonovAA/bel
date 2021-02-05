@@ -289,6 +289,16 @@ int UUqLMAX;
 float kIqL=1.0;
 float fkIqL=1.0;
 
+int  DeltaAxleSpeedL=0; 		// Разность скорости левого колеса и средней скорости по оси
+int  DeltaAxleSpeedR=0; 		// Разность скорости правого колеса и средней скорости по оси
+int  AverageAxleSpeed=0;		// Средняя скорость оси
+
+float deltaAxleProcent=0; 		// Текущий процент разности скоростей
+float deltaAxleProcentMAX=0.1;	// Текущий допустимый процент разности скоростей
+
+float SummSpeedL=0;				// Интегратор РС
+int   LimitSummSpeedL=0;		// Ограничение интегратора РС
+
 void RegLToZero()
 {
 
@@ -375,6 +385,32 @@ void SpeedRegL()
 	cmd.DNR = 1;
 #endif
 
+	/*int  DeltaAxleSpeedL=0; 		// Разность скорости левого колеса и средней скорости по оси
+	int  DeltaAxleSpeedR=0; 		// Разность скорости правого колеса и средней скорости по оси
+	int  AverageAxleSpeed=0;		// Средняя скорость оси
+
+	float deltaAxleProcent=0; 		// Текущий процент разности скоростей
+	float deltaAxleProcentMAX=0.1;	// Текущий допустимый процент разности скоростей
+
+	float SummSpeedL=0;				// Интегратор РС
+	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
+
+	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
+	DeltaAxleSpeedL = AverageAxleSpeed - SpeedL;
+	deltaAxleProcent = ((float)DeltaAxleSpeedL / (float)AverageAxleSpeed);
+
+	if(abs(deltaAxleProcent) > deltaAxleProcentMAX)
+	{
+		LimitSummSpeedL = (deltaAxleProcentMAX - deltaAxleProcent)*10000;
+	}
+	else
+		LimitSummSpeedL=0;
+
+	SummSpeedL += (float)DeltaAxleSpeedL/25.0;
+
+	MinMaxLimitFloat(-abs(LimitSummSpeedL),abs(LimitSummSpeedL),&SummSpeedL);
+
+
 	DeltaSpeedL = (SpeedLz - IqzL)/5;
 
 	SpeedLz1 += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
@@ -410,7 +446,7 @@ void SpeedRegL()
 		}
 		else
 			{
-				IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0;
+				IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedL;
 				IqSummInBrakeL = IqzL;
 			}
 	}
