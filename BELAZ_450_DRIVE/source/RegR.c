@@ -270,9 +270,13 @@ void SpeedRegR()
 
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
 	DeltaAxleSpeedR = AverageAxleSpeed - SpeedR;
+
+	if(DeltaAxleSpeedR > -100 && DeltaAxleSpeedR < 100)
+		DeltaAxleSpeedR = 0;
+
 	if (0<AverageAxleSpeed && AverageAxleSpeed<1) AverageAxleSpeed=1;
 	if (0>AverageAxleSpeed && AverageAxleSpeed>-1) AverageAxleSpeed=-1;
-	deltaAxleProcent = ((float)DeltaAxleSpeedR / ((float)AverageAxleSpeed+1));
+	deltaAxleProcent = ((float)DeltaAxleSpeedR / ((float)AverageAxleSpeed));
 
 	if(abs(deltaAxleProcent) > deltaAxleProcentMAX)
 	{
