@@ -102,8 +102,8 @@ int RTheta;
 
 float fThetaR=0;
 
-	float SummSpeedR=0;				// Интегратор РС
-	int   LimitSummSpeedR=0;		// Ограничение интегратора РС*/
+float SummSpeedR=0;				// Интегратор РС
+int   LimitSummSpeedR=0;		// Ограничение интегратора РС*/
 
 void SpeedRegR();
 
@@ -198,7 +198,7 @@ void CalcDeltaIdR()
 	UUqRMAX = GetCatByHypNLeg(UUqR,17500);
 
 	if(UmR >= 17500)
-	UmR = 17500;
+		UmR = 17500;
 
 	fUmR += (UmR - fUmR)/25;
 
@@ -217,14 +217,14 @@ void CalcDeltaIdR()
 	else
 		dER = E_MaxR - E_ampR;
 
-		//MinMaxLimitInt(-540,540,&dER);
+	//MinMaxLimitInt(-540,540,&dER);
 
-		sdER += ((float)(dER)/1000.0)*(float)(koeff.KiE);
+	sdER += ((float)(dER)/1000.0)*(float)(koeff.KiE);
 
-		if(sdER > 540) sdER=540;
-		if(sdER < -540) sdER=-540;
+	if(sdER > 540) sdER=540;
+	if(sdER < -540) sdER=-540;
 
-		IdzR = (long)(dER)*koeff.KpE/10.0 + sdER;
+	IdzR = (long)(dER)*koeff.KpE/10.0 + sdER;
 
 	MinMaxLimitInt(0,100,&DeltaIdzR);
 
@@ -284,7 +284,7 @@ void SpeedRegR()
 	SummSpeedR += (float)DeltaAxleSpeedR/25.0;
 
 	MinMaxLimitFloat(-abs(LimitSummSpeedR),abs(LimitSummSpeedR),&SummSpeedR);
-//////////////////////////
+	//////////////////////////
 
 
 	DeltaSpeedR = (SpeedRz - IqzR)/5;
@@ -321,10 +321,10 @@ void SpeedRegR()
 			SpeedRz1 = SpeedR;
 		}
 		else
-			{
-				IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedR;
-				IqSummInBrakeR = IqzR;
-			}
+		{
+			IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedR;
+			IqSummInBrakeR = IqzR;
+		}
 	}
 	if(cmd.DNR == REVERSE)
 	{
@@ -343,7 +343,7 @@ void SpeedRegR()
 
 void LookerR(){
 
-/*
+	/*
 		_____________
 		|	RM		|
 IdR	--->| ---------	|---------
@@ -355,7 +355,7 @@ IdR	--->| ---------	|---------
 IqR --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipR)
         |  TR  |                     |  p  |
         |______|                     |_____|
-*/
+	 */
 	//DAT2=1;
 	MagneticSaturation(IdR,&MPR.LM);
 	//DAT2=0;
@@ -393,7 +393,7 @@ void RegR(){
 
 #ifndef MATLAB
 	DizelOutPowerMax();
-		#endif
+#endif
 
 	LookerR();
 #ifndef MATLAB
@@ -464,16 +464,16 @@ void RegR(){
 
 #ifndef MATLAB
 			if(cmd.DNR == DRIVE)
-					SpeedRz = (Drive-13)*20;
+				SpeedRz = (Drive-13)*20;
 			if(cmd.DNR == REVERSE)
-					SpeedRz = -(Drive-13)*20;
+				SpeedRz = -(Drive-13)*20;
 #endif
 		}
 
 		Clark(IaR,IbR,IcR,&IAlphaR,&IBetaR);
 		Park(IAlphaR,IBetaR,&IdR,&IqR,fThetaR);
 
-// ##### IdReg bgn
+		// ##### IdReg bgn
 
 		MinMaxLimitInt(5,900,&IdzR);
 
@@ -485,16 +485,16 @@ void RegR(){
 		UUdR = (float)(DeltaIdR*koeff.Kp)/25.0 + SIdR + (DeltaIdR - DeltaIdOldR)*koeff.Kd;
 		DeltaIdOldR = DeltaIdR;
 
-// @@@@@ IdReg end
+		// @@@@@ IdReg end
 
-// ##### Считаем ток отсечки bgn
+		// ##### Считаем ток отсечки bgn
 
 		//избегаем деление на 0
 		if(UqSIR >= 0 && UqSIR < 10)
-		UqSIR = 10;
+			UqSIR = 10;
 
 		if(UqSIR < 0 && UqSIR > -10)
-		UqSIR = -10;
+			UqSIR = -10;
 
 		//if(PowerMax < 300000) PowerMax = 300000;
 		//if(PowerMax > 1600000) PowerMax = 1600000;
@@ -518,9 +518,9 @@ void RegR(){
 
 		PowerR16 = PowerR;
 
-// @@@@@ Считаем ток отсечки end
+		// @@@@@ Считаем ток отсечки end
 
-// ##### IqReg bgn
+		// ##### IqReg bgn
 
 		SpeedRegR();
 
@@ -541,9 +541,9 @@ void RegR(){
 		UUqR = (float)(DeltaIqR*koeff.Kp)/25.0 + SIqR + (DeltaIqR - DeltaIqOldR)*koeff.Kd;
 		DeltaIqOldR = DeltaIqR;
 
-// @@@@@ IqReg end
+		// @@@@@ IqReg end
 
-	/*	if(koeff.K18)
+		/*	if(koeff.K18)
 		{
 
 			CrossComR();
@@ -575,11 +575,11 @@ void RegR(){
 
 			//ChopReg = Slider.s3;
 		}
-/*
+		/*
 		UUAR=C;
 		UUBR=C;
 		UUCR=C;
-*/
+		 */
 		if(Debug == 9)
 		{
 
@@ -587,7 +587,7 @@ void RegR(){
 			AlphaR	+= (float)(Slider.s5)/10000.0; /* -10 10*/
 #ifndef MATLAB
 			HandleReg(&UUAR,&UUBR,&UUCR,&AmplR,&AlphaR);
-		#endif
+#endif
 
 		}
 
@@ -605,13 +605,13 @@ void RegR(){
 		EPwm1Regs.CMPB = UUAR;
 		EPwm2Regs.CMPB = UUBR;
 		EPwm6Regs.CMPA.half.CMPA = UUCR;
-		#endif
+#endif
 
 	}
 #ifndef MATLAB
 	else
 		RegRToZero();
-		#endif
+#endif
 
 
 }
@@ -619,35 +619,35 @@ void RegR(){
 
 void ELCalcR(){
 
-			UAlphaSIR = ConvertVParamToSI(UAlphaR);
-			UBetaSIR  = ConvertVParamToSI(UBetaR);
+	UAlphaSIR = ConvertVParamToSI(UAlphaR);
+	UBetaSIR  = ConvertVParamToSI(UBetaR);
 
-			UAlphaSIR = (int)((float)(UAlphaSIR)/FourieK[iffR]);
-			UBetaSIR = (int)((float)(UBetaSIR)/FourieK[iffR]);
+	UAlphaSIR = (int)((float)(UAlphaSIR)/FourieK[iffR]);
+	UBetaSIR = (int)((float)(UBetaSIR)/FourieK[iffR]);
 
-			DeltaIAlphaR = IAlphaR - OldIAlphaR;
-			DeltaIBetaR = IBetaR - OldIBetaR;
+	DeltaIAlphaR = IAlphaR - OldIAlphaR;
+	DeltaIBetaR = IBetaR - OldIBetaR;
 
-			URsAlpha_R = IAlphaR*MPR.RS;
-			URsBeta_R = IBetaR*MPR.RS;
+	URsAlpha_R = IAlphaR*MPR.RS;
+	URsBeta_R = IBetaR*MPR.RS;
 
-			ULsAlpha_R = (MPR.LS*DeltaIAlphaR)*1500;//dt;
-			ULsBeta_R = (MPR.LS*DeltaIBetaR)*1500;//dt;
+	ULsAlpha_R = (MPR.LS*DeltaIAlphaR)*1500;//dt;
+	ULsBeta_R = (MPR.LS*DeltaIBetaR)*1500;//dt;
 
-			EAlphaInstR = UAlphaSIR - URsAlpha_R - ULsAlpha_R;
-			EBetaInstR = UBetaSIR - URsBeta_R - ULsBeta_R;
+	EAlphaInstR = UAlphaSIR - URsAlpha_R - ULsAlpha_R;
+	EBetaInstR = UBetaSIR - URsBeta_R - ULsBeta_R;
 
-			//EAlphaInstR = UAlphaSIR - IAlphaR*MPR.RS - (MPR.LS*DeltaIAlphaR)/dt;
-			//EBetaInstR = UBetaSIR - IBetaR*MPR.RS - (MPR.LS*DeltaIBetaR)/dt;
+	//EAlphaInstR = UAlphaSIR - IAlphaR*MPR.RS - (MPR.LS*DeltaIAlphaR)/dt;
+	//EBetaInstR = UBetaSIR - IBetaR*MPR.RS - (MPR.LS*DeltaIBetaR)/dt;
 
-			OldIAlphaR = IAlphaR;
-			OldIBetaR = IBetaR;
+	OldIAlphaR = IAlphaR;
+	OldIBetaR = IBetaR;
 
-			fE_ampR += (float)((GetHypByLegs(EAlphaInstR,EBetaInstR) - fE_ampR))/(float)(koeff.KFiltE);
+	fE_ampR += (float)((GetHypByLegs(EAlphaInstR,EBetaInstR) - fE_ampR))/(float)(koeff.KFiltE);
 
-			//fE_ampR += (float)((GetHypByLegs(UdSIR,UqSIR) - fE_ampR))/(float)(koeff.KFiltE);
+	//fE_ampR += (float)((GetHypByLegs(UdSIR,UqSIR) - fE_ampR))/(float)(koeff.KFiltE);
 
-			E_ampR = fE_ampR;
+	E_ampR = fE_ampR;
 
 }
 
