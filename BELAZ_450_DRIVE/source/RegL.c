@@ -384,7 +384,7 @@ void SpeedRegL()
 #ifdef MATLAB
 	cmd.DNR = 1;
 #endif
-
+//Дифференциал
 	/*int  DeltaAxleSpeedL=0; 		// Разность скорости левого колеса и средней скорости по оси
 	int  DeltaAxleSpeedR=0; 		// Разность скорости правого колеса и средней скорости по оси
 	int  AverageAxleSpeed=0;		// Средняя скорость оси
@@ -411,7 +411,7 @@ void SpeedRegL()
 	SummSpeedL += (float)DeltaAxleSpeedL/25.0;
 
 	MinMaxLimitFloat(-abs(LimitSummSpeedL),abs(LimitSummSpeedL),&SummSpeedL);
-
+//////////////////////////
 
 	DeltaSpeedL = (SpeedLz - IqzL)/5;
 

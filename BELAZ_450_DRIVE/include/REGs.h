@@ -339,6 +339,9 @@ extern float deltaAxleProcentMAX;	// Текущий допустимый процент разности скорост
 
 extern float SummSpeedL;				// Интегратор РС
 extern int   LimitSummSpeedL;		// Ограничение интегратора РС
+
+extern float SummSpeedR;				// Интегратор РС
+extern int   LimitSummSpeedR;		// Ограничение интегратора РС
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

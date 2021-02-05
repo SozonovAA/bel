@@ -102,6 +102,9 @@ int RTheta;
 
 float fThetaR=0;
 
+	float SummSpeedR=0;				// Интегратор РС
+	int   LimitSummSpeedR=0;		// Ограничение интегратора РС*/
+
 void SpeedRegR();
 
 #ifndef MATLAB
@@ -253,6 +256,37 @@ void SpeedRegR()
 #ifdef MATLAB
 	cmd.DNR = 1;
 #endif
+
+	//Дифференциал
+	/*int  DeltaAxleSpeedL=0; 		// Разность скорости левого колеса и средней скорости по оси
+	int  DeltaAxleSpeedR=0; 		// Разность скорости правого колеса и средней скорости по оси
+	int  AverageAxleSpeed=0;		// Средняя скорость оси
+
+	float deltaAxleProcent=0; 		// Текущий процент разности скоростей
+	float deltaAxleProcentMAX=0.1;	// Текущий допустимый процент разности скоростей
+
+	float SummSpeedL=0;				// Интегратор РС
+	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
+
+	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
+	DeltaAxleSpeedR = AverageAxleSpeed - SpeedR;
+	if (0<AverageAxleSpeed && AverageAxleSpeed<1) AverageAxleSpeed=1;
+	if (0>AverageAxleSpeed && AverageAxleSpeed>-1) AverageAxleSpeed=-1;
+	deltaAxleProcent = ((float)DeltaAxleSpeedR / ((float)AverageAxleSpeed+1));
+
+	if(abs(deltaAxleProcent) > deltaAxleProcentMAX)
+	{
+		LimitSummSpeedR = (deltaAxleProcentMAX - deltaAxleProcent)*10000;
+	}
+	else
+		LimitSummSpeedR=0;
+
+	SummSpeedR += (float)DeltaAxleSpeedR/25.0;
+
+	MinMaxLimitFloat(-abs(LimitSummSpeedR),abs(LimitSummSpeedR),&SummSpeedR);
+//////////////////////////
+
+
 	DeltaSpeedR = (SpeedRz - IqzR)/5;
 
 	SpeedRz1 += (float)(DeltaSpeedR)*((float)(koeff.K7)/2500.0);
@@ -288,7 +322,7 @@ void SpeedRegR()
 		}
 		else
 			{
-				IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0;
+				IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedR;
 				IqSummInBrakeR = IqzR;
 			}
 	}
