@@ -105,6 +105,8 @@ float fThetaR=0;
 float SummSpeedR=0;				// Интегратор РС
 int   LimitSummSpeedR=0;		// Ограничение интегратора РС*/
 
+int SummSpeedRint=0;
+
 void SpeedRegR();
 
 #ifndef MATLAB
@@ -271,7 +273,7 @@ void SpeedRegR()
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
 	DeltaAxleSpeedR = AverageAxleSpeed - SpeedR;
 
-	if(DeltaAxleSpeedR > -40 && DeltaAxleSpeedR < 40)
+	if(DeltaAxleSpeedR > -10 && DeltaAxleSpeedR < 10)
 		DeltaAxleSpeedR = 0;
 
 	if (0<AverageAxleSpeed && AverageAxleSpeed<1) AverageAxleSpeed=1;
@@ -288,7 +290,9 @@ void SpeedRegR()
 	if(LimitSummSpeedR > 700) LimitSummSpeedR = 700;
 	if(LimitSummSpeedR < -700) LimitSummSpeedR = -700;
 
-	SummSpeedR += (float)DeltaAxleSpeedR/25.0;
+	SummSpeedR += (float)DeltaAxleSpeedR/5.0;
+
+	SummSpeedRint = SummSpeedR;
 
 	MinMaxLimitFloat(-abs(LimitSummSpeedR),abs(LimitSummSpeedR),&SummSpeedR);
 	//////////////////////////

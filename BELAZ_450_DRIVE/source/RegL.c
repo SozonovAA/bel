@@ -299,6 +299,8 @@ float deltaAxleProcentMAX=0.4;	// Текущий допустимый процент разности скоростей
 float SummSpeedL=0;				// Интегратор РС
 int   LimitSummSpeedL=0;		// Ограничение интегратора РС
 
+int SummSpeedLint=0;
+
 void RegLToZero()
 {
 
@@ -398,7 +400,7 @@ void SpeedRegL()
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
 	DeltaAxleSpeedL = AverageAxleSpeed - SpeedL;
 
-	if(DeltaAxleSpeedL > -40 && DeltaAxleSpeedL < 40)
+	if(DeltaAxleSpeedL > -10 && DeltaAxleSpeedL < 10)
 		DeltaAxleSpeedL = 0;
 
 	if (0<AverageAxleSpeed && AverageAxleSpeed<1) AverageAxleSpeed=1;
@@ -415,7 +417,9 @@ void SpeedRegL()
 	if(LimitSummSpeedL > 700) LimitSummSpeedL = 700;
 	if(LimitSummSpeedL < -700) LimitSummSpeedL = -700;
 
-	SummSpeedL += (float)DeltaAxleSpeedL/25.0;
+	SummSpeedL += (float)DeltaAxleSpeedL/5.0;
+
+	SummSpeedLint = SummSpeedL;
 
 	MinMaxLimitFloat(-abs(LimitSummSpeedL),abs(LimitSummSpeedL),&SummSpeedL);
 //////////////////////////
