@@ -280,12 +280,17 @@ void SpeedRegR()
 	if (0>AverageAxleSpeed && AverageAxleSpeed>-1) AverageAxleSpeed=-1;
 	deltaAxleProcent = ((float)DeltaAxleSpeedR / ((float)AverageAxleSpeed));
 
-	if(abs(deltaAxleProcent) > deltaAxleProcentMAX)
+	if(deltaAxleProcent > deltaAxleProcentMAX)
 	{
 		LimitSummSpeedR = DeltaAxleSpeedR*10;//(deltaAxleProcentMAX - deltaAxleProcent)*10000;
 	}
 	else
-		LimitSummSpeedR=0;
+		if(deltaAxleProcent < -deltaAxleProcentMAX)
+		{
+			LimitSummSpeedR = DeltaAxleSpeedR*10;
+		}
+		else
+			LimitSummSpeedR=0;
 
 	if(LimitSummSpeedR > 700) LimitSummSpeedR = 700;
 	if(LimitSummSpeedR < -700) LimitSummSpeedR = -700;
