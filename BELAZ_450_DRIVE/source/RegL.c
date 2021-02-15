@@ -301,6 +301,9 @@ int   LimitSummSpeedL=0;		// Ограничение интегратора РС
 
 int SummSpeedLint=0;
 
+float oldThetaL=0;
+float deltaThetaL=0;
+
 void RegLToZero()
 {
 
@@ -569,7 +572,10 @@ void RegL(){
 	RadianLimit(&fThetaL);
 #endif
 
+	if(((fThetaL - oldThetaL)<4) && ((fThetaL - oldThetaL)>-4)) // исключаем перегиб диапазона на 2 ПИ
+	deltaThetaL = (fThetaL - oldThetaL);
 
+	oldThetaL = fThetaL;
 
 	CalcDeltaIdL();
 
@@ -728,9 +734,12 @@ void RegL(){
 
 		//IfRMSL = (float)(GetHypByLegs(IdzL,IqzL))/1.4142;
 
+		fThetaL += deltaThetaL;
 
 		InvPark(&UAlphaL,&UBetaL,UUdL,UUqL,fThetaL);
 		InvClark(&UUAL,&UUBL,&UUCL,UAlphaL,UBetaL);
+
+		fThetaL -= deltaThetaL;
 
 		InvPark(&IAlphaL,&IBetaL,IdzL,IqzL,fThetaL);
 		InvClark(&Iaz,&Ibz,&Icz,IAlphaL,IBetaL);

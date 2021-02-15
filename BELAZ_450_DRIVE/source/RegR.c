@@ -166,6 +166,9 @@ int UUqRMAX;
 float kIqR=1.0;
 float fkIqR=1.0;
 
+float oldThetaR=0;
+float deltaThetaR=0;
+
 void RegRToZero()
 {
 	sdER=0;
@@ -423,6 +426,9 @@ void RegR(){
 	RadianLimit(&fThetaR);
 #endif
 
+	if(((fThetaR - oldThetaR)<4) && ((fThetaR - oldThetaR)>-4)) // исключаем перегиб диапазона на 2 ПИ
+	deltaThetaR = (fThetaR - oldThetaR);
+
 	CalcDeltaIdR();
 
 	/*
@@ -573,8 +579,12 @@ void RegR(){
 		UdSIR = ConvertVParamToSI(UUdR);
 		UqSIR = ConvertVParamToSI(UUqR);
 
+		fThetaR += deltaThetaR;
+
 		InvPark(&UAlphaR,&UBetaR,UUdR,UUqR,fThetaR);
 		InvClark(&UUAR,&UUBR,&UUCR,UAlphaR,UBetaR);
+
+		fThetaR -= deltaThetaR;
 
 		InvPark(&IAlphaR,&IBetaR,IdzR,IqzR,fThetaR);
 		InvClark(&Iaz,&Ibz,&Icz,IAlphaR,IBetaR);
