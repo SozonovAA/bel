@@ -306,6 +306,7 @@ float deltaThetaL=0;
 
 int fCalcEByZ=1;
 int fUseDeltaTheta=1;
+int fTryBrakeDiff=1;
 
 float kEamp=1.0;
 
@@ -466,7 +467,7 @@ void SpeedRegL()
 				if(IqSummInBrakeL > -(Brake-13)*20)
 					IqSummInBrakeL -= 0.1*kBrake;
 
-			IqzL = IqSummInBrakeL;
+			IqzL = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
 
 			SpeedLz1 = SpeedL;
 		}

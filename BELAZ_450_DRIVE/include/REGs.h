@@ -348,6 +348,7 @@ extern int SummSpeedLint;
 
 extern int fCalcEByZ;
 extern int fUseDeltaTheta;
+extern int fTryBrakeDiff;
 
 extern float kEamp;
 // структуры

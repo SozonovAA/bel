@@ -335,7 +335,7 @@ void SpeedRegR()
 				if(IqSummInBrakeR > -(Brake-13)*20)
 					IqSummInBrakeR -= 0.1*kBrake;
 
-			IqzR = IqSummInBrakeR;
+			IqzR = IqSummInBrakeR  + fTryBrakeDiff*SummSpeedR;
 
 			SpeedRz1 = SpeedR;
 		}
