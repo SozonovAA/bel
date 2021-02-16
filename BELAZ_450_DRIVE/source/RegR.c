@@ -429,6 +429,8 @@ void RegR(){
 	if(((fThetaR - oldThetaR)<4) && ((fThetaR - oldThetaR)>-4)) // исключаем перегиб диапазона на 2 ПИ
 	deltaThetaR = (fThetaR - oldThetaR);
 
+	oldThetaR = fThetaR;
+
 	CalcDeltaIdR();
 
 	/*
