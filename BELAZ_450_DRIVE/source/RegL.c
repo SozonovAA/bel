@@ -67,12 +67,12 @@ struct KOEFF koeff={ 2500, ///*00*/	int IFMAX;		//аварийная уставка фазного тока
 					 5, ///*33*/	int K7;
 					 10, ///*34*/	int K8;
 					 10, ///*35*/	int K9;
-					 4, ///*36*/	int K10;
+					 16, ///*36*/	int K10;
 					 50, ///*37*/	int K11;
 					 10, ///*38*/	int K12;
 					 0, ///*39*/	int K13;
 					 2500, ///*40*/	int K14;
-					 12, ///*41*/	int K15;
+					 10, ///*41*/	int K15;
 					 30, ///*42*/	int K16;
 					 4, ///*43*/	int K17;
 					 2000, ///*44*/	int K18;
@@ -307,6 +307,8 @@ float deltaThetaL=0;
 int fCalcEByZ=1;
 int fUseDeltaTheta=1;
 
+float kEamp=1.0;
+
 void RegLToZero()
 {
 
@@ -343,10 +345,10 @@ void CalcDeltaIdL()
 	fUmL += (UmL - fUmL)/25;
 
 #ifdef MATLAB
-	Udz = 610;
+	Udz = 940;
 #endif
 
-	fE_MaxL += (((float)(Udz)*1.10/2.0) - fE_MaxL)/koeff.K17;
+	fE_MaxL += (((float)(Udz)*kEamp/2.0) - fE_MaxL)/koeff.K17;
 
 	E_MaxL = fE_MaxL;
 	E_LineL = (float)(abs(SpeedL))*0.0686*koeff.K15;
@@ -551,7 +553,7 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 void RegL(){
 
 #ifdef MATLAB
-	PowerMax=716000;
+	PowerMax=800000;
 #endif
 
 #ifndef MATLAB
@@ -649,7 +651,7 @@ void RegL(){
 
 		MinMaxLimitInt(5,900,&IdzL);
 
-
+		IdzL *=fkIqL;
 
 		DeltaIdL = IdzL - IdL;
 		SIdL += (float)(DeltaIdL*koeff.Ki)/25.0;
@@ -693,12 +695,12 @@ void RegL(){
 
 		MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
 
-		if(UUqL > UUqLMAX) kIqL = (float)UUqL/(float)17500;
+		if(UUqL > UUqLMAX) kIqL = (float)17500/(float)UUqL;
 		else kIqL = 1;
 
 		fkIqL += (kIqL - fkIqL)/10;
 
-		IqzL*=fkIqL;
+		//IqzL*=fkIqL;
 
 		DeltaIqL = IqzL - IqL;
 		SIqL += (float)(DeltaIqL*koeff.Ki)/25.0;

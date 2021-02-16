@@ -207,7 +207,7 @@ void CalcDeltaIdR()
 
 	fUmR += (UmR - fUmR)/25;
 
-	fE_MaxR += (((float)(Udz)*1.10/2.0) - fE_MaxR)/koeff.K17;
+	fE_MaxR += (((float)(Udz)*kEamp/2.0) - fE_MaxR)/koeff.K17;
 
 	E_MaxR = fE_MaxR;
 	E_LineR = (float)(abs(SpeedR))*0.0686*koeff.K15;
@@ -555,7 +555,7 @@ void RegR(){
 
 		fkIqR += (kIqR - fkIqR)/10;
 
-		IqzR*=fkIqR;
+		//IqzR*=fkIqR;
 
 		DeltaIqR = IqzR - IqR;
 		SIqR += (float)(DeltaIqR*koeff.Ki)/25.0;

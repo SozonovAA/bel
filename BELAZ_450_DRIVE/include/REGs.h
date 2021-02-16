@@ -348,6 +348,8 @@ extern int SummSpeedLint;
 
 extern int fCalcEByZ;
 extern int fUseDeltaTheta;
+
+extern float kEamp;
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50
