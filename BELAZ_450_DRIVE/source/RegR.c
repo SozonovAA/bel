@@ -581,15 +581,20 @@ void RegR(){
 		UdSIR = ConvertVParamToSI(UUdR);
 		UqSIR = ConvertVParamToSI(UUqR);
 
+		if(fUseDeltaTheta)
 		fThetaR += deltaThetaR;
 
 		InvPark(&UAlphaR,&UBetaR,UUdR,UUqR,fThetaR);
 		InvClark(&UUAR,&UUBR,&UUCR,UAlphaR,UBetaR);
 
+		if(fUseDeltaTheta)
 		fThetaR -= deltaThetaR;
 
-		InvPark(&IAlphaR,&IBetaR,IdzR,IqzR,fThetaR);
-		InvClark(&Iaz,&Ibz,&Icz,IAlphaR,IBetaR);
+		if(fCalcEByZ)
+		{
+			InvPark(&IAlphaR,&IBetaR,IdzR,IqzR,fThetaR);
+			InvClark(&Iaz,&Ibz,&Icz,IAlphaR,IBetaR);
+		}
 
 		ELCalcR();
 

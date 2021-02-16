@@ -345,6 +345,9 @@ extern int   LimitSummSpeedR;		// Ограничение интегратора РС
 
 extern int SummSpeedRint;
 extern int SummSpeedLint;
+
+extern int fCalcEByZ;
+extern int fUseDeltaTheta;
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

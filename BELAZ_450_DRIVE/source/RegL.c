@@ -304,6 +304,9 @@ int SummSpeedLint=0;
 float oldThetaL=0;
 float deltaThetaL=0;
 
+int fCalcEByZ=1;
+int fUseDeltaTheta=1;
+
 void RegLToZero()
 {
 
@@ -734,15 +737,20 @@ void RegL(){
 
 		//IfRMSL = (float)(GetHypByLegs(IdzL,IqzL))/1.4142;
 
+		if(fUseDeltaTheta)
 		fThetaL += deltaThetaL;
 
 		InvPark(&UAlphaL,&UBetaL,UUdL,UUqL,fThetaL);
 		InvClark(&UUAL,&UUBL,&UUCL,UAlphaL,UBetaL);
 
+		if(fUseDeltaTheta)
 		fThetaL -= deltaThetaL;
 
-		InvPark(&IAlphaL,&IBetaL,IdzL,IqzL,fThetaL);
-		InvClark(&Iaz,&Ibz,&Icz,IAlphaL,IBetaL);
+		if(fCalcEByZ)
+		{
+			InvPark(&IAlphaL,&IBetaL,IdzL,IqzL,fThetaL);
+			InvClark(&Iaz,&Ibz,&Icz,IAlphaL,IBetaL);
+		}
 
 		ELCalcL();
 
