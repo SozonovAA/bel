@@ -26,7 +26,7 @@
  * | See matlabroot/simulink/src/sfuntmpl_doc.c for a more detailed template |
  *  ------------------------------------------------------------------------- 
  *
- * Created: Thu Feb 18 14:39:40 2021
+ * Created: Thu Feb 18 15:22:38 2021
  */
 
 #define S_FUNCTION_LEVEL 2
@@ -423,7 +423,7 @@ static void mdlStart(SimStruct *S)
 	DTypeId DebugInfLId = ssGetDataTypeId(S, "DebugInfL");
 	DTypeId DebugInfRId = ssGetDataTypeId(S, "DebugInfR");
 
-	busInfoStruct *busInfo = (busInfoStruct *)malloc(328*sizeof(busInfoStruct));
+	busInfoStruct *busInfo = (busInfoStruct *)malloc(330*sizeof(busInfoStruct));
 	if(busInfo==NULL) {
         ssSetErrorStatus(S, "Memory allocation failure");
         return;
@@ -923,6 +923,9 @@ static void mdlStart(SimStruct *S)
 	busInfo[163].offset   = dtaGetDataTypeElementOffset(dta, bpath, DebugInfRId, 70);
 	busInfo[163].elemSize = dtaGetDataTypeSize(dta, bpath, ssGetDataTypeId(S, "double"));
 	busInfo[163].numElems = 1;
+	busInfo[164].offset   = dtaGetDataTypeElementOffset(dta, bpath, DebugInfRId, 71);
+	busInfo[164].elemSize = dtaGetDataTypeSize(dta, bpath, ssGetDataTypeId(S, "double"));
+	busInfo[164].numElems = 1;
 	ssSetUserData(S, busInfo);
 }
 #endif /*  MDL_START */
@@ -1043,77 +1046,78 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	(void) memcpy(Out_L + busInfo[90].offset, &_Out_LBUS.IfRMSL, busInfo[90].elemSize * busInfo[90].numElems);
 	(void) memcpy(Out_L + busInfo[91].offset, &_Out_LBUS.AmplL, busInfo[91].elemSize * busInfo[91].numElems);
 	(void) memcpy(Out_L + busInfo[92].offset, &_Out_LBUS.AlphaL, busInfo[92].elemSize * busInfo[92].numElems);
-	(void) memcpy(Out_R + busInfo[93].offset, &_Out_RBUS.UUqRMAX, busInfo[93].elemSize * busInfo[93].numElems);
-	(void) memcpy(Out_R + busInfo[94].offset, &_Out_RBUS.kIqR, busInfo[94].elemSize * busInfo[94].numElems);
-	(void) memcpy(Out_R + busInfo[95].offset, &_Out_RBUS.URsAlpha_R, busInfo[95].elemSize * busInfo[95].numElems);
-	(void) memcpy(Out_R + busInfo[96].offset, &_Out_RBUS.URsBeta_R, busInfo[96].elemSize * busInfo[96].numElems);
-	(void) memcpy(Out_R + busInfo[97].offset, &_Out_RBUS.ULsAlpha_R, busInfo[97].elemSize * busInfo[97].numElems);
-	(void) memcpy(Out_R + busInfo[98].offset, &_Out_RBUS.ULsBeta_R, busInfo[98].elemSize * busInfo[98].numElems);
-	(void) memcpy(Out_R + busInfo[99].offset, &_Out_RBUS.SpeedRz, busInfo[99].elemSize * busInfo[99].numElems);
-	(void) memcpy(Out_R + busInfo[100].offset, &_Out_RBUS.SpeedR, busInfo[100].elemSize * busInfo[100].numElems);
-	(void) memcpy(Out_R + busInfo[101].offset, &_Out_RBUS.IaR, busInfo[101].elemSize * busInfo[101].numElems);
-	(void) memcpy(Out_R + busInfo[102].offset, &_Out_RBUS.IbR, busInfo[102].elemSize * busInfo[102].numElems);
-	(void) memcpy(Out_R + busInfo[103].offset, &_Out_RBUS.IcR, busInfo[103].elemSize * busInfo[103].numElems);
-	(void) memcpy(Out_R + busInfo[104].offset, &_Out_RBUS.IAlphaR, busInfo[104].elemSize * busInfo[104].numElems);
-	(void) memcpy(Out_R + busInfo[105].offset, &_Out_RBUS.IBetaR, busInfo[105].elemSize * busInfo[105].numElems);
-	(void) memcpy(Out_R + busInfo[106].offset, &_Out_RBUS.IdzR, busInfo[106].elemSize * busInfo[106].numElems);
-	(void) memcpy(Out_R + busInfo[107].offset, &_Out_RBUS.IdR, busInfo[107].elemSize * busInfo[107].numElems);
-	(void) memcpy(Out_R + busInfo[108].offset, &_Out_RBUS.SIdR, busInfo[108].elemSize * busInfo[108].numElems);
-	(void) memcpy(Out_R + busInfo[109].offset, &_Out_RBUS.DeltaIdOldR, busInfo[109].elemSize * busInfo[109].numElems);
-	(void) memcpy(Out_R + busInfo[110].offset, &_Out_RBUS.DeltaIdR, busInfo[110].elemSize * busInfo[110].numElems);
-	(void) memcpy(Out_R + busInfo[111].offset, &_Out_RBUS.UUdR, busInfo[111].elemSize * busInfo[111].numElems);
-	(void) memcpy(Out_R + busInfo[112].offset, &_Out_RBUS.IqzR, busInfo[112].elemSize * busInfo[112].numElems);
-	(void) memcpy(Out_R + busInfo[113].offset, &_Out_RBUS.IqR, busInfo[113].elemSize * busInfo[113].numElems);
-	(void) memcpy(Out_R + busInfo[114].offset, &_Out_RBUS.SIqR, busInfo[114].elemSize * busInfo[114].numElems);
-	(void) memcpy(Out_R + busInfo[115].offset, &_Out_RBUS.DeltaIqOldR, busInfo[115].elemSize * busInfo[115].numElems);
-	(void) memcpy(Out_R + busInfo[116].offset, &_Out_RBUS.DeltaIqR, busInfo[116].elemSize * busInfo[116].numElems);
-	(void) memcpy(Out_R + busInfo[117].offset, &_Out_RBUS.UUqR, busInfo[117].elemSize * busInfo[117].numElems);
-	(void) memcpy(Out_R + busInfo[118].offset, &_Out_RBUS.UdSIR, busInfo[118].elemSize * busInfo[118].numElems);
-	(void) memcpy(Out_R + busInfo[119].offset, &_Out_RBUS.UqSIR, busInfo[119].elemSize * busInfo[119].numElems);
-	(void) memcpy(Out_R + busInfo[120].offset, &_Out_RBUS.E_ampR, busInfo[120].elemSize * busInfo[120].numElems);
-	(void) memcpy(Out_R + busInfo[121].offset, &_Out_RBUS.fE_ampR, busInfo[121].elemSize * busInfo[121].numElems);
-	(void) memcpy(Out_R + busInfo[122].offset, &_Out_RBUS.UAlphaSIR, busInfo[122].elemSize * busInfo[122].numElems);
-	(void) memcpy(Out_R + busInfo[123].offset, &_Out_RBUS.UBetaSIR, busInfo[123].elemSize * busInfo[123].numElems);
-	(void) memcpy(Out_R + busInfo[124].offset, &_Out_RBUS.DeltaIAlphaR, busInfo[124].elemSize * busInfo[124].numElems);
-	(void) memcpy(Out_R + busInfo[125].offset, &_Out_RBUS.DeltaIBetaR, busInfo[125].elemSize * busInfo[125].numElems);
-	(void) memcpy(Out_R + busInfo[126].offset, &_Out_RBUS.OldIAlphaR, busInfo[126].elemSize * busInfo[126].numElems);
-	(void) memcpy(Out_R + busInfo[127].offset, &_Out_RBUS.OldIBetaR, busInfo[127].elemSize * busInfo[127].numElems);
-	(void) memcpy(Out_R + busInfo[128].offset, &_Out_RBUS.EAlphaInstR, busInfo[128].elemSize * busInfo[128].numElems);
-	(void) memcpy(Out_R + busInfo[129].offset, &_Out_RBUS.EBetaInstR, busInfo[129].elemSize * busInfo[129].numElems);
-	(void) memcpy(Out_R + busInfo[130].offset, &_Out_RBUS.E_MaxR, busInfo[130].elemSize * busInfo[130].numElems);
-	(void) memcpy(Out_R + busInfo[131].offset, &_Out_RBUS.E_LineR, busInfo[131].elemSize * busInfo[131].numElems);
-	(void) memcpy(Out_R + busInfo[132].offset, &_Out_RBUS.Ez_ampR, busInfo[132].elemSize * busInfo[132].numElems);
-	(void) memcpy(Out_R + busInfo[133].offset, &_Out_RBUS.SER, busInfo[133].elemSize * busInfo[133].numElems);
-	(void) memcpy(Out_R + busInfo[134].offset, &_Out_RBUS.IqRCurLim, busInfo[134].elemSize * busInfo[134].numElems);
-	(void) memcpy(Out_R + busInfo[135].offset, &_Out_RBUS.IqRMAX, busInfo[135].elemSize * busInfo[135].numElems);
-	(void) memcpy(Out_R + busInfo[136].offset, &_Out_RBUS.fIqRMAX, busInfo[136].elemSize * busInfo[136].numElems);
-	(void) memcpy(Out_R + busInfo[137].offset, &_Out_RBUS.UAlphaR, busInfo[137].elemSize * busInfo[137].numElems);
-	(void) memcpy(Out_R + busInfo[138].offset, &_Out_RBUS.UBetaR, busInfo[138].elemSize * busInfo[138].numElems);
-	(void) memcpy(Out_R + busInfo[139].offset, &_Out_RBUS.UUAR, busInfo[139].elemSize * busInfo[139].numElems);
-	(void) memcpy(Out_R + busInfo[140].offset, &_Out_RBUS.UUBR, busInfo[140].elemSize * busInfo[140].numElems);
-	(void) memcpy(Out_R + busInfo[141].offset, &_Out_RBUS.UUCR, busInfo[141].elemSize * busInfo[141].numElems);
-	(void) memcpy(Out_R + busInfo[142].offset, &_Out_RBUS.ChopReg, busInfo[142].elemSize * busInfo[142].numElems);
-	(void) memcpy(Out_R + busInfo[143].offset, &_Out_RBUS.UUqzR, busInfo[143].elemSize * busInfo[143].numElems);
-	(void) memcpy(Out_R + busInfo[144].offset, &_Out_RBUS.fUmR, busInfo[144].elemSize * busInfo[144].numElems);
-	(void) memcpy(Out_R + busInfo[145].offset, &_Out_RBUS.UmR, busInfo[145].elemSize * busInfo[145].numElems);
-	(void) memcpy(Out_R + busInfo[146].offset, &_Out_RBUS.DeltaIdzR, busInfo[146].elemSize * busInfo[146].numElems);
-	(void) memcpy(Out_R + busInfo[147].offset, &_Out_RBUS.dUUqR, busInfo[147].elemSize * busInfo[147].numElems);
-	(void) memcpy(Out_R + busInfo[148].offset, &_Out_RBUS.sdUUqR, busInfo[148].elemSize * busInfo[148].numElems);
-	(void) memcpy(Out_R + busInfo[149].offset, &_Out_RBUS.UkdR, busInfo[149].elemSize * busInfo[149].numElems);
-	(void) memcpy(Out_R + busInfo[150].offset, &_Out_RBUS.UkqR, busInfo[150].elemSize * busInfo[150].numElems);
-	(void) memcpy(Out_R + busInfo[151].offset, &_Out_RBUS.ThetaSlipR, busInfo[151].elemSize * busInfo[151].numElems);
-	(void) memcpy(Out_R + busInfo[152].offset, &_Out_RBUS.fThetaR, busInfo[152].elemSize * busInfo[152].numElems);
-	(void) memcpy(Out_R + busInfo[153].offset, &_Out_RBUS.EbyFreqR, busInfo[153].elemSize * busInfo[153].numElems);
-	(void) memcpy(Out_R + busInfo[154].offset, &_Out_RBUS.RmR16, busInfo[154].elemSize * busInfo[154].numElems);
-	(void) memcpy(Out_R + busInfo[155].offset, &_Out_RBUS.FreqR16, busInfo[155].elemSize * busInfo[155].numElems);
-	(void) memcpy(Out_R + busInfo[156].offset, &_Out_RBUS.AFSpeedzR16, busInfo[156].elemSize * busInfo[156].numElems);
-	(void) memcpy(Out_R + busInfo[157].offset, &_Out_RBUS.DeltaSpeedR, busInfo[157].elemSize * busInfo[157].numElems);
-	(void) memcpy(Out_R + busInfo[158].offset, &_Out_RBUS.SpeedRz1_16, busInfo[158].elemSize * busInfo[158].numElems);
-	(void) memcpy(Out_R + busInfo[159].offset, &_Out_RBUS.DeltaSpeedR1, busInfo[159].elemSize * busInfo[159].numElems);
-	(void) memcpy(Out_R + busInfo[160].offset, &_Out_RBUS.AmplR, busInfo[160].elemSize * busInfo[160].numElems);
-	(void) memcpy(Out_R + busInfo[161].offset, &_Out_RBUS.AlphaR, busInfo[161].elemSize * busInfo[161].numElems);
-	(void) memcpy(Out_R + busInfo[162].offset, &_Out_RBUS.PowerR, busInfo[162].elemSize * busInfo[162].numElems);
-	(void) memcpy(Out_R + busInfo[163].offset, &_Out_RBUS.PowerR16, busInfo[163].elemSize * busInfo[163].numElems);
+	(void) memcpy(Out_R + busInfo[93].offset, &_Out_RBUS.SummSpeedR, busInfo[93].elemSize * busInfo[93].numElems);
+	(void) memcpy(Out_R + busInfo[94].offset, &_Out_RBUS.UUqRMAX, busInfo[94].elemSize * busInfo[94].numElems);
+	(void) memcpy(Out_R + busInfo[95].offset, &_Out_RBUS.kIqR, busInfo[95].elemSize * busInfo[95].numElems);
+	(void) memcpy(Out_R + busInfo[96].offset, &_Out_RBUS.URsAlpha_R, busInfo[96].elemSize * busInfo[96].numElems);
+	(void) memcpy(Out_R + busInfo[97].offset, &_Out_RBUS.URsBeta_R, busInfo[97].elemSize * busInfo[97].numElems);
+	(void) memcpy(Out_R + busInfo[98].offset, &_Out_RBUS.ULsAlpha_R, busInfo[98].elemSize * busInfo[98].numElems);
+	(void) memcpy(Out_R + busInfo[99].offset, &_Out_RBUS.ULsBeta_R, busInfo[99].elemSize * busInfo[99].numElems);
+	(void) memcpy(Out_R + busInfo[100].offset, &_Out_RBUS.SpeedRz, busInfo[100].elemSize * busInfo[100].numElems);
+	(void) memcpy(Out_R + busInfo[101].offset, &_Out_RBUS.SpeedR, busInfo[101].elemSize * busInfo[101].numElems);
+	(void) memcpy(Out_R + busInfo[102].offset, &_Out_RBUS.IaR, busInfo[102].elemSize * busInfo[102].numElems);
+	(void) memcpy(Out_R + busInfo[103].offset, &_Out_RBUS.IbR, busInfo[103].elemSize * busInfo[103].numElems);
+	(void) memcpy(Out_R + busInfo[104].offset, &_Out_RBUS.IcR, busInfo[104].elemSize * busInfo[104].numElems);
+	(void) memcpy(Out_R + busInfo[105].offset, &_Out_RBUS.IAlphaR, busInfo[105].elemSize * busInfo[105].numElems);
+	(void) memcpy(Out_R + busInfo[106].offset, &_Out_RBUS.IBetaR, busInfo[106].elemSize * busInfo[106].numElems);
+	(void) memcpy(Out_R + busInfo[107].offset, &_Out_RBUS.IdzR, busInfo[107].elemSize * busInfo[107].numElems);
+	(void) memcpy(Out_R + busInfo[108].offset, &_Out_RBUS.IdR, busInfo[108].elemSize * busInfo[108].numElems);
+	(void) memcpy(Out_R + busInfo[109].offset, &_Out_RBUS.SIdR, busInfo[109].elemSize * busInfo[109].numElems);
+	(void) memcpy(Out_R + busInfo[110].offset, &_Out_RBUS.DeltaIdOldR, busInfo[110].elemSize * busInfo[110].numElems);
+	(void) memcpy(Out_R + busInfo[111].offset, &_Out_RBUS.DeltaIdR, busInfo[111].elemSize * busInfo[111].numElems);
+	(void) memcpy(Out_R + busInfo[112].offset, &_Out_RBUS.UUdR, busInfo[112].elemSize * busInfo[112].numElems);
+	(void) memcpy(Out_R + busInfo[113].offset, &_Out_RBUS.IqzR, busInfo[113].elemSize * busInfo[113].numElems);
+	(void) memcpy(Out_R + busInfo[114].offset, &_Out_RBUS.IqR, busInfo[114].elemSize * busInfo[114].numElems);
+	(void) memcpy(Out_R + busInfo[115].offset, &_Out_RBUS.SIqR, busInfo[115].elemSize * busInfo[115].numElems);
+	(void) memcpy(Out_R + busInfo[116].offset, &_Out_RBUS.DeltaIqOldR, busInfo[116].elemSize * busInfo[116].numElems);
+	(void) memcpy(Out_R + busInfo[117].offset, &_Out_RBUS.DeltaIqR, busInfo[117].elemSize * busInfo[117].numElems);
+	(void) memcpy(Out_R + busInfo[118].offset, &_Out_RBUS.UUqR, busInfo[118].elemSize * busInfo[118].numElems);
+	(void) memcpy(Out_R + busInfo[119].offset, &_Out_RBUS.UdSIR, busInfo[119].elemSize * busInfo[119].numElems);
+	(void) memcpy(Out_R + busInfo[120].offset, &_Out_RBUS.UqSIR, busInfo[120].elemSize * busInfo[120].numElems);
+	(void) memcpy(Out_R + busInfo[121].offset, &_Out_RBUS.E_ampR, busInfo[121].elemSize * busInfo[121].numElems);
+	(void) memcpy(Out_R + busInfo[122].offset, &_Out_RBUS.fE_ampR, busInfo[122].elemSize * busInfo[122].numElems);
+	(void) memcpy(Out_R + busInfo[123].offset, &_Out_RBUS.UAlphaSIR, busInfo[123].elemSize * busInfo[123].numElems);
+	(void) memcpy(Out_R + busInfo[124].offset, &_Out_RBUS.UBetaSIR, busInfo[124].elemSize * busInfo[124].numElems);
+	(void) memcpy(Out_R + busInfo[125].offset, &_Out_RBUS.DeltaIAlphaR, busInfo[125].elemSize * busInfo[125].numElems);
+	(void) memcpy(Out_R + busInfo[126].offset, &_Out_RBUS.DeltaIBetaR, busInfo[126].elemSize * busInfo[126].numElems);
+	(void) memcpy(Out_R + busInfo[127].offset, &_Out_RBUS.OldIAlphaR, busInfo[127].elemSize * busInfo[127].numElems);
+	(void) memcpy(Out_R + busInfo[128].offset, &_Out_RBUS.OldIBetaR, busInfo[128].elemSize * busInfo[128].numElems);
+	(void) memcpy(Out_R + busInfo[129].offset, &_Out_RBUS.EAlphaInstR, busInfo[129].elemSize * busInfo[129].numElems);
+	(void) memcpy(Out_R + busInfo[130].offset, &_Out_RBUS.EBetaInstR, busInfo[130].elemSize * busInfo[130].numElems);
+	(void) memcpy(Out_R + busInfo[131].offset, &_Out_RBUS.E_MaxR, busInfo[131].elemSize * busInfo[131].numElems);
+	(void) memcpy(Out_R + busInfo[132].offset, &_Out_RBUS.E_LineR, busInfo[132].elemSize * busInfo[132].numElems);
+	(void) memcpy(Out_R + busInfo[133].offset, &_Out_RBUS.Ez_ampR, busInfo[133].elemSize * busInfo[133].numElems);
+	(void) memcpy(Out_R + busInfo[134].offset, &_Out_RBUS.SER, busInfo[134].elemSize * busInfo[134].numElems);
+	(void) memcpy(Out_R + busInfo[135].offset, &_Out_RBUS.IqRCurLim, busInfo[135].elemSize * busInfo[135].numElems);
+	(void) memcpy(Out_R + busInfo[136].offset, &_Out_RBUS.IqRMAX, busInfo[136].elemSize * busInfo[136].numElems);
+	(void) memcpy(Out_R + busInfo[137].offset, &_Out_RBUS.fIqRMAX, busInfo[137].elemSize * busInfo[137].numElems);
+	(void) memcpy(Out_R + busInfo[138].offset, &_Out_RBUS.UAlphaR, busInfo[138].elemSize * busInfo[138].numElems);
+	(void) memcpy(Out_R + busInfo[139].offset, &_Out_RBUS.UBetaR, busInfo[139].elemSize * busInfo[139].numElems);
+	(void) memcpy(Out_R + busInfo[140].offset, &_Out_RBUS.UUAR, busInfo[140].elemSize * busInfo[140].numElems);
+	(void) memcpy(Out_R + busInfo[141].offset, &_Out_RBUS.UUBR, busInfo[141].elemSize * busInfo[141].numElems);
+	(void) memcpy(Out_R + busInfo[142].offset, &_Out_RBUS.UUCR, busInfo[142].elemSize * busInfo[142].numElems);
+	(void) memcpy(Out_R + busInfo[143].offset, &_Out_RBUS.ChopReg, busInfo[143].elemSize * busInfo[143].numElems);
+	(void) memcpy(Out_R + busInfo[144].offset, &_Out_RBUS.UUqzR, busInfo[144].elemSize * busInfo[144].numElems);
+	(void) memcpy(Out_R + busInfo[145].offset, &_Out_RBUS.fUmR, busInfo[145].elemSize * busInfo[145].numElems);
+	(void) memcpy(Out_R + busInfo[146].offset, &_Out_RBUS.UmR, busInfo[146].elemSize * busInfo[146].numElems);
+	(void) memcpy(Out_R + busInfo[147].offset, &_Out_RBUS.DeltaIdzR, busInfo[147].elemSize * busInfo[147].numElems);
+	(void) memcpy(Out_R + busInfo[148].offset, &_Out_RBUS.dUUqR, busInfo[148].elemSize * busInfo[148].numElems);
+	(void) memcpy(Out_R + busInfo[149].offset, &_Out_RBUS.sdUUqR, busInfo[149].elemSize * busInfo[149].numElems);
+	(void) memcpy(Out_R + busInfo[150].offset, &_Out_RBUS.UkdR, busInfo[150].elemSize * busInfo[150].numElems);
+	(void) memcpy(Out_R + busInfo[151].offset, &_Out_RBUS.UkqR, busInfo[151].elemSize * busInfo[151].numElems);
+	(void) memcpy(Out_R + busInfo[152].offset, &_Out_RBUS.ThetaSlipR, busInfo[152].elemSize * busInfo[152].numElems);
+	(void) memcpy(Out_R + busInfo[153].offset, &_Out_RBUS.fThetaR, busInfo[153].elemSize * busInfo[153].numElems);
+	(void) memcpy(Out_R + busInfo[154].offset, &_Out_RBUS.EbyFreqR, busInfo[154].elemSize * busInfo[154].numElems);
+	(void) memcpy(Out_R + busInfo[155].offset, &_Out_RBUS.RmR16, busInfo[155].elemSize * busInfo[155].numElems);
+	(void) memcpy(Out_R + busInfo[156].offset, &_Out_RBUS.FreqR16, busInfo[156].elemSize * busInfo[156].numElems);
+	(void) memcpy(Out_R + busInfo[157].offset, &_Out_RBUS.AFSpeedzR16, busInfo[157].elemSize * busInfo[157].numElems);
+	(void) memcpy(Out_R + busInfo[158].offset, &_Out_RBUS.DeltaSpeedR, busInfo[158].elemSize * busInfo[158].numElems);
+	(void) memcpy(Out_R + busInfo[159].offset, &_Out_RBUS.SpeedRz1_16, busInfo[159].elemSize * busInfo[159].numElems);
+	(void) memcpy(Out_R + busInfo[160].offset, &_Out_RBUS.DeltaSpeedR1, busInfo[160].elemSize * busInfo[160].numElems);
+	(void) memcpy(Out_R + busInfo[161].offset, &_Out_RBUS.AmplR, busInfo[161].elemSize * busInfo[161].numElems);
+	(void) memcpy(Out_R + busInfo[162].offset, &_Out_RBUS.AlphaR, busInfo[162].elemSize * busInfo[162].numElems);
+	(void) memcpy(Out_R + busInfo[163].offset, &_Out_RBUS.PowerR, busInfo[163].elemSize * busInfo[163].numElems);
+	(void) memcpy(Out_R + busInfo[164].offset, &_Out_RBUS.PowerR16, busInfo[164].elemSize * busInfo[164].numElems);
 
 }
 

@@ -463,7 +463,7 @@ void SpeedRegL()
 
 	DeltaSpeedL1 = SpeedLz1 - SpeedL;
 
-	if(Brake < 13) Brake = 13;
+	//if(Brake < 13) Brake = 13;
 
 	if(cmd.DNR == DRIVE)
 	{

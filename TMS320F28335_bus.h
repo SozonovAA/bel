@@ -114,6 +114,7 @@ typedef struct {
 #ifndef _DEFINED_TYPEDEF_FOR_DebugInfR_
 #define _DEFINED_TYPEDEF_FOR_DebugInfR_ 
 typedef struct {
+  real_T SummSpeedR;
   real_T UUqRMAX;
   real_T kIqR;
   real_T URsAlpha_R;

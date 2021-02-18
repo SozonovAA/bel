@@ -147,6 +147,7 @@ Out_L[0].IfRMSL = IfRMSL;
 Out_L[0].AmplL = AmplL;
 Out_L[0].AlphaL = AlphaL;
 
+Out_R[0].SummSpeedR = SummSpeedR ;
 Out_R[0].UUqRMAX = UUqRMAX ;
 Out_R[0].kIqR = kIqR;
 Out_R[0].URsAlpha_R = URsAlpha_R;
