@@ -310,6 +310,9 @@ int fTryBrakeDiff=1;
 
 float kEamp=1.0;
 
+float kpz=20;
+float kiz=5;
+
 void RegLToZero()
 {
 
@@ -358,7 +361,6 @@ void CalcDeltaIdL()
 	if(E_MaxL < 200) E_MaxL=200;
 
 	if(E_LineL<E_MaxL)
-
 		dEL = E_LineL - E_ampL;
 
 	else
@@ -431,11 +433,17 @@ void SpeedRegL()
 	if(LimitSummSpeedL > 700) LimitSummSpeedL = 700;
 	if(LimitSummSpeedL < -700) LimitSummSpeedL = -700;
 
+	if(Brake < 13)
 	SummSpeedL += (float)DeltaAxleSpeedL*2;
+	else if(SpeedL < 100) SummSpeedL += (float)(0 - SpeedL)/kiz;
 
 	SummSpeedLint = SummSpeedL;
 
-	MinMaxLimitFloat(-abs(LimitSummSpeedL),abs(LimitSummSpeedL),&SummSpeedL);
+	if(Brake < 13)
+		MinMaxLimitFloat(-abs(LimitSummSpeedL),abs(LimitSummSpeedL),&SummSpeedL);
+	else
+		MinMaxLimitFloat(-1500,1500,&SummSpeedL);
+
 //////////////////////////
 
 	DeltaSpeedL = (SpeedLz - IqzL)/5;
@@ -459,23 +467,27 @@ void SpeedRegL()
 
 	if(cmd.DNR == DRIVE)
 	{
-		if(Brake > 13 && SpeedL > 40)
+		if(Brake > 13 )
 		{
+			if(SpeedL > 100)
+			{
+				if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
+				else
+					if(IqSummInBrakeL > -(Brake-13)*20)
+						IqSummInBrakeL -= 0.1*kBrake;
 
-			if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
+				IqzL = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
+			}
 			else
-				if(IqSummInBrakeL > -(Brake-13)*20)
-					IqSummInBrakeL -= 0.1*kBrake;
-
-			IqzL = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
+				IqzL = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
 
 			SpeedLz1 = SpeedL;
 		}
 		else
-			{
-				IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedL;
-				IqSummInBrakeL = IqzL;
-			}
+		{
+			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedL;
+			IqSummInBrakeL = IqzL;
+		}
 	}
 	if(cmd.DNR == REVERSE)
 	{
@@ -694,6 +706,7 @@ void RegL(){
 
 		SpeedRegL();
 
+		if(abs(SpeedL) > 150)
 		MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
 
 		if(UUqL > UUqLMAX) kIqL = (float)17500/(float)UUqL;

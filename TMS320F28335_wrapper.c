@@ -221,6 +221,7 @@ Out_R[0].PowerR16 = PowerR16;
 
 SpeedLz = FromKabine[0]*20;
 SpeedRz = FromKabine[0]*20;
+Brake = FromKabine[1];
 
 RegL();
 RegR();
