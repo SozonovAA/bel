@@ -43,6 +43,8 @@ void AssemblyECIPMess()
 	Drive = data_from_KK->Drive;
 	Brake = data_from_KK->Brake;
 
+	if(Brake == 13) Brake = 0;
+
 
 #ifdef MacroProj_PK12
 /*
