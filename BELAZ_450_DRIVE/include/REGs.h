@@ -353,6 +353,8 @@ extern int fTryBrakeDiff;
 extern float kEamp;
 extern float kpz;
 extern float kiz;
+
+extern int limitZeroSpeed;
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

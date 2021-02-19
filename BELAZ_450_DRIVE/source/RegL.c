@@ -313,6 +313,8 @@ float kEamp=1.0;
 float kpz=20;
 float kiz=5;
 
+int limitZeroSpeed=100;
+
 void RegLToZero()
 {
 
@@ -435,7 +437,7 @@ void SpeedRegL()
 
 	if(Brake < 13)
 	SummSpeedL += (float)DeltaAxleSpeedL*2;
-	else if(SpeedL < 100) SummSpeedL += (float)(0 - SpeedL)/kiz;
+	else if(SpeedL < limitZeroSpeed) SummSpeedL += (float)(0 - SpeedL)/kiz;
 
 	SummSpeedLint = SummSpeedL;
 
@@ -469,7 +471,7 @@ void SpeedRegL()
 	{
 		if(Brake > 13 )
 		{
-			if(SpeedL > 100)
+			if(SpeedL > limitZeroSpeed)
 			{
 				if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
 				else

@@ -300,7 +300,7 @@ void SpeedRegR()
 
 	if(Brake < 13)
 	SummSpeedR += (float)DeltaAxleSpeedR*2;
-	else if(SpeedR < 100) SummSpeedR += (float)(0 - SpeedR)/kiz;
+	else if(SpeedR < limitZeroSpeed) SummSpeedR += (float)(0 - SpeedR)/kiz;
 
 	SummSpeedRint = SummSpeedR;
 
@@ -334,7 +334,7 @@ void SpeedRegR()
 	{
 		if(Brake > 13 )
 		{
-			if(SpeedR > 100)
+			if(SpeedR > limitZeroSpeed)
 			{
 				if(PowerR < PowerBrakeMax) IqSummInBrakeR += 0.1*kBrake;
 				else
