@@ -50,6 +50,7 @@ int DeltaIdR=0;
 int UUdR=0;
 
 int IqzR=0;
+int IqzRnf=0;
 int IqR=0;
 float SIqR=0;
 int DeltaIqOldR=0;
@@ -300,7 +301,8 @@ void SpeedRegR()
 
 	if(Brake < 13)
 	SummSpeedR += (float)DeltaAxleSpeedR*2;
-	else if(SpeedR < limitZeroSpeed) SummSpeedR += (float)(0 - SpeedR)/kiz;
+
+	if(fHoldZero) SummSpeedR += (float)(0 - SpeedR)/kiz;
 
 	SummSpeedRint = SummSpeedR;
 
@@ -308,8 +310,6 @@ void SpeedRegR()
 		MinMaxLimitFloat(-abs(LimitSummSpeedR),abs(LimitSummSpeedR),&SummSpeedR);
 	else
 		MinMaxLimitFloat(-1500,1500,&SummSpeedR);
-
-	//////////////////////////
 
 	DeltaSpeedR = (SpeedRz - IqzR)/5;
 
@@ -334,7 +334,7 @@ void SpeedRegR()
 	{
 		if(Brake > 13 )
 		{
-			if(SpeedR > limitZeroSpeed)
+			if(SpeedR > limitZeroSpeed && ! fHoldZero)
 			{
 				if(PowerR < PowerBrakeMax) IqSummInBrakeR += 0.1*kBrake;
 				else
@@ -344,7 +344,14 @@ void SpeedRegR()
 				IqzR = IqSummInBrakeR + fTryBrakeDiff*SummSpeedR;
 			}
 			else
-				IqzR = (0-SpeedR)*kpz + fTryBrakeDiff*SummSpeedR;
+				fHoldZero = 1;//IqzR = (0-SpeedR)*kpz + fTryBrakeDiff*SummSpeedR;
+
+			if(fHoldZero)
+			{
+				IqzRnf = (0-SpeedR)*kpz + fTryBrakeDiff*SummSpeedR;
+			}
+
+			IqzR += (IqzRnf - IqzR)/25.0;
 
 			SpeedRz1 = SpeedR;
 		}

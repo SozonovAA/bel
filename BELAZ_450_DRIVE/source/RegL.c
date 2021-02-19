@@ -138,6 +138,7 @@ int DeltaIdOldL=0;
 int DeltaIdL=0;
 int UUdL=0;
 
+float IqzLnf=0;
 int IqzL=0;
 int IqL=0;
 float SIqL=0;
@@ -313,7 +314,9 @@ float kEamp=1.0;
 float kpz=20;
 float kiz=5;
 
-int limitZeroSpeed=100;
+int limitZeroSpeed=10;
+
+int fHoldZero=0;
 
 void RegLToZero()
 {
@@ -437,7 +440,8 @@ void SpeedRegL()
 
 	if(Brake < 13)
 	SummSpeedL += (float)DeltaAxleSpeedL*2;
-	else if(SpeedL < limitZeroSpeed) SummSpeedL += (float)(0 - SpeedL)/kiz;
+
+	if(fHoldZero) SummSpeedL += (float)(0 - SpeedL)/kiz;
 
 	SummSpeedLint = SummSpeedL;
 
@@ -471,22 +475,30 @@ void SpeedRegL()
 	{
 		if(Brake > 13 )
 		{
-			if(SpeedL > limitZeroSpeed)
+			if(SpeedL > limitZeroSpeed && ! fHoldZero)
 			{
 				if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
 				else
 					if(IqSummInBrakeL > -(Brake-13)*20)
 						IqSummInBrakeL -= 0.1*kBrake;
 
-				IqzL = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
+				IqzLnf = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
 			}
 			else
-				IqzL = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
+				fHoldZero = 1;//IqzL = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
+
+			if(fHoldZero)
+			{
+				IqzLnf = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
+			}
+
+			IqzL += (IqzLnf - IqzL)/25.0;
 
 			SpeedLz1 = SpeedL;
 		}
 		else
 		{
+			fHoldZero=0;
 			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedL;
 			IqSummInBrakeL = IqzL;
 		}

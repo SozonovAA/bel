@@ -355,6 +355,7 @@ extern float kpz;
 extern float kiz;
 
 extern int limitZeroSpeed;
+extern int fHoldZero;
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50
