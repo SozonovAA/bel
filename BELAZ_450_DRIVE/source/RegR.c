@@ -148,7 +148,7 @@ int PowerBrakeMax=-1000;
 int iffR=0;
 
 float IqSummInBrakeR=0;
-float kBrake=35;
+float kBrake=5;
 
 void CalcDeltaIdR();
 
