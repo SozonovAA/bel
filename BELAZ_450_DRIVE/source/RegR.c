@@ -357,6 +357,7 @@ void SpeedRegR()
 		}
 		else
 		{
+			fHoldZero = 0;
 			IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedR;
 			IqSummInBrakeR = IqzR;
 		}
