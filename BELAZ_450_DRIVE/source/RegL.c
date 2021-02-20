@@ -311,8 +311,8 @@ int fTryBrakeDiff=1;
 
 float kEamp=1.0;
 
-float kpz=20;
-float kiz=5;
+float kpz=5;
+float kiz=150;
 
 int limitZeroSpeed=10;
 
@@ -429,20 +429,6 @@ void SpeedRegL()
 	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
 
 	//------------------------ ABS ----------------------------
-#ifndef MATLAB
-
-	if (ControllerID == PK1)
-	{
-		SpeedLOther = data_from_KK->SpeedRL;
-		SpeedROther = data_from_KK->SpeedRR;
-	}
-	if (ControllerID == PK2)
-	{
-		SpeedLOther = data_from_KK->SpeedFL;
-		SpeedROther = data_from_KK->SpeedFR;
-	}
-
-#endif
 
 	AverageThisAxleSpeed = (SpeedL+SpeedR)/2;
 	AverageOtherAxleSpeed = (SpeedLOther+SpeedROther)/2;
@@ -640,6 +626,18 @@ void RegL(){
 
 	SpeedTestCount++;
 #ifndef MATLAB
+
+	if (ControllerID == PK1)
+	{
+		SpeedLOther = data_from_KK->SpeedRL;
+		SpeedROther = data_from_KK->SpeedRR;
+	}
+	if (ControllerID == PK2)
+	{
+		SpeedLOther = data_from_KK->SpeedFL;
+		SpeedROther = data_from_KK->SpeedFR;
+	}
+
 	SpeedAndAngleL();
 
 	//32400/2*M_PI = 5156.62
