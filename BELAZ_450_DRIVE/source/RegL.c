@@ -428,12 +428,6 @@ void SpeedRegL()
 	float SummSpeedL=0;				// Интегратор РС
 	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
 
-	//------------------------ ABS ----------------------------
-
-	AverageThisAxleSpeed = (SpeedL+SpeedR)/2;
-	AverageOtherAxleSpeed = (SpeedLOther+SpeedROther)/2;
-	AverageCarSpeed = (AverageThisAxleSpeed + AverageOtherAxleSpeed)/2;
-
 	//------------------------ DIFF ----------------------------
 
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
@@ -637,6 +631,12 @@ void RegL(){
 		SpeedLOther = data_from_KK->SpeedFL;
 		SpeedROther = data_from_KK->SpeedFR;
 	}
+
+	//------------------------ ABS ----------------------------
+
+	AverageThisAxleSpeed = (SpeedL+SpeedR)/2;
+	AverageOtherAxleSpeed = (SpeedLOther+SpeedROther)/2;
+	AverageCarSpeed = (AverageThisAxleSpeed + AverageOtherAxleSpeed)/2;
 
 	SpeedAndAngleL();
 
