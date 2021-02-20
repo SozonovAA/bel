@@ -396,6 +396,21 @@ void CrossComL()
 
 }
 
+extern unsigned int ControllerID;
+
+//ABS
+int DeltaSpeedLABS=0;
+int DeltaSpeedRABS=0;
+
+int SpeedLOther=0;
+int SpeedROther=0;
+
+int AverageThisAxleSpeed=0;
+int AverageOtherAxleSpeed=0;
+int AverageCarSpeed=0;
+int ABS=100;
+int fABS=0;
+
 void SpeedRegL()
 {
 
@@ -412,6 +427,25 @@ void SpeedRegL()
 
 	float SummSpeedL=0;				// Интегратор РС
 	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
+
+//------------------------ ABS ----------------------------
+
+	if (ControllerID == PK1)
+	{
+		SpeedLOther = data_from_KK->SpeedRL;
+		SpeedROther = data_from_KK->SpeedRR;
+	}
+	if (ControllerID == PK2)
+	{
+		SpeedLOther = data_from_KK->SpeedFL;
+		SpeedROther = data_from_KK->SpeedFR;
+	}
+
+	AverageThisAxleSpeed = (SpeedL+SpeedR)/2;
+	AverageOtherAxleSpeed = (SpeedLOther+SpeedROther)/2;
+	AverageCarSpeed = (AverageThisAxleSpeed + AverageOtherAxleSpeed)/2;
+
+//------------------------ DIFF ----------------------------
 
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
 	DeltaAxleSpeedL = AverageAxleSpeed - SpeedL;
@@ -475,17 +509,25 @@ void SpeedRegL()
 	{
 		if(Brake > 13 )
 		{
-			if(SpeedL > limitZeroSpeed && ! fHoldZero)
+			//левая ось
+			DeltaSpeedLABS=AverageCarSpeed -SpeedL;
+			if(DeltaSpeedLABS>ABS && IqzL<=0 && ! fHoldZero && fABS)
 			{
-				if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
-				else
-					if(IqSummInBrakeL > -(Brake-13)*20)
-						IqSummInBrakeL -= 0.1*kBrake;
-
-				IqzLnf = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
+				IqzL+=1;
+				//else IqzL-=3;
 			}
 			else
-				fHoldZero = 1;//IqzL = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
+				if(SpeedL > limitZeroSpeed && ! fHoldZero)
+				{
+					if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
+					else
+						if(IqSummInBrakeL > -(Brake-13)*20)
+							IqSummInBrakeL -= 0.1*kBrake;
+
+					IqzLnf = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
+				}
+				else
+					fHoldZero = 1;//IqzL = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
 
 			if(fHoldZero)
 			{

@@ -334,6 +334,14 @@ void SpeedRegR()
 	{
 		if(Brake > 13 )
 		{
+			//левая ось
+			DeltaSpeedRABS=AverageCarSpeed -SpeedR;
+			if(DeltaSpeedRABS>ABS && IqzR<=0 && ! fHoldZero && fABS)
+			{
+				IqzR+=1;
+				//else IqzL-=3;
+			}
+			else
 			if(SpeedR > limitZeroSpeed && ! fHoldZero)
 			{
 				if(PowerR < PowerBrakeMax) IqSummInBrakeR += 0.1*kBrake;

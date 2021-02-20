@@ -356,6 +356,20 @@ extern float kiz;
 
 extern int limitZeroSpeed;
 extern int fHoldZero;
+
+//ABS
+extern int DeltaSpeedLABS;
+extern int DeltaSpeedRABS;
+
+extern int SpeedLOther;
+extern int SpeedROther;
+
+extern int AverageThisAxleSpeed;
+extern int AverageOtherAxleSpeed;
+extern int AverageCarSpeed;
+extern int ABS;
+extern int fABS;
+
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50
