@@ -53,6 +53,7 @@ ElectricAngleR = Rpars[3];
 Ud = Rpars[4];
 SpeedR = Rpars[6];
 
+Out_L[0].DeltaSpeedLABS = DeltaSpeedLABS;
 Out_L[0].DeltaAxleSpeedL = DeltaAxleSpeedL;
 Out_L[0].DeltaAxleSpeedR = DeltaAxleSpeedR;
 Out_L[0].AverageAxleSpeed = AverageAxleSpeed;
@@ -147,6 +148,7 @@ Out_L[0].IfRMSL = IfRMSL;
 Out_L[0].AmplL = AmplL;
 Out_L[0].AlphaL = AlphaL;
 
+Out_R[0].DeltaSpeedRABS = DeltaSpeedRABS; 
 Out_R[0].SummSpeedR = SummSpeedR ;
 Out_R[0].UUqRMAX = UUqRMAX ;
 Out_R[0].kIqR = kIqR;

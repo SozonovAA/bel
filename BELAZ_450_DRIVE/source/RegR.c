@@ -300,7 +300,7 @@ void SpeedRegR()
 	if(LimitSummSpeedR < -700) LimitSummSpeedR = -700;
 
 	if(Brake < 13)
-	SummSpeedR += (float)DeltaAxleSpeedR*2;
+		SummSpeedR += (float)DeltaAxleSpeedR*2;
 
 	if(fHoldZero) SummSpeedR += (float)(0 - SpeedR)/kiz;
 
@@ -336,23 +336,28 @@ void SpeedRegR()
 		{
 			//левая ось
 			DeltaSpeedRABS=AverageCarSpeed -SpeedR;
-			if(DeltaSpeedRABS>ABS && IqzR<=0 && ! fHoldZero && fABS)
+#ifdef MATLAB
+			DeltaSpeedRABS=SpeedL - SpeedR;
+#endif
+			if(DeltaSpeedRABS>ABS && IqzR<=0 && SpeedR > limitZeroSpeed && ! fHoldZero && fABS)
 			{
-				IqzR+=1;
-				//else IqzL-=3;
+				IqSummInBrakeR+=1;
+					//IqzL=1000;
+					//else IqzL-=3;
+					IqzRnf = IqSummInBrakeR ;
 			}
 			else
-			if(SpeedR > limitZeroSpeed && ! fHoldZero)
-			{
-				if(PowerR < PowerBrakeMax) IqSummInBrakeR += 0.1*kBrake;
-				else
-					if(IqSummInBrakeR > -(Brake-13)*20)
-						IqSummInBrakeR -= 0.1*kBrake;
+				if(SpeedR > limitZeroSpeed && ! fHoldZero)
+				{
+					if(PowerR < PowerBrakeMax) IqSummInBrakeR += 0.1*kBrake;
+					else
+						if(IqSummInBrakeR > -(Brake-13)*20)
+							IqSummInBrakeR -= 0.1*kBrake;
 
-				IqzR = IqSummInBrakeR + fTryBrakeDiff*SummSpeedR;
-			}
-			else
-				fHoldZero = 1;//IqzR = (0-SpeedR)*kpz + fTryBrakeDiff*SummSpeedR;
+					IqzRnf = IqSummInBrakeR + fTryBrakeDiff*SummSpeedR;
+				}
+				else
+					fHoldZero = 1;//IqzR = (0-SpeedR)*kpz + fTryBrakeDiff*SummSpeedR;
 
 			if(fHoldZero)
 			{
@@ -452,7 +457,7 @@ void RegR(){
 #endif
 
 	if(((fThetaR - oldThetaR)<4) && ((fThetaR - oldThetaR)>-4)) // исключаем перегиб диапазона на 2 ПИ
-	deltaThetaR = (fThetaR - oldThetaR);
+		deltaThetaR = (fThetaR - oldThetaR);
 
 	oldThetaR = fThetaR;
 
@@ -607,13 +612,13 @@ void RegR(){
 		UqSIR = ConvertVParamToSI(UUqR);
 
 		if(fUseDeltaTheta)
-		fThetaR += deltaThetaR;
+			fThetaR += deltaThetaR;
 
 		InvPark(&UAlphaR,&UBetaR,UUdR,UUqR,fThetaR);
 		InvClark(&UUAR,&UUBR,&UUCR,UAlphaR,UBetaR);
 
 		if(fUseDeltaTheta)
-		fThetaR -= deltaThetaR;
+			fThetaR -= deltaThetaR;
 
 		if(fCalcEByZ)
 		{

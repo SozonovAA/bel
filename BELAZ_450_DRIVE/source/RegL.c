@@ -32,76 +32,76 @@ int Ud=0;
 struct cmd_ cmd;
 
 struct KOEFF koeff={ 2500, ///*00*/	int IFMAX;		//аварийная уставка фазного тока
-					 1070, ///*01*/	int UdMAX;		//аварийная уставка напряжения в звене постоянного тока
-					 2000, ///*02*/	int IgenMAX;		//аварийная уставка тока генератора
-					 350, ///*03*/	int IvMAX;		//аварийная уставка тока возбуждения
-					 444, ///*04*/	int IFZero;		//аварийная уставка нуля тока
-					 400, ///*05*/	int DeltaUd;		//аварийная уставка производной напряжения для КЗ
-					 80, ///*06*/	int UdExMin;		//уставка подачи импульсов на возбудитель
-					 350, ///*07*/	int UdInvStart;   //уставка подачи импульсов на инвертора и чоппер
-					 250, ///*08*/	int UdInvStop;    //уставка снятия импульсов c инвертора
-					 40, ///*09*/	int UdChStop;   	//уставка снятия импульсов с чоппера
-					 182, ///*10*/	int K1_Rvg;
-					 300, ///*11*/	int K2_Rvg;
-					 75, ///*12*/	int Kp_Rvg;
-					 25, ///*13*/	int Ki_Rvg;
-					 12345, ///*14*/	int K_UdzDiz;
-					 12345, ///*15*/	int B_UdzDiz;
-					 0, ///*16*/	int K_UdzDrive;
-					 12345, ///*17*/	int B_UdzDrive;
-					 75, ///*18*/	int Kp;			//пропорциональная часть регулятора тока
-					 25, ///*19*/	int Ki;			//интегральная часть регулятора тока
-					 0, ///*20*/	int Kd;			//дифференциальная часть регулятора тока
-					 2, ///*21*/	int KFiltE;		//аппериодический фильтр ЭДС
-					 50, ///*22*/	int KpE;			//пропорциональная часть регулятора ЭДС
-					 10, ///*23*/	int KiE;			//интегральная часть регулятора ЭДС
-					 10, ///*24*/	int KFiltIq;		//аппериодический фильтр максимального тока
-					 2, ///*25*/	int Kf;			//выход на частоту U/f=Const (за сколько милисекунд наберется 1 Герц)
-					 670, ///*26*/	int cIf;
-					 1000, ///*27*/	int cUd;
-					 1300, ///*28*/	int cIv;
-					 2000, ///*29*/	int cIgen;
-					 0, ///*30*/	int cUgen;
-					 0, ///*31*/	int WriteKoeff;
-					 0, ///*32*/	int WriteDacs;
-					 5, ///*33*/	int K7;
-					 10, ///*34*/	int K8;
-					 10, ///*35*/	int K9;
-					 16, ///*36*/	int K10;
-					 50, ///*37*/	int K11;
-					 10, ///*38*/	int K12;
-					 0, ///*39*/	int K13;
-					 2500, ///*40*/	int K14;
-					 10, ///*41*/	int K15;
-					 30, ///*42*/	int K16;
-					 4, ///*43*/	int K17;
-					 2000, ///*44*/	int K18;
-					 50, ///*45*/	int K19;
-					 0, ///*46*/	int K20;
-					 1, ///*47*/	int K21;
-					 0, ///*48*/	int K22;
-					 50 };///*49*/	int K23;
+		1070, ///*01*/	int UdMAX;		//аварийная уставка напряжения в звене постоянного тока
+		2000, ///*02*/	int IgenMAX;		//аварийная уставка тока генератора
+		350, ///*03*/	int IvMAX;		//аварийная уставка тока возбуждения
+		444, ///*04*/	int IFZero;		//аварийная уставка нуля тока
+		400, ///*05*/	int DeltaUd;		//аварийная уставка производной напряжения для КЗ
+		80, ///*06*/	int UdExMin;		//уставка подачи импульсов на возбудитель
+		350, ///*07*/	int UdInvStart;   //уставка подачи импульсов на инвертора и чоппер
+		250, ///*08*/	int UdInvStop;    //уставка снятия импульсов c инвертора
+		40, ///*09*/	int UdChStop;   	//уставка снятия импульсов с чоппера
+		182, ///*10*/	int K1_Rvg;
+		300, ///*11*/	int K2_Rvg;
+		75, ///*12*/	int Kp_Rvg;
+		25, ///*13*/	int Ki_Rvg;
+		12345, ///*14*/	int K_UdzDiz;
+		12345, ///*15*/	int B_UdzDiz;
+		0, ///*16*/	int K_UdzDrive;
+		12345, ///*17*/	int B_UdzDrive;
+		75, ///*18*/	int Kp;			//пропорциональная часть регулятора тока
+		25, ///*19*/	int Ki;			//интегральная часть регулятора тока
+		0, ///*20*/	int Kd;			//дифференциальная часть регулятора тока
+		2, ///*21*/	int KFiltE;		//аппериодический фильтр ЭДС
+		50, ///*22*/	int KpE;			//пропорциональная часть регулятора ЭДС
+		10, ///*23*/	int KiE;			//интегральная часть регулятора ЭДС
+		10, ///*24*/	int KFiltIq;		//аппериодический фильтр максимального тока
+		2, ///*25*/	int Kf;			//выход на частоту U/f=Const (за сколько милисекунд наберется 1 Герц)
+		670, ///*26*/	int cIf;
+		1000, ///*27*/	int cUd;
+		1300, ///*28*/	int cIv;
+		2000, ///*29*/	int cIgen;
+		0, ///*30*/	int cUgen;
+		0, ///*31*/	int WriteKoeff;
+		0, ///*32*/	int WriteDacs;
+		5, ///*33*/	int K7;
+		10, ///*34*/	int K8;
+		10, ///*35*/	int K9;
+		16, ///*36*/	int K10;
+		50, ///*37*/	int K11;
+		10, ///*38*/	int K12;
+		0, ///*39*/	int K13;
+		2500, ///*40*/	int K14;
+		10, ///*41*/	int K15;
+		30, ///*42*/	int K16;
+		4, ///*43*/	int K17;
+		2000, ///*44*/	int K18;
+		50, ///*45*/	int K19;
+		0, ///*46*/	int K20;
+		1, ///*47*/	int K21;
+		0, ///*48*/	int K22;
+		50 };///*49*/	int K23;
 
 struct MashineParam MPL={0.00015, //LS
-						 0.00014, //LR
-						 0.0067,  //LM
-						 0.00483, //RR
-						 0.0072,  //RS
-						 0.9781,  //K1
-						 0.9795,  //K2
-						 0.00028736, //L1
-						 0.03991, //L1
-						 1.4161 };//TR
+		0.00014, //LR
+		0.0067,  //LM
+		0.00483, //RR
+		0.0072,  //RS
+		0.9781,  //K1
+		0.9795,  //K2
+		0.00028736, //L1
+		0.03991, //L1
+		1.4161 };//TR
 struct MashineParam MPR={0.00015, //LS
-						 0.00014, //LR
-						 0.0067,  //LM
-						 0.00483, //RR
-						 0.0072,  //RS
-						 0.9781,  //K1
-						 0.9795,  //K2
-						 0.00028736, //L1
-						 0.03991, //L1
-						 1.4161}; //TR
+		0.00014, //LR
+		0.0067,  //LM
+		0.00483, //RR
+		0.0072,  //RS
+		0.9781,  //K1
+		0.9795,  //K2
+		0.00028736, //L1
+		0.03991, //L1
+		1.4161}; //TR
 float ElectricAngleL=0;
 #endif
 
@@ -409,7 +409,7 @@ int AverageThisAxleSpeed=0;
 int AverageOtherAxleSpeed=0;
 int AverageCarSpeed=0;
 int ABS=100;
-int fABS=0;
+int fABS=1;
 
 void SpeedRegL()
 {
@@ -417,7 +417,7 @@ void SpeedRegL()
 #ifdef MATLAB
 	cmd.DNR = 1;
 #endif
-//Дифференциал
+	//Дифференциал
 	/*int  DeltaAxleSpeedL=0; 		// Разность скорости левого колеса и средней скорости по оси
 	int  DeltaAxleSpeedR=0; 		// Разность скорости правого колеса и средней скорости по оси
 	int  AverageAxleSpeed=0;		// Средняя скорость оси
@@ -428,7 +428,7 @@ void SpeedRegL()
 	float SummSpeedL=0;				// Интегратор РС
 	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
 
-//------------------------ ABS ----------------------------
+	//------------------------ ABS ----------------------------
 #ifndef MATLAB
 
 	if (ControllerID == PK1)
@@ -448,7 +448,7 @@ void SpeedRegL()
 	AverageOtherAxleSpeed = (SpeedLOther+SpeedROther)/2;
 	AverageCarSpeed = (AverageThisAxleSpeed + AverageOtherAxleSpeed)/2;
 
-//------------------------ DIFF ----------------------------
+	//------------------------ DIFF ----------------------------
 
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
 	DeltaAxleSpeedL = AverageAxleSpeed - SpeedL;
@@ -469,14 +469,14 @@ void SpeedRegL()
 		{
 			LimitSummSpeedL = DeltaAxleSpeedL*10;
 		}
-	else
-		LimitSummSpeedL=0;
+		else
+			LimitSummSpeedL=0;
 
 	if(LimitSummSpeedL > 700) LimitSummSpeedL = 700;
 	if(LimitSummSpeedL < -700) LimitSummSpeedL = -700;
 
 	if(Brake < 13)
-	SummSpeedL += (float)DeltaAxleSpeedL*2;
+		SummSpeedL += (float)DeltaAxleSpeedL*2;
 
 	if(fHoldZero) SummSpeedL += (float)(0 - SpeedL)/kiz;
 
@@ -487,7 +487,7 @@ void SpeedRegL()
 	else
 		MinMaxLimitFloat(-1500,1500,&SummSpeedL);
 
-//////////////////////////
+	//////////////////////////
 
 	DeltaSpeedL = (SpeedLz - IqzL)/5;
 
@@ -514,23 +514,28 @@ void SpeedRegL()
 		{
 			//левая ось
 			DeltaSpeedLABS=AverageCarSpeed -SpeedL;
+#ifdef MATLAB
+			DeltaSpeedLABS=SpeedR - SpeedL;
+#endif
 			if(DeltaSpeedLABS>ABS && IqzL<=0 && ! fHoldZero && fABS)
 			{
-				IqzL+=1;
+				IqSummInBrakeL+=1;
+				//IqzL=1000;
 				//else IqzL-=3;
+				IqzLnf = IqSummInBrakeL ;
 			}
 			else
 				if(SpeedL > limitZeroSpeed && ! fHoldZero)
-				{
-					if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
-					else
-						if(IqSummInBrakeL > -(Brake-13)*20)
-							IqSummInBrakeL -= 0.1*kBrake;
-
-					IqzLnf = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
-				}
+			{
+				if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
 				else
-					fHoldZero = 1;//IqzL = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
+					if(IqSummInBrakeL > -(Brake-13)*20)
+						IqSummInBrakeL -= 0.1*kBrake;
+
+				IqzLnf = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
+			}
+			else
+				fHoldZero = 1;//IqzL = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
 
 			if(fHoldZero)
 			{
@@ -650,7 +655,7 @@ void RegL(){
 #endif
 
 	if(((fThetaL - oldThetaL)<4) && ((fThetaL - oldThetaL)>-4)) // исключаем перегиб диапазона на 2 ПИ
-	deltaThetaL = (fThetaL - oldThetaL);
+		deltaThetaL = (fThetaL - oldThetaL);
 
 	oldThetaL = fThetaL;
 
@@ -766,7 +771,7 @@ void RegL(){
 		SpeedRegL();
 
 		if(abs(SpeedL) > 150)
-		MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
+			MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
 
 		if(UUqL > UUqLMAX) kIqL = (float)17500/(float)UUqL;
 		else kIqL = 1;
@@ -813,13 +818,13 @@ void RegL(){
 		//IfRMSL = (float)(GetHypByLegs(IdzL,IqzL))/1.4142;
 
 		if(fUseDeltaTheta)
-		fThetaL += deltaThetaL;
+			fThetaL += deltaThetaL;
 
 		InvPark(&UAlphaL,&UBetaL,UUdL,UUqL,fThetaL);
 		InvClark(&UUAL,&UUBL,&UUCL,UAlphaL,UBetaL);
 
 		if(fUseDeltaTheta)
-		fThetaL -= deltaThetaL;
+			fThetaL -= deltaThetaL;
 
 		if(fCalcEByZ)
 		{
@@ -965,40 +970,40 @@ void RegL(){
 void ELCalcL(){
 
 
-			UAlphaSIL = ConvertVParamToSI(UAlphaL);
-			UBetaSIL  = ConvertVParamToSI(UBetaL);
+	UAlphaSIL = ConvertVParamToSI(UAlphaL);
+	UBetaSIL  = ConvertVParamToSI(UBetaL);
 
-			UAlphaSIL = (int)((float)(UAlphaSIL)/FourieK[iffL]);
-			UBetaSIL = (int)((float)(UBetaSIL)/FourieK[iffL]);
+	UAlphaSIL = (int)((float)(UAlphaSIL)/FourieK[iffL]);
+	UBetaSIL = (int)((float)(UBetaSIL)/FourieK[iffL]);
 
-			DeltaIAlphaL = IAlphaL - OldIAlphaL;
-			DeltaIBetaL = IBetaL - OldIBetaL;
+	DeltaIAlphaL = IAlphaL - OldIAlphaL;
+	DeltaIBetaL = IBetaL - OldIBetaL;
 
-			URsAlpha_L = IAlphaL*MPR.RS;
-			URsBeta_L = IBetaL*MPR.RS;
+	URsAlpha_L = IAlphaL*MPR.RS;
+	URsBeta_L = IBetaL*MPR.RS;
 
-			ULsAlpha_L = (MPR.LS*DeltaIAlphaL)*1500;//dt;
-			ULsBeta_L = (MPR.LS*DeltaIBetaL)*1500;//dt;
+	ULsAlpha_L = (MPR.LS*DeltaIAlphaL)*1500;//dt;
+	ULsBeta_L = (MPR.LS*DeltaIBetaL)*1500;//dt;
 
-			EAlphaInstL = UAlphaSIL - URsAlpha_L - ULsAlpha_L;
-			EBetaInstL = UBetaSIL - URsBeta_L - ULsBeta_L;
+	EAlphaInstL = UAlphaSIL - URsAlpha_L - ULsAlpha_L;
+	EBetaInstL = UBetaSIL - URsBeta_L - ULsBeta_L;
 
-//			EAlphaInstL = UAlphaSIL - IAlphaL*MPL.RS - (MPL.LS*DeltaIAlphaL)/dt;
-//			EBetaInstL = UBetaSIL - IBetaL*MPL.RS - (MPL.LS*DeltaIBetaL)/dt;
+	//			EAlphaInstL = UAlphaSIL - IAlphaL*MPL.RS - (MPL.LS*DeltaIAlphaL)/dt;
+	//			EBetaInstL = UBetaSIL - IBetaL*MPL.RS - (MPL.LS*DeltaIBetaL)/dt;
 
-			OldIAlphaL = IAlphaL;
-			OldIBetaL = IBetaL;
+	OldIAlphaL = IAlphaL;
+	OldIBetaL = IBetaL;
 
-			fE_ampL += (float)((GetHypByLegs(EAlphaInstL,EBetaInstL) - fE_ampL))/(float)(koeff.KFiltE);
+	fE_ampL += (float)((GetHypByLegs(EAlphaInstL,EBetaInstL) - fE_ampL))/(float)(koeff.KFiltE);
 
 
-			//fE_ampL += (float)((GetHypByLegs(UdSIL,UqSIL) - fE_ampL))/(float)(koeff.KFiltE);
+	//fE_ampL += (float)((GetHypByLegs(UdSIL,UqSIL) - fE_ampL))/(float)(koeff.KFiltE);
 
-			E_ampL = fE_ampL;
+	E_ampL = fE_ampL;
 
-			XmL = fOmegaL*MPL.LM;
+	XmL = fOmegaL*MPL.LM;
 
-			ImL = fE_ampL/XmL;
+	ImL = fE_ampL/XmL;
 
 }
 
@@ -1015,10 +1020,10 @@ void ELCalcL(){
 
  */
 void ELCalc(int *UAlphaSI_X, int UAlpha_X, int *UBetaSI_X, int UBeta_X,
-			int iff_X, int *DeltaIAlpha_X, int *DeltaIBeta_X,  int IAlpha_X, int IBeta_X,
-			int *OldIAlpha_X, int *OldIBeta_X, int *URsAlpha_X, int *URsBeta_X, struct MashineParam MP_X,
-			int *ULsAlpha_X, int *ULsBeta_X, int *EAlphaInst_X, int *EBetaInst_X,
-			float *fE_amp_X, int *E_amp_X){
+		int iff_X, int *DeltaIAlpha_X, int *DeltaIBeta_X,  int IAlpha_X, int IBeta_X,
+		int *OldIAlpha_X, int *OldIBeta_X, int *URsAlpha_X, int *URsBeta_X, struct MashineParam MP_X,
+		int *ULsAlpha_X, int *ULsBeta_X, int *EAlphaInst_X, int *EBetaInst_X,
+		float *fE_amp_X, int *E_amp_X){
 
 	//приводим входные параметры к СИ
 	*UAlphaSI_X = ConvertVParamToSI(UAlpha_X);
@@ -1053,7 +1058,7 @@ void ELCalc(int *UAlphaSI_X, int UAlpha_X, int *UBetaSI_X, int UBeta_X,
  * CrossCom(&UkdR, &UkqR, &fOmegaR, MPR, IqzR, IdzR);
  */
 void CrossCom(int *Ukd_X, int *Ukq_X, float *fOmega_X, struct MashineParam MP_X,
-				int Iqz_X, int Idz_X)
+		int Iqz_X, int Idz_X)
 {
 
 	*Ukd_X = (*fOmega_X)*Iqz_X*(MP_X.LS + (MP_X.LM*MP_X.LR)/(MP_X.LM+MP_X.LR));
@@ -1094,9 +1099,9 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 
 	*ThetaSlip_X += (*DeltaOmegaSlip_X)*dt;
 
-	 RadianLimit(ThetaSlip_X);
+	RadianLimit(ThetaSlip_X);
 
-	 *iId_X_f=*fId_X_f;
+	*iId_X_f=*fId_X_f;
 }
 /*
  * Функция реализует регулятор скорости
