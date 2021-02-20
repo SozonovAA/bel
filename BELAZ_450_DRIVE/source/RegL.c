@@ -429,6 +429,7 @@ void SpeedRegL()
 	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
 
 //------------------------ ABS ----------------------------
+#ifndef MATLAB
 
 	if (ControllerID == PK1)
 	{
@@ -440,6 +441,8 @@ void SpeedRegL()
 		SpeedLOther = data_from_KK->SpeedFL;
 		SpeedROther = data_from_KK->SpeedFR;
 	}
+
+#endif
 
 	AverageThisAxleSpeed = (SpeedL+SpeedR)/2;
 	AverageOtherAxleSpeed = (SpeedLOther+SpeedROther)/2;
