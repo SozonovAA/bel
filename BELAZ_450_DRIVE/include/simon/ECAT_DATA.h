@@ -38,6 +38,10 @@ struct data_for_transmit{
 	union KKuDIN DIN;
 	int Drive;
 	int Brake;
+	int SpeedFL;
+	int SpeedFR;
+	int SpeedRL;
+	int SpeedRR;
 };
 
 
