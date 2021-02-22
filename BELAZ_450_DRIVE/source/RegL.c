@@ -408,7 +408,7 @@ int SpeedROther=0;
 int AverageThisAxleSpeed=0;
 int AverageOtherAxleSpeed=0;
 int AverageCarSpeed=0;
-int ABS=100;
+int ABS=25;
 int fABS=1;
 
 void SpeedRegL()
