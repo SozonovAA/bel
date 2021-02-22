@@ -370,6 +370,8 @@ extern int AverageCarSpeed;
 extern int ABS;
 extern int fABS;
 
+extern float kDiff;
+
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

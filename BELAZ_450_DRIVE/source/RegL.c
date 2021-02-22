@@ -318,6 +318,8 @@ int limitZeroSpeed=10;
 
 int fHoldZero=0;
 
+float kDiff=10.0;
+
 void RegLToZero()
 {
 
@@ -456,7 +458,7 @@ void SpeedRegL()
 	if(LimitSummSpeedL < -700) LimitSummSpeedL = -700;
 
 	if(Brake < 13)
-		SummSpeedL += (float)DeltaAxleSpeedL*2;
+		SummSpeedL += (float)DeltaAxleSpeedL/kDiff;
 
 	if(fHoldZero) SummSpeedL += (float)(0 - SpeedL)/kiz;
 

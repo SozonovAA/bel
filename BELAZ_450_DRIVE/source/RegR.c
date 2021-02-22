@@ -300,7 +300,7 @@ void SpeedRegR()
 	if(LimitSummSpeedR < -700) LimitSummSpeedR = -700;
 
 	if(Brake < 13)
-		SummSpeedR += (float)DeltaAxleSpeedR*2;
+		SummSpeedR += (float)DeltaAxleSpeedR/kDiff;
 
 	if(fHoldZero) SummSpeedR += (float)(0 - SpeedR)/kiz;
 

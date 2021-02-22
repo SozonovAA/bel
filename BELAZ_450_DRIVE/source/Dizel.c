@@ -14,6 +14,8 @@ int32 fPowerMax=0;
 
 int32 XP=0;
 
+int fPowerMAX=1;
+
 void DizelOutPowerMax(){
 
 	RPMDiz = freq_3_harm*5;
@@ -22,7 +24,10 @@ void DizelOutPowerMax(){
 		if(RPMDiz > 1200 && RPMDiz <= 1350) DisState=0;
 		if(RPMDiz > 1350) DisState=1;
 
-		PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] - 100;
+		if(fPowerMAX)
+			PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] + 50;
+		else
+			PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] - 100;
 
 
 	if(PowerMax < 100) PowerMax = 100;
