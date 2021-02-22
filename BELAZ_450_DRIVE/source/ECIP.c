@@ -40,6 +40,8 @@ void AssemblyECIPMess()
 
 	DFKK = data_from_KK->DIN.all & 0x003F;
 
+	SpeedHolding = data_from_KK->DIN.bit.bSTAB;
+
 	Drive = data_from_KK->Drive;
 	Brake = data_from_KK->Brake;
 

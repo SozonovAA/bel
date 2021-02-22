@@ -372,6 +372,10 @@ extern int fABS;
 
 extern float kDiff;
 
+extern int SpeedHolding;
+extern int zRPMDiz;
+extern int SumPower;
+
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

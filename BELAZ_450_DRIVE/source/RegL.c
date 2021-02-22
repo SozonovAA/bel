@@ -413,6 +413,10 @@ int AverageCarSpeed=0;
 int ABS=25;
 int fABS=1;
 
+int SpeedHolding=0;
+int zRPMDiz=0;
+int SumPower=0;
+
 void SpeedRegL()
 {
 
@@ -476,6 +480,7 @@ void SpeedRegL()
 
 	DeltaSpeedL = (SpeedLz - IqzL)/5;
 
+	if(!SpeedHolding)
 	SpeedLz1 += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
 
 	if(koeff.K18 > 2500)
