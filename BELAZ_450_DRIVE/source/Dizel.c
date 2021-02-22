@@ -24,9 +24,11 @@ void DizelOutPowerMax(){
 		if(RPMDiz > 1200 && RPMDiz <= 1350) DisState=0;
 		if(RPMDiz > 1350) DisState=1;
 
-		if(fPowerMAX)
+		if(fPowerMAX == 1)
 			PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] + 50;
-		else
+		if(fPowerMAX == 2)
+			PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState];
+		if(fPowerMAX == 0)
 			PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] - 100;
 
 
