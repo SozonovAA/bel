@@ -295,7 +295,7 @@ int  DeltaAxleSpeedR=0; 		// Разность скорости правого колеса и средней скорости
 int  AverageAxleSpeed=0;		// Средняя скорость оси
 
 float deltaAxleProcent=0; 		// Текущий процент разности скоростей
-float deltaAxleProcentMAX=0.4;	// Текущий допустимый процент разности скоростей
+float deltaAxleProcentMAX=0.3;	// Текущий допустимый процент разности скоростей
 
 float SummSpeedL=0;				// Интегратор РС
 int   LimitSummSpeedL=0;		// Ограничение интегратора РС
@@ -452,7 +452,10 @@ void SpeedRegL()
 			LimitSummSpeedL = DeltaAxleSpeedL*10;
 		}
 		else
-			LimitSummSpeedL=0;
+		{
+			LimitSummSpeedL-=10;
+			if(LimitSummSpeedL<30) LimitSummSpeedL=30;
+		}
 
 	if(LimitSummSpeedL > 700) LimitSummSpeedL = 700;
 	if(LimitSummSpeedL < -700) LimitSummSpeedL = -700;

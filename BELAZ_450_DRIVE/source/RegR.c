@@ -294,7 +294,10 @@ void SpeedRegR()
 			LimitSummSpeedR = DeltaAxleSpeedR*10;
 		}
 		else
-			LimitSummSpeedR=0;
+		{
+			LimitSummSpeedR-=10;
+			if(LimitSummSpeedR<30) LimitSummSpeedR=30;
+		}
 
 	if(LimitSummSpeedR > 700) LimitSummSpeedR = 700;
 	if(LimitSummSpeedR < -700) LimitSummSpeedR = -700;
