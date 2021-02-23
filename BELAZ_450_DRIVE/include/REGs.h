@@ -240,6 +240,8 @@ extern  int DeltaSpeedR;
 
 extern  int SpeedRz1_16;
 extern  int DeltaSpeedR1;
+extern  float SpeedRz1;
+extern  float SpeedLz1;
 
 extern	int 	AmplR;
 extern	float 	AlphaR;
@@ -375,6 +377,8 @@ extern float kDiff;
 extern int SpeedHolding;
 extern int zRPMDiz;
 extern int SumPower;
+//Круизконтроль
+extern int otfCruize;
 
 // структуры
 //extern struct ALTERA_REGS altera_regs;

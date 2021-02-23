@@ -226,6 +226,8 @@ SpeedLz = FromKabine[0]*20;
 SpeedRz = FromKabine[0]*20;
 Brake = FromKabine[1];
 
+SpeedHolding = FromKabine[2];
+        
 RegL();
 RegR();
 

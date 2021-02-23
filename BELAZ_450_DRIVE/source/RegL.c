@@ -417,6 +417,9 @@ int SpeedHolding=0;
 int zRPMDiz=0;
 int SumPower=0;
 
+//Круизконтроль
+int otfCruize=0;
+
 void SpeedRegL()
 {
 
@@ -480,9 +483,17 @@ void SpeedRegL()
 
 	DeltaSpeedL = (SpeedLz - IqzL)/5;
 
-	if(!SpeedHolding)
+	if(!SpeedHolding){
 	SpeedLz1 += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
+	otfCruize=0;
+	}
+	else if(!otfCruize){
+	otfCruize=1;
+	SpeedLz1 = SpeedL;
+	SpeedRz1 = SpeedR;
+	}
 
+	
 	if(koeff.K18 > 2500)
 		koeff.K18 = 2500;
 	if(koeff.K18 < 100)
@@ -878,7 +889,8 @@ void RegL(){
 		UUBL += HALF_PWM_HEIGHT;// - SIN6;
 		UUCL += HALF_PWM_HEIGHT;// - SIN6;
 
-		/*UZeroL = (GetMAX(UUAL-HALF_PWM_HEIGHT,GetMAX(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)) + GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/2;
+		/*UZeroL = (GetMAX(UUAL-HALF_PWM_HEIGHT,GetMAX(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)) + 
+GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/2;
 
 		if(koeff.K20)
 		{
@@ -1023,11 +1035,13 @@ void ELCalcL(){
  *
  * Во входных параметрах заменять _Х_ на R/L.
  		ELCalc (&UAlphaSIR, UAlphaR, &UBetaSIR, UBetaR, iffR, &DeltaIAlphaR, &DeltaIBetaR, IAlphaR, IBetaR,
-				   &OldIAlphaR, &OldIBetaR, &URsAlpha_R, &URsBeta_R, MPR, &ULsAlpha_R, &ULsBeta_R, &EAlphaInstR, &EBetaInstR,
+				   &OldIAlphaR, &OldIBetaR, &URsAlpha_R, &URsBeta_R, MPR, &ULsAlpha_R, &ULsBeta_R, 
+&EAlphaInstR, &EBetaInstR,
 				   &fE_ampR, &E_ampR);
 
 		ELCalc (&UAlphaSIL, UAlphaL, &UBetaSIL, UBetaL, iffL, &DeltaIAlphaL, &DeltaIBetaL, IAlphaL, IBetaL,
-				   &OldIAlphaL, &OldIBetaL, &URsAlpha_L, &URsBeta_L, MPL, &ULsAlpha_L, &ULsBeta_L, &EAlphaInstL, &EBetaInstL,
+				   &OldIAlphaL, &OldIBetaL, &URsAlpha_L, &URsBeta_L, MPL, &ULsAlpha_L, &ULsBeta_L, 
+&EAlphaInstL, &EBetaInstL,
 				   &fE_ampL, &E_ampL);
 
  */
@@ -1197,8 +1211,10 @@ void SpeedReg(int *DeltaSpeed_X, int Speed_X_z, int *Iqz_X, float *Speed_X_z1,
 /*
  * Функция реализует расчёт Id с учётом значения ЭДС.
  * Во входных параметрах заменять _Х_ на R/L.
- * CalcDeltaId(&UmL, UUdL, UUqL, &fUmL, Udz, &fE_MaxL,&E_MaxL, &E_LineL, SpeedL, &dEL, E_ampL, &sdEL, &IdzL, &DeltaIdzL);
- * CalcDeltaId(&UmR, UUdR, UUqR, &fUmR, Udz, &fE_MaxR,&E_MaxR, &E_LineR, SpeedR, &dER, E_ampR, &sdER, &IdzR, &DeltaIdzR);
+ * CalcDeltaId(&UmL, UUdL, UUqL, &fUmL, Udz, &fE_MaxL,&E_MaxL, &E_LineL, SpeedL, &dEL, E_ampL, &sdEL, &IdzL, 
+&DeltaIdzL);
+ * CalcDeltaId(&UmR, UUdR, UUqR, &fUmR, Udz, &fE_MaxR,&E_MaxR, &E_LineR, SpeedR, &dER, E_ampR, &sdER, &IdzR, 
+&DeltaIdzR);
  */
 void CalcDeltaId(int *Um_X, int UUd_X, int UUq_X, int *fUm_X, int Udz, float *fE_Max_X,
 		int *E_Max_X, int *E_Line_X, const int Speed_X, int *dE_X, const int E_amp_X,
