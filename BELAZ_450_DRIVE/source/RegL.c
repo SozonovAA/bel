@@ -419,6 +419,7 @@ int SumPower=0;
 
 //Круизконтроль
 int otfCruize=0;
+int kphold=20;
 
 void SpeedRegL()
 {
@@ -467,8 +468,9 @@ void SpeedRegL()
 	if(LimitSummSpeedL > 700) LimitSummSpeedL = 700;
 	if(LimitSummSpeedL < -700) LimitSummSpeedL = -700;
 
-	if(Brake < 13)
+	if(Brake < 13){
 		SummSpeedL += ((float)DeltaAxleSpeedL)/kDiff;
+	}
 
 	if(fHoldZero) SummSpeedL += (float)(0 - SpeedL)/kiz;
 
@@ -553,7 +555,7 @@ void SpeedRegL()
 			if(!SpeedHolding)
 			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedL;
 			else
-				IqzL = DeltaSpeedL1*5 + SummSpeedL;
+				IqzL = DeltaSpeedL1*kphold + SummSpeedL;
 
 			IqSummInBrakeL = IqzL;
 		}

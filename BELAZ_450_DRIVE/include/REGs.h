@@ -379,6 +379,7 @@ extern int zRPMDiz;
 extern int SumPower;
 //Круизконтроль
 extern int otfCruize;
+extern int kphold;
 
 // структуры
 //extern struct ALTERA_REGS altera_regs;
