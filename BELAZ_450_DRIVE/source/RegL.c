@@ -539,7 +539,11 @@ void SpeedRegL()
 		else
 		{
 			fHoldZero = 0;
+			if(!SpeedHolding)
 			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedL;
+			else
+				IqzL = DeltaSpeedL1*5 + SummSpeedL;
+
 			IqSummInBrakeL = IqzL;
 		}
 	}
