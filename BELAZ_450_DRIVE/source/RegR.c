@@ -316,6 +316,7 @@ void SpeedRegR()
 
 	DeltaSpeedR = (SpeedRz - IqzR)/5;
 
+	if(!SpeedHolding)
 	SpeedRz1 += (float)(DeltaSpeedR)*((float)(koeff.K7)/2500.0);
 
 	if(koeff.K18 > 2500)

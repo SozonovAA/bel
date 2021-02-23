@@ -112,6 +112,7 @@ FaultsC[0]		FaultsD_INV[0]	FaultsD_CHOP[0]	DIN[0]
 
 			ptrPK12->TxData[0] = ChopOpen;
 			ptrPK12->TxData[1] = Udz;
+			ptrPK12->TxData[2] = zRPMDiz;
 			ptrPK12->MessFlag++;
 
 			SendMessToKK++;

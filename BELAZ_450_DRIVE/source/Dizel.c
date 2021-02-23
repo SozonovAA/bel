@@ -16,6 +16,8 @@ int32 XP=0;
 
 int fPowerMAX=1;
 
+int fTestStabSpeed=0;
+
 void DizelOutPowerMax(){
 
 	RPMDiz = freq_3_harm*5;
@@ -36,7 +38,17 @@ void DizelOutPowerMax(){
 		if(fPowerMAX == 0)
 			PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] - 100;
 
+		if(!fTestStabSpeed)
+		SumPower = PowerL16 + PowerR16;
+
+		if(SumPower < 1280) DisState = 0;
+		else DisState = 1;
+
 		zRPMDiz = ((float)(SumPower - BDIS[DisState]))/KDIS[DisState];
+
+		if(zRPMDiz < 1250 ) zRPMDiz = 1250;
+		if(zRPMDiz > 1900 ) zRPMDiz = 1900;
+
 
 
 	if(PowerMax < 100) PowerMax = 100;
