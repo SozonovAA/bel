@@ -44,7 +44,9 @@ void DizelOutPowerMax(){
 		if(SumPower < 1280) DisState = 0;
 		else DisState = 1;
 
+		if(SumPower > 0)
 		zRPMDiz = ((float)(SumPower - BDIS[DisState]))/KDIS[DisState];
+		else zRPMDiz = 1250;
 
 		if(zRPMDiz < 1250 ) zRPMDiz = 1250;
 		if(zRPMDiz > 1900 ) zRPMDiz = 1900;

@@ -35,6 +35,8 @@ int Brake=0;
 
 extern Uint16 ChopOpen;
 
+int messVal=0;
+
 void AssemblyECIPMess()
 {
 
@@ -66,6 +68,8 @@ FaultsC[0]		FaultsD_INV[0]	FaultsD_CHOP[0]	DIN[0]
 
 	if(ptrPK12->MessFlag == LAST_MESS)
 	UNSET(ptrPK12->MessFlag);
+
+	messVal = ptrPK12->MessFlag;
 
 	switch(ptrPK12->MessFlag)
 	{
