@@ -259,10 +259,10 @@ void CrossComR()
 
 //Круизконтроль
 int IqzRCruize=0;
-	int DeltaSpeedRCruize=0;
-	int SpeedRzCruize =0;
-	
-	
+int DeltaSpeedRCruize=0;
+int SpeedRzCruize =0;
+
+
 void SpeedRegR()
 {
 #ifdef MATLAB
@@ -323,11 +323,11 @@ void SpeedRegR()
 	DeltaSpeedR = (SpeedRz - IqzR)/5;
 
 
-	
+
 	if(!SpeedHolding){
-	SpeedRz1 += (float)(DeltaSpeedR)*((float)(koeff.K7)/2500.0);
+		SpeedRz1 += (float)(DeltaSpeedR)*((float)(koeff.K7)/2500.0);
 	}
-	
+
 
 	if(koeff.K18 > 2500)
 		koeff.K18 = 2500;
@@ -357,18 +357,21 @@ void SpeedRegR()
 			if(DeltaSpeedRABS>ABS && IqzR<=0 && SpeedR > limitZeroSpeed && ! fHoldZero && fABS)
 			{
 				IqSummInBrakeR+=1;
-					//IqzL=1000;
-					//else IqzL-=3;
-					IqzRnf = IqSummInBrakeR ;
+				//IqzL=1000;
+				//else IqzL-=3;
+				IqzRnf = IqSummInBrakeR ;
 			}
 			else
 				if(SpeedR > limitZeroSpeed && ! fHoldZero)
 				{
 					if(PowerR < PowerBrakeMax) IqSummInBrakeR += 0.1*kBrake;
 					else
+					{
 						if(IqSummInBrakeR > -(Brake-13)*20)
 							IqSummInBrakeR -= 0.1*kBrake;
-
+						if(IqSummInBrakeR < -(Brake-13)*20)
+							IqSummInBrakeR += 0.1*kBrake;
+					}
 					IqzRnf = IqSummInBrakeR + fTryBrakeDiff*SummSpeedR;
 				}
 				else
@@ -403,7 +406,11 @@ void SpeedRegR()
 	{
 		if(Brake > 13 && SpeedR < -40)
 		{
-			IqzR = (Brake-13)*20;
+			if(IqzR < ((Brake-13)*20))
+				IqzR++;
+			else
+				IqzR--;
+
 			SpeedRz1 = SpeedR;
 		}
 		else

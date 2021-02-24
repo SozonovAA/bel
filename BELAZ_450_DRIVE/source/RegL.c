@@ -583,7 +583,11 @@ void SpeedRegL()
 	{
 		if(Brake > 13 && SpeedL < -40)
 		{
-			IqzL = (Brake-13)*20;
+			if(IqzL < ((Brake-13)*20))
+				IqzL++;
+			else
+				IqzL--;
+
 			SpeedLz1 = SpeedL;
 		}
 		else
