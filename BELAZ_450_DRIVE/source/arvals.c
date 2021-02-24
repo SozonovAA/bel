@@ -159,8 +159,8 @@ void InitAddrArray()
 	AddrArray[78] = (Uint16)&UAlphaSIR;//LLM;
 	AddrArray[79] = (Uint16)&UBetaSIR ;//RLM;
 //____________________________________
-	AddrArray[80] = (Uint16)&URsAlpha_R;//LK1;
-	AddrArray[81] = (Uint16)&URsBeta_R;//RK1;
+	AddrArray[80] = (Uint16)&LimitSummSpeedL;//LK1;
+	AddrArray[81] = (Uint16)&LimitSummSpeedR;//RK1;
 	AddrArray[82] = (Uint16)&ULsAlpha_R;//LK2;
 	AddrArray[83] = (Uint16)&ULsBeta_R;//RK2;
 	AddrArray[84] = (Uint16)&UAlphaSIL;//LL1;
