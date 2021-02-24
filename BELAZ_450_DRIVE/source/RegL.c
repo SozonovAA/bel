@@ -421,12 +421,16 @@ int SumPower=0;
 int otfCruize=0;
 int kphold=20;
 int IqzLCruize=0;
-
+float CruizeDriveL=0;
+	int DeltaSpeedLCruize=0;
+	int SpeedLzCruize =0;
+	
 void SpeedRegL()
 {
 
 #ifdef MATLAB
 	cmd.DNR = 1;
+	AverageCarSpeed = (SpeedR + SpeedL)/2;
 #endif
 	//Дифференциал
 	/*int  DeltaAxleSpeedL=0; 		// Разность скорости левого колеса и средней скорости по оси
@@ -492,8 +496,8 @@ void SpeedRegL()
 	}
 	else if(!otfCruize){
 	otfCruize=1;
-	SpeedLz1 = SpeedL;
-	SpeedRz1 = SpeedR;
+	SpeedLzCruize = AverageCarSpeed;
+	SpeedRzCruize = AverageCarSpeed;
 	}
 
 	
@@ -509,6 +513,8 @@ void SpeedRegL()
 		SpeedLz1 = -500; //SpeedRz;
 
 	DeltaSpeedL1 = SpeedLz1 - SpeedL;
+
+	DeltaSpeedLCruize = SpeedLzCruize - SpeedL;
 
 	//if(Brake < 13) Brake = 13;
 
@@ -547,17 +553,21 @@ void SpeedRegL()
 			}
 
 			IqzL += (IqzLnf - IqzL)/25.0;
-
 			SpeedLz1 = SpeedL;
+			SpeedLzCruize = AverageCarSpeed;
+
+			//else SpeedLz1 = AverageCarSpeed;
+			
 		}
 		else
 		{
 			fHoldZero = 0;
-			if(!SpeedHolding)
+			if(!SpeedHolding)//круизконтроль
 			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedL;
 			else{
-				
-				IqzLCruize = DeltaSpeedL1*kphold + SummSpeedL;
+				//CruizeDriveL += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
+				//MinMaxLimitInt(0,1500,&CruizeDriveL);
+				IqzLCruize = DeltaSpeedLCruize*kphold + SummSpeedL;
 				if (IqzL<IqzLCruize) IqzL+=20;
 				else IqzL-=20;
 			}
@@ -1041,12 +1051,14 @@ void ELCalcL(){
 /*Функция для расчёта амплитудного значения ЭДС.
  *
  * Во входных параметрах заменять _Х_ на R/L.
- 		ELCalc (&UAlphaSIR, UAlphaR, &UBetaSIR, UBetaR, iffR, &DeltaIAlphaR, &DeltaIBetaR, IAlphaR, IBetaR,
+ 		ELCalc (&UAlphaSIR, UAlphaR, &UBetaSIR, UBetaR, iffR, &DeltaIAlphaR, &DeltaIBetaR, IAlphaR, 
+IBetaR,
 				   &OldIAlphaR, &OldIBetaR, &URsAlpha_R, &URsBeta_R, MPR, &ULsAlpha_R, &ULsBeta_R, 
 &EAlphaInstR, &EBetaInstR,
 				   &fE_ampR, &E_ampR);
 
-		ELCalc (&UAlphaSIL, UAlphaL, &UBetaSIL, UBetaL, iffL, &DeltaIAlphaL, &DeltaIBetaL, IAlphaL, IBetaL,
+		ELCalc (&UAlphaSIL, UAlphaL, &UBetaSIL, UBetaL, iffL, &DeltaIAlphaL, &DeltaIBetaL, IAlphaL, 
+IBetaL,
 				   &OldIAlphaL, &OldIBetaL, &URsAlpha_L, &URsBeta_L, MPL, &ULsAlpha_L, &ULsBeta_L, 
 &EAlphaInstL, &EBetaInstL,
 				   &fE_ampL, &E_ampL);
@@ -1218,9 +1230,11 @@ void SpeedReg(int *DeltaSpeed_X, int Speed_X_z, int *Iqz_X, float *Speed_X_z1,
 /*
  * Функция реализует расчёт Id с учётом значения ЭДС.
  * Во входных параметрах заменять _Х_ на R/L.
- * CalcDeltaId(&UmL, UUdL, UUqL, &fUmL, Udz, &fE_MaxL,&E_MaxL, &E_LineL, SpeedL, &dEL, E_ampL, &sdEL, &IdzL, 
+ * CalcDeltaId(&UmL, UUdL, UUqL, &fUmL, Udz, &fE_MaxL,&E_MaxL, &E_LineL, SpeedL, &dEL, E_ampL, &sdEL, 
+&IdzL, 
 &DeltaIdzL);
- * CalcDeltaId(&UmR, UUdR, UUqR, &fUmR, Udz, &fE_MaxR,&E_MaxR, &E_LineR, SpeedR, &dER, E_ampR, &sdER, &IdzR, 
+ * CalcDeltaId(&UmR, UUdR, UUqR, &fUmR, Udz, &fE_MaxR,&E_MaxR, &E_LineR, SpeedR, &dER, E_ampR, &sdER, 
+&IdzR, 
 &DeltaIdzR);
  */
 void CalcDeltaId(int *Um_X, int UUd_X, int UUq_X, int *fUm_X, int Udz, float *fE_Max_X,

@@ -380,6 +380,11 @@ extern int SumPower;
 //Круизконтроль
 extern int otfCruize;
 extern int kphold;
+extern float CruizeDriveL;
+extern 	int DeltaSpeedLCruize;
+extern 	int SpeedLzCruize;
+extern 	int DeltaSpeedRCruize;
+extern 	int SpeedRzCruize;
 
 // структуры
 //extern struct ALTERA_REGS altera_regs;

@@ -259,7 +259,10 @@ void CrossComR()
 
 //Круизконтроль
 int IqzRCruize=0;
-
+	int DeltaSpeedRCruize=0;
+	int SpeedRzCruize =0;
+	
+	
 void SpeedRegR()
 {
 #ifdef MATLAB
@@ -338,6 +341,7 @@ void SpeedRegR()
 		SpeedRz1 = -500; //SpeedRz;
 
 	DeltaSpeedR1 = SpeedRz1 - SpeedR;
+	DeltaSpeedRCruize = SpeedRzCruize - SpeedR;
 
 	//if(Brake < 13) Brake = 13;
 
@@ -378,6 +382,8 @@ void SpeedRegR()
 			IqzR += (IqzRnf - IqzR)/25.0;
 
 			SpeedRz1 = SpeedR;
+			SpeedRzCruize = AverageCarSpeed;
+
 		}
 		else
 		{
@@ -386,7 +392,7 @@ void SpeedRegR()
 				IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedR;
 			else{
 				//IqzR = DeltaSpeedR1*kphold + SummSpeedR;
-				IqzRCruize = DeltaSpeedR1*kphold + SummSpeedR;
+				IqzRCruize = DeltaSpeedRCruize*kphold + SummSpeedR;
 				if (IqzR<IqzRCruize) IqzR+=20;
 				else IqzR-=20;
 			}			

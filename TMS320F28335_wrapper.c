@@ -53,6 +53,7 @@ ElectricAngleR = Rpars[3];
 Ud = Rpars[4];
 SpeedR = Rpars[6];
 
+Out_L[0].CruizeDriveL = CruizeDriveL;
 Out_L[0].DeltaSpeedLABS = DeltaSpeedLABS;
 Out_L[0].DeltaAxleSpeedL = DeltaAxleSpeedL;
 Out_L[0].DeltaAxleSpeedR = DeltaAxleSpeedR;
