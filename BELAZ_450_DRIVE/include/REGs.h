@@ -385,6 +385,8 @@ extern 	int DeltaSpeedLCruize;
 extern 	int SpeedLzCruize;
 extern 	int DeltaSpeedRCruize;
 extern 	int SpeedRzCruize;
+extern 	int IqzLCruize;
+extern 	int IqzRCruize;
 
 // структуры
 //extern struct ALTERA_REGS altera_regs;

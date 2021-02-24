@@ -491,13 +491,13 @@ void SpeedRegL()
 	DeltaSpeedL = (SpeedLz - IqzL)/5;
 
 	if(!SpeedHolding){
-	SpeedLz1 += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
-	otfCruize=0;
+		SpeedLz1 += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
+		otfCruize=0;
 	}
 	else if(!otfCruize){
-	otfCruize=1;
-	SpeedLzCruize = AverageCarSpeed;
-	SpeedRzCruize = AverageCarSpeed;
+		otfCruize=1;
+		SpeedLzCruize = AverageCarSpeed;
+		SpeedRzCruize = AverageCarSpeed;
 	}
 
 	
@@ -539,8 +539,12 @@ void SpeedRegL()
 			{
 				if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
 				else
+				{
 					if(IqSummInBrakeL > -(Brake-13)*20)
 						IqSummInBrakeL -= 0.1*kBrake;
+					if(IqSummInBrakeL < -(Brake-13)*20)
+						IqSummInBrakeL += 0.1*kBrake;
+				}
 
 				IqzLnf = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
 			}
@@ -563,7 +567,7 @@ void SpeedRegL()
 		{
 			fHoldZero = 0;
 			if(!SpeedHolding)//круизконтроль
-			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedL;
+				IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedL;
 			else{
 				//CruizeDriveL += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
 				//MinMaxLimitInt(0,1500,&CruizeDriveL);
