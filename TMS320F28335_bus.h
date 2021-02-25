@@ -14,6 +14,9 @@
 #ifndef _DEFINED_TYPEDEF_FOR_DebugInfL_
 #define _DEFINED_TYPEDEF_FOR_DebugInfL_ 
 typedef struct {
+  real_T DeltaSpeedLCruize;
+  real_T SpeedLzCruize;
+  real_T AverageCarSpeed;
   real_T CruizeDriveL;
   real_T DeltaSpeedLABS;
   real_T DeltaAxleSpeedL;
@@ -116,6 +119,8 @@ typedef struct {
 #ifndef _DEFINED_TYPEDEF_FOR_DebugInfR_
 #define _DEFINED_TYPEDEF_FOR_DebugInfR_ 
 typedef struct {
+  real_T DeltaSpeedRCruize;
+  real_T SpeedRzCruize;
   real_T DeltaSpeedRABS;
   real_T SummSpeedR;
   real_T UUqRMAX;

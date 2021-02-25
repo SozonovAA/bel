@@ -514,7 +514,7 @@ void SpeedRegL()
 
 	DeltaSpeedL1 = SpeedLz1 - SpeedL;
 
-	DeltaSpeedLCruize = SpeedLzCruize - SpeedL;
+	DeltaSpeedLCruize = SpeedLzCruize - AverageCarSpeed;
 
 	//if(Brake < 13) Brake = 13;
 
@@ -571,7 +571,7 @@ void SpeedRegL()
 			else{
 				//CruizeDriveL += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
 				//MinMaxLimitInt(0,1500,&CruizeDriveL);
-				IqzLCruize = DeltaSpeedLCruize*kphold + SummSpeedL;
+				IqzLCruize = DeltaSpeedLCruize*kphold ;//+ SummSpeedL;
 				if (IqzL<IqzLCruize) IqzL+=20;
 				else IqzL-=20;
 			}

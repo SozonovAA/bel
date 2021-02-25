@@ -341,7 +341,7 @@ void SpeedRegR()
 		SpeedRz1 = -500; //SpeedRz;
 
 	DeltaSpeedR1 = SpeedRz1 - SpeedR;
-	DeltaSpeedRCruize = SpeedRzCruize - SpeedR;
+	DeltaSpeedRCruize = SpeedRzCruize - AverageCarSpeed;
 
 	//if(Brake < 13) Brake = 13;
 
