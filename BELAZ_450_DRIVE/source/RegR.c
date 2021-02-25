@@ -385,7 +385,7 @@ void SpeedRegR()
 			IqzR += (IqzRnf - IqzR)/25.0;
 
 			SpeedRz1 = SpeedR;
-			SpeedRzCruize = AverageCarSpeed;
+//			SpeedRzCruize = AverageCarSpeed;
 
 		}
 		else
