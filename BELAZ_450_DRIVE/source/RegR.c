@@ -201,7 +201,7 @@ void CalcDeltaIdR()
 
 	if(UUqR>17400) UUqR=17400;
 
-	UUqRMAX = GetCatByHypNLeg(UUqR,17500);
+	UUqRMAX = GetCatByHypNLeg(UUdR,17500);
 
 	if(UmR >= 17500)
 		UmR = 17500;
@@ -210,7 +210,7 @@ void CalcDeltaIdR()
 
 	fE_MaxR += (((float)(Udz)*kEamp/2.0) - fE_MaxR)/koeff.K17;
 
-	E_MaxR = fE_MaxR;
+	E_MaxR = fE_MaxR*fkIqR;
 	E_LineR = (float)(abs(SpeedR))*0.0686*koeff.K15;
 
 	if(E_LineR < 50) E_LineR=50;
@@ -611,17 +611,17 @@ void RegR(){
 
 		MinMaxLimitInt(-1500,abs(IqRCurLim),&IqzR);
 
-		if(UUqR > UUqRMAX) kIqR = (float)UUqR/(float)17500;
+		if(UUqR > UUqRMAX) kIqR = (float)15500/(float)UUqR;
 		else kIqR = 1;
 
-		fkIqR += (kIqR - fkIqR)/10;
+		fkIqR += (kIqR - fkIqR)/75.0;
 
 		//IqzR*=fkIqR;
 
 		DeltaIqR = IqzR - IqR;
 		SIqR += (float)(DeltaIqR*koeff.Ki)/25.0;
 
-		MinMaxLimitFloat(-18000,18000,&SIqR);
+		MinMaxLimitFloat(-17500,17500,&SIqR);
 
 		UUqR = (float)(DeltaIqR*koeff.Kp)/25.0 + SIqR + (DeltaIqR - DeltaIqOldR)*koeff.Kd;
 		DeltaIqOldR = DeltaIqR;

@@ -309,7 +309,7 @@ int fCalcEByZ=1;
 int fUseDeltaTheta=1;
 int fTryBrakeDiff=1;
 
-float kEamp=1.0;
+float kEamp=1.1;
 
 float kpz=5;
 float kiz=150;
@@ -361,7 +361,7 @@ void CalcDeltaIdL()
 
 	fE_MaxL += (((float)(Udz)*kEamp/2.0) - fE_MaxL)/koeff.K17;
 
-	E_MaxL = fE_MaxL;
+	E_MaxL = fE_MaxL*fkIqL;
 	E_LineL = (float)(abs(SpeedL))*0.0686*koeff.K15;
 
 	if(E_LineL < 50) E_LineL=50;
@@ -776,7 +776,7 @@ void RegL(){
 
 		MinMaxLimitInt(5,900,&IdzL);
 
-		IdzL *=fkIqL;
+		//IdzL *=fkIqL;
 
 		DeltaIdL = IdzL - IdL;
 		SIdL += (float)(DeltaIdL*koeff.Ki)/25.0;
@@ -821,10 +821,10 @@ void RegL(){
 		if(abs(SpeedL) > 150)
 			MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
 
-		if(UUqL > UUqLMAX) kIqL = (float)17500/(float)UUqL;
+		if(UUqL > UUqLMAX) kIqL = (float)15500/(float)UUqL;
 		else kIqL = 1;
 
-		fkIqL += (kIqL - fkIqL)/10;
+		fkIqL += (kIqL - fkIqL)/75.0;
 
 		//IqzL*=fkIqL;
 
