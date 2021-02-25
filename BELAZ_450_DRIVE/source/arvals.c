@@ -141,12 +141,12 @@ void InitAddrArray()
 	AddrArray[61] = (Uint16)&DeltaSpeedR1;
 	AddrArray[62] = (Uint16)&DeltaSpeedR;
 	AddrArray[63] = (Uint16)&SpeedR;
-	AddrArray[64] = (Uint16)&TestV;
+	AddrArray[64] = (Uint16)&SpeedRz;
 	AddrArray[65] = (Uint16)&EAlphaInstL;
 	AddrArray[66] = (Uint16)&EBetaInstL;
 	AddrArray[67] = (Uint16)&EAlphaInstR;
 	AddrArray[68] = (Uint16)&EBetaInstR;
-	AddrArray[69] = (Uint16)&TestV;
+	AddrArray[69] = (Uint16)&AverageCarSpeed;
 //____________________________________
 	AddrArray[70] = (Uint16)&phi_int;
 	AddrArray[71] = (Uint16)&CTR_CAP4;
@@ -171,8 +171,8 @@ void InitAddrArray()
 	AddrArray[89] = (Uint16)&SummSpeedRint;//RTR;
 //____________________________________
 	AddrArray[90] = (Uint16)&PowerUvtr;
-	AddrArray[91] = (Uint16)&PowerByGen;
-	AddrArray[92] = (Uint16)&fPowerByGen;
+	AddrArray[91] = (Uint16)&DeltaSpeedLCruize;
+	AddrArray[92] = (Uint16)&DeltaSpeedRCruize;
 	AddrArray[93] = (Uint16)&IfRMSL;
 	AddrArray[94] = (Uint16)&iffL;
 	AddrArray[95] = (Uint16)&Faults1;

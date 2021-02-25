@@ -609,7 +609,7 @@ void RegR(){
 
 		SpeedRegR();
 
-		MinMaxLimitInt(-2000,abs(IqRCurLim),&IqzR);
+		MinMaxLimitInt(-1500,abs(IqRCurLim),&IqzR);
 
 		if(UUqR > UUqRMAX) kIqR = (float)UUqR/(float)17500;
 		else kIqR = 1;
