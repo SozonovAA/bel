@@ -233,9 +233,10 @@ SpeedRz = FromKabine[0]*20;
 Brake = FromKabine[1];
 
 SpeedHolding = FromKabine[2];
-        
+
+RegR();        
 RegL();
-RegR();
+
 
 PWM[0] = UUAL;
 PWM[1] = UUBL;

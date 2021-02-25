@@ -199,7 +199,7 @@ void CalcDeltaIdR()
 
 	UmR = GetHypByLegs(UUdR,UUqR);
 
-	if(UUqR>17400) UUqR=17400;
+	if(UUdR>17400) UUdR=17400;
 
 	UUqRMAX = GetCatByHypNLeg(UUdR,17500);
 
@@ -385,7 +385,7 @@ void SpeedRegR()
 			IqzR += (IqzRnf - IqzR)/25.0;
 
 			SpeedRz1 = SpeedR;
-//			SpeedRzCruize = AverageCarSpeed;
+			SpeedRzCruize = AverageCarSpeed;
 
 		}
 		else
