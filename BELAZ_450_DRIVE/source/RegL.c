@@ -798,19 +798,11 @@ void RegL(){
 		if(UqSIL < 0 && UqSIL > -10)
 			UqSIL = -10;
 
-		//if(PowerMax < 300000) PowerMax = 300000;
-		//if(PowerMax > 1600000) PowerMax = 1600000;
-
-		//IqLMAX = ((PowerMax >> 1) - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL)/1.4142;
 		IqLMAX = (PowerMax*0.666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
 
 		MinMaxLimitInt(-2000,2000,&IqLMAX);
 
 		fIqLMAX += (IqLMAX - fIqLMAX)/koeff.KFiltIq;
-
-		//IqLMAX = fIqLMAX;
-
-
 
 		// @@@@@ —читаем ток отсечки end
 

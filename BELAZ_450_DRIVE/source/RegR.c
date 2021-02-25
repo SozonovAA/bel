@@ -581,15 +581,50 @@ void RegR(){
 		if(UqSIR < 0 && UqSIR > -10)
 			UqSIR = -10;
 
-		//if(PowerMax < 300000) PowerMax = 300000;
-		//if(PowerMax > 1600000) PowerMax = 1600000;
-
-		//IqRMAX = ((PowerMax >> 1) - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR)/1.4142; XZ!!!
 		IqRMAX = (PowerMax*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
 
 		MinMaxLimitInt(-2000,2000,&IqRMAX);
 
 		fIqRMAX += (IqRMAX - fIqRMAX)/koeff.KFiltIq;
+
+		// @@@@@ —читаем ток отсечки end
+
+		// ##### IqReg bgn
+
+		SpeedRegR();
+
+		if(abs(SpeedR) > 150)
+			MinMaxLimitInt(-1500,abs(IqRCurLim),&IqzR);
+
+		if(UUqR > UUqRMAX) kIqR = (float)15500/(float)UUqR;
+		else kIqR = 1;
+
+		fkIqR += (kIqR - fkIqR)/75.0;
+
+		//IqzL*=fkIqL;
+
+		DeltaIqR = IqzR - IqR;
+		SIqR += (float)(DeltaIqR*koeff.Ki)/25.0;
+
+		MinMaxLimitFloat(-17500,17500,&SIqR);
+
+		UUqR = (float)(DeltaIqR*koeff.Kp)/25.0 + SIqR + (DeltaIqR - DeltaIqOldR)*koeff.Kd;
+		DeltaIqOldR = DeltaIqR;
+
+		// @@@@@ IqReg end
+
+		CrossComR();
+
+		if(koeff.K20)
+		{
+
+			if(abs(SpeedR) > 50)
+			{
+				UUdR += UkdR;
+				UUqR += UkqR ;
+			}
+
+		}
 
 		iffR = (fUmR - 12500)/63;
 		MinMaxLimitInt(0,79,&iffR);
@@ -603,44 +638,7 @@ void RegR(){
 
 		PowerR16 = PowerR;
 
-		// @@@@@ —читаем ток отсечки end
-
-		// ##### IqReg bgn
-
-		SpeedRegR();
-
-		MinMaxLimitInt(-1500,abs(IqRCurLim),&IqzR);
-
-		if(UUqR > UUqRMAX) kIqR = (float)15500/(float)UUqR;
-		else kIqR = 1;
-
-		fkIqR += (kIqR - fkIqR)/75.0;
-
-		//IqzR*=fkIqR;
-
-		DeltaIqR = IqzR - IqR;
-		SIqR += (float)(DeltaIqR*koeff.Ki)/25.0;
-
-		MinMaxLimitFloat(-17500,17500,&SIqR);
-
-		UUqR = (float)(DeltaIqR*koeff.Kp)/25.0 + SIqR + (DeltaIqR - DeltaIqOldR)*koeff.Kd;
-		DeltaIqOldR = DeltaIqR;
-
-		// @@@@@ IqReg end
-
-		/*	if(koeff.K18)
-		{
-
-			CrossComR();
-
-			UUdR += UkdR;
-			UUqR += UkqR ;
-
-		}*/
-
-
-		UdSIR = ConvertVParamToSI(UUdR);
-		UqSIR = ConvertVParamToSI(UUqR);
+		//IfRMSL = (float)(GetHypByLegs(IdzL,IqzL))/1.4142;
 
 		if(fUseDeltaTheta)
 			fThetaR += deltaThetaR;
