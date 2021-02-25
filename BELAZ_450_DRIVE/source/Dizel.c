@@ -17,6 +17,7 @@ int32 XP=0;
 int fPowerMAX=1;
 
 int fTestStabSpeed=0;
+extern unsigned int ControllerID;
 
 void DizelOutPowerMax(){
 
@@ -60,8 +61,10 @@ void DizelOutPowerMax(){
 
 	PowerMax16 = fPowerMax;
 
-	PowerMax = fPowerMax*500;//1000; 1000*(1500(max)/1850) = 813
-
+	if (ControllerID == PK1)
+	PowerMax = (fPowerMax - 50)*500;//1000; 1000*(1500(max)/1850) = 813
+	else
+		PowerMax = fPowerMax*500;
 }
 
 
