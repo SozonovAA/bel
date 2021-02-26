@@ -14,10 +14,12 @@ int32 fPowerMax=0;
 
 int32 XP=0;
 
-int fPowerMAX=1;
+int fPowerMAX=0;
 
 int fTestStabSpeed=0;
 extern unsigned int ControllerID;
+
+int dPower=200;
 
 void DizelOutPowerMax(){
 
@@ -37,7 +39,7 @@ void DizelOutPowerMax(){
 		if(fPowerMAX == 2)
 			PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState];
 		if(fPowerMAX == 0)
-			PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] - 200;
+			PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] - dPower;
 
 		if(!fTestStabSpeed)
 		SumPower = PowerL16 + PowerR16;

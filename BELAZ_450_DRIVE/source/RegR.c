@@ -583,7 +583,7 @@ void RegR(){
 
 		IqRMAX = (PowerMax*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
 
-		MinMaxLimitInt(-2000,2000,&IqRMAX);
+		MinMaxLimitInt(-2000,2500,&IqRMAX);
 
 		fIqRMAX += (IqRMAX - fIqRMAX)/koeff.KFiltIq;
 

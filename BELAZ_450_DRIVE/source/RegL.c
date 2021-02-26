@@ -800,7 +800,7 @@ void RegL(){
 
 		IqLMAX = (PowerMax*0.666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
 
-		MinMaxLimitInt(-2000,2000,&IqLMAX);
+		MinMaxLimitInt(-2000,2500,&IqLMAX);
 
 		fIqLMAX += (IqLMAX - fIqLMAX)/koeff.KFiltIq;
 
@@ -1006,7 +1006,7 @@ GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/
 	/*****************************************************************/
 }
 
-
+int M1=0;
 
 void ELCalcL(){
 
@@ -1045,6 +1045,8 @@ void ELCalcL(){
 	XmL = fOmegaL*MPL.LM;
 
 	ImL = fE_ampL/XmL;
+
+	M1 = 4.5*((float)IqL*(float)IdL)*MPL.LM;
 
 }
 

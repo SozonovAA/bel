@@ -65,6 +65,8 @@ extern int RTS;
 extern int RTR;
 extern int RLM;
 
+extern int M1;
+
 void InitAddrArray()
 {
 
@@ -148,7 +150,7 @@ void InitAddrArray()
 	AddrArray[68] = (Uint16)&EBetaInstR;
 	AddrArray[69] = (Uint16)&AverageCarSpeed;
 //____________________________________
-	AddrArray[70] = (Uint16)&phi_int;
+	AddrArray[70] = (Uint16)&M1;//phi_int;
 	AddrArray[71] = (Uint16)&CTR_CAP4;
 	AddrArray[72] = (Uint16)&CTR_CAP1;
 	AddrArray[73] = (Uint16)&CTR_CAP2;
