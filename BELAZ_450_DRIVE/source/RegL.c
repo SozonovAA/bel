@@ -77,7 +77,7 @@ struct KOEFF koeff={ 2500, ///*00*/	int IFMAX;		//аварийная уставка фазного тока
 		4, ///*43*/	int K17;
 		2000, ///*44*/	int K18;
 		50, ///*45*/	int K19;
-		0, ///*46*/	int K20;
+		1, ///*46*/	int K20;
 		1, ///*47*/	int K21;
 		0, ///*48*/	int K22;
 		50 };///*49*/	int K23;
@@ -377,8 +377,8 @@ void CalcDeltaIdL()
 
 	sdEL += ((float)(dEL)/1000.0)*(float)(koeff.KiE);
 
-	if(sdEL > 540) sdEL=540;
-	if(sdEL < -540) sdEL=-540;
+	if(sdEL > 800) sdEL=800;
+	if(sdEL < -800) sdEL=-800;
 
 	IdzL = (long)(dEL)*koeff.KpE/10.0 + sdEL;
 
@@ -813,7 +813,7 @@ void RegL(){
 		if(abs(SpeedL) > 150)
 			MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
 
-		if(UUqL > UUqLMAX) kIqL = (float)15500/(float)UUqL;
+		if(UUqL > UUqLMAX) kIqL = (float)16000/(float)UUqL;
 		else kIqL = 1;
 
 		fkIqL += (kIqL - fkIqL)/75.0;
@@ -837,8 +837,8 @@ void RegL(){
 
 			if(abs(SpeedL) > 50)
 			{
-				UUdL += UkdL;
-				UUqL += UkqL ;
+				UUdL -= UkdL;
+				UUqL -= UkqL ;
 			}
 
 		}
@@ -856,6 +856,9 @@ void RegL(){
 		PowerL16 = PowerL;
 
 		//IfRMSL = (float)(GetHypByLegs(IdzL,IqzL))/1.4142;
+#ifdef MATLAB
+		fOmegaL = deltaThetaL*1500;
+#endif
 
 		if(fUseDeltaTheta)
 			fThetaL += deltaThetaL;

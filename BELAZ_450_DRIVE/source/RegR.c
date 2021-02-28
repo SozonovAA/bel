@@ -615,16 +615,16 @@ void RegR(){
 
 		CrossComR();
 
-		if(koeff.K20)
-		{
-
-			if(abs(SpeedR) > 50)
-			{
-				UUdR += UkdR;
-				UUqR += UkqR ;
-			}
-
-		}
+//		if(koeff.K20)
+//		{
+//
+//			if(abs(SpeedR) > 50)
+//			{
+//				UUdR += UkdR;
+//				UUqR += UkqR ;
+//			}
+//
+//		}
 
 		iffR = (fUmR - 12500)/63;
 		MinMaxLimitInt(0,79,&iffR);
