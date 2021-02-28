@@ -227,8 +227,8 @@ void CalcDeltaIdR()
 
 	sdER += ((float)(dER)/1000.0)*(float)(koeff.KiE);
 
-	if(sdER > 540) sdER=540;
-	if(sdER < -540) sdER=-540;
+	if(sdER > 800) sdER=800;
+	if(sdER < -800) sdER=-800;
 
 	IdzR = (long)(dER)*koeff.KpE/10.0 + sdER;
 

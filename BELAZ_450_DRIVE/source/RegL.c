@@ -77,7 +77,7 @@ struct KOEFF koeff={ 2500, ///*00*/	int IFMAX;		//аварийная уставка фазного тока
 		4, ///*43*/	int K17;
 		2000, ///*44*/	int K18;
 		50, ///*45*/	int K19;
-		1, ///*46*/	int K20;
+		0, ///*46*/	int K20;
 		1, ///*47*/	int K21;
 		0, ///*48*/	int K22;
 		50 };///*49*/	int K23;
@@ -813,7 +813,7 @@ void RegL(){
 		if(abs(SpeedL) > 150)
 			MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
 
-		if(UUqL > UUqLMAX) kIqL = (float)16000/(float)UUqL;
+		if(UUqL > UUqLMAX) kIqL = (float)15500/(float)UUqL;
 		else kIqL = 1;
 
 		fkIqL += (kIqL - fkIqL)/75.0;
