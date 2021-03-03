@@ -549,9 +549,9 @@ void RegR(){
 
 #ifndef MATLAB
 			if(cmd.DNR == DRIVE)
-				SpeedRz = (Drive-13)*20;
+				SpeedRz = (Drive-13)*30;
 			if(cmd.DNR == REVERSE)
-				SpeedRz = -(Drive-13)*20;
+				SpeedRz = -(Drive-13)*30;
 #endif
 		}
 

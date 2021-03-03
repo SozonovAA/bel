@@ -763,9 +763,9 @@ void RegL(){
 			if(Drive < 13) Drive = 13;
 #ifndef MATLAB
 			if(cmd.DNR == DRIVE)
-				SpeedLz = (Drive-13)*20;
+				SpeedLz = (Drive-13)*30;
 			if(cmd.DNR == REVERSE)
-				SpeedLz = -(Drive-13)*20;
+				SpeedLz = -(Drive-13)*30;
 #endif
 		}
 
