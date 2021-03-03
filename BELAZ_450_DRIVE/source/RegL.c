@@ -363,7 +363,7 @@ void CalcDeltaIdL()
 	Udz = 940;
 #endif
 
-	fE_MaxL += (((float)(Udz)*kEamp/2.0) - fE_MaxL)/koeff.K17;
+	fE_MaxL += (((float)(Ud)*kEamp/2.0) - fE_MaxL)/koeff.K17;
 
 	E_MaxL = fE_MaxL*fkIqL;
 	E_LineL = (float)(abs(SpeedL))*0.0686*koeff.K15;
