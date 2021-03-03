@@ -133,8 +133,8 @@ void InitAddrArray()
 	AddrArray[52] = (Uint16)&E_ampR;
 	AddrArray[53] = (Uint16)&IqRMAX;
 	AddrArray[54] = (Uint16)&fUmR;
-	AddrArray[55] = (Uint16)&UkdR;
-	AddrArray[56] = (Uint16)&UkqR;
+	AddrArray[55] = (Uint16)&sdELint;
+	AddrArray[56] = (Uint16)&sdERint;
 	AddrArray[57] = (Uint16)&UUdR;
 	AddrArray[58] = (Uint16)&UUqR;
 	AddrArray[59] = (Uint16)&ThetaR;

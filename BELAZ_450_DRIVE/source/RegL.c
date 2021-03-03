@@ -218,6 +218,10 @@ float DeltaIdzLx=0;
 
 int dEL=0;
 float sdEL=0;
+int sdEXMAX=600;
+
+int sdELint;
+int sdERint;
 
 int UkdL=0;
 int UkqL=0;
@@ -377,12 +381,14 @@ void CalcDeltaIdL()
 
 	sdEL += ((float)(dEL)/1000.0)*(float)(koeff.KiE);
 
-	if(sdEL > 540) sdEL=540;
-	if(sdEL < -540) sdEL=-540;
+	if(sdEL > sdEXMAX) sdEL=sdEXMAX;
+	if(sdEL < -sdEXMAX) sdEL=-sdEXMAX;
 
 	IdzL = (long)(dEL)*koeff.KpE/10.0 + sdEL;
 
 	MinMaxLimitInt(0,100,&DeltaIdzL);
+
+	sdELint = sdEL;
 
 }
 

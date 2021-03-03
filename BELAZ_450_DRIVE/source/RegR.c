@@ -227,12 +227,14 @@ void CalcDeltaIdR()
 
 	sdER += ((float)(dER)/1000.0)*(float)(koeff.KiE);
 
-	if(sdER > 540) sdER=540;
-	if(sdER < -540) sdER=-540;
+	if(sdER > sdEXMAX) sdER=sdEXMAX;
+	if(sdER < -sdEXMAX) sdER=-sdEXMAX;
 
 	IdzR = (long)(dER)*koeff.KpE/10.0 + sdER;
 
 	MinMaxLimitInt(0,100,&DeltaIdzR);
+
+	sdERint = sdER;
 
 }
 
