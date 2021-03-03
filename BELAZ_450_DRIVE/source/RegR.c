@@ -208,7 +208,7 @@ void CalcDeltaIdR()
 
 	fUmR += (UmR - fUmR)/25;
 
-	fE_MaxR += (((float)(Ud)*kEamp/2.0) - fE_MaxR)/koeff.K17;
+	fE_MaxR += (((float)(Udz)*kEamp/2.0) - fE_MaxR)/koeff.K17;
 
 	E_MaxR = fE_MaxR*fkIqR;
 	E_LineR = (float)(abs(SpeedR))*0.0686*koeff.K15;
@@ -443,11 +443,11 @@ IqR --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipR)
 	//DAT2=0;
 
 	//	A
-	fIdRf += (((MPR.LM*IdR - fIdRf)/MPR.TR)*dt);
+	fIdRf += (((MPR.LM*IdzR - fIdRf)/MPR.TR)*dt);
 	//fIdRf = MPR.RM*IdzR;
 
 	//	1/Sec	equal	rad/sec
-	DeltaOmegaSlipR = (MPR.LM*(float)(IqR)*((float)(koeff.K9)/10.0))/(fIdRf*MPR.TR + 0.001);
+	DeltaOmegaSlipR = (MPR.LM*(float)(IqzR)*((float)(koeff.K9)/10.0))/(fIdRf*MPR.TR + 0.001);
 
 	//  rad
 	ThetaSlipR += DeltaOmegaSlipR*dt;

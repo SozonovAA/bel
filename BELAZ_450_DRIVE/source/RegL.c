@@ -363,7 +363,7 @@ void CalcDeltaIdL()
 	Udz = 940;
 #endif
 
-	fE_MaxL += (((float)(Ud)*kEamp/2.0) - fE_MaxL)/koeff.K17;
+	fE_MaxL += (((float)(Udz)*kEamp/2.0) - fE_MaxL)/koeff.K17;
 
 	E_MaxL = fE_MaxL*fkIqL;
 	E_LineL = (float)(abs(SpeedL))*0.0686*koeff.K15;
@@ -639,11 +639,11 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 	//DAT2=0;
 
 	//	A
-	fIdLf += (((MPL.LM*IdL - fIdLf)/MPL.TR)*dt);
+	fIdLf += (((MPL.LM*IdzL - fIdLf)/MPL.TR)*dt);
 	//fIdLf = MPL.LM*IdzL;
 
 	//	1/Sec	equal	rad/sec
-	DeltaOmegaSlipL = (MPL.LM*(float)(IqL)*((float)(koeff.K9)/10.0))/(fIdLf*MPL.TR + 0.001);
+	DeltaOmegaSlipL = (MPL.LM*(float)(IqzL)*((float)(koeff.K9)/10.0))/(fIdLf*MPL.TR + 0.001);
 
 	//  rad
 	ThetaSlipL += DeltaOmegaSlipL*dt;
