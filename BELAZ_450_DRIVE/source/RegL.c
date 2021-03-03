@@ -857,13 +857,13 @@ void RegL(){
 
 		//IfRMSL = (float)(GetHypByLegs(IdzL,IqzL))/1.4142;
 
-		if(fUseDeltaTheta)
+		if(fUseDeltaTheta && Brake < 13)
 			fThetaL += deltaThetaL;
 
 		InvPark(&UAlphaL,&UBetaL,UUdL,UUqL,fThetaL);
 		InvClark(&UUAL,&UUBL,&UUCL,UAlphaL,UBetaL);
 
-		if(fUseDeltaTheta)
+		if(fUseDeltaTheta  && Brake < 13)
 			fThetaL -= deltaThetaL;
 
 		if(fCalcEByZ)
