@@ -406,7 +406,7 @@ void SpeedRegR()
 	}
 	if(cmd.DNR == REVERSE)
 	{
-		if(Brake > 13 && SpeedR < -40)
+		if(Brake > 13 && SpeedR < 40)
 		{
 			if(IqzR < ((Brake-13)*20))
 				IqzR++;

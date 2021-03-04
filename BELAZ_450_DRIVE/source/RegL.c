@@ -324,7 +324,7 @@ int fHoldZero=0;
 
 float kDiff=10.0;
 
-int kChop = 5;
+int kChop = 15;
 
 void RegLToZero()
 {
@@ -433,7 +433,7 @@ float CruizeDriveL=0;
 	int DeltaSpeedLCruize=0;
 	int SpeedLzCruize =0;
 	
-int KSI=3;
+int KSI=5;
 
 void SpeedRegL()
 {
@@ -591,7 +591,7 @@ void SpeedRegL()
 	}
 	if(cmd.DNR == REVERSE)
 	{
-		if(Brake > 13 && SpeedL < -40)
+		if(Brake > 13 && SpeedL < 40)
 		{
 			if(IqzL < ((Brake-13)*20))
 				IqzL++;
@@ -1030,11 +1030,11 @@ void ELCalcL(){
 	DeltaIAlphaL = IAlphaL - OldIAlphaL;
 	DeltaIBetaL = IBetaL - OldIBetaL;
 
-	URsAlpha_L = IAlphaL*MPR.RS;
-	URsBeta_L = IBetaL*MPR.RS;
+	URsAlpha_L = IAlphaL*MPL.RS;
+	URsBeta_L = IBetaL*MPL.RS;
 
-	ULsAlpha_L = (MPR.LS*DeltaIAlphaL)*1500;//dt;
-	ULsBeta_L = (MPR.LS*DeltaIBetaL)*1500;//dt;
+	ULsAlpha_L = (MPL.LS*DeltaIAlphaL)*1500;//dt;
+	ULsBeta_L = (MPL.LS*DeltaIBetaL)*1500;//dt;
 
 	EAlphaInstL = UAlphaSIL - URsAlpha_L - ULsAlpha_L;
 	EBetaInstL = UBetaSIL - URsBeta_L - ULsBeta_L;
