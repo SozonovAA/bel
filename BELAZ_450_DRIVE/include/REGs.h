@@ -392,6 +392,8 @@ extern int sdEXMAX;
 extern int sdELint;
 extern int sdERint;
 
+extern int KSI;
+
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

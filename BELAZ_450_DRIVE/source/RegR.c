@@ -322,7 +322,7 @@ void SpeedRegR()
 	else
 		MinMaxLimitFloat(-1500,1500,&SummSpeedR);
 
-	DeltaSpeedR = (SpeedRz - IqzR)/5;
+	DeltaSpeedR = (SpeedRz - IqzR)/KSI;
 
 
 
@@ -331,8 +331,8 @@ void SpeedRegR()
 	}
 
 
-	if(koeff.K18 > 2500)
-		koeff.K18 = 2500;
+	if(koeff.K18 > 3000)
+		koeff.K18 = 3000;
 	if(koeff.K18 < 100)
 		koeff.K18 = 100;
 
@@ -470,7 +470,7 @@ float fIqurRimR=0;
 void RegR(){
 
 #ifdef MATLAB
-	PowerMax=800000;
+	PowerMax=700000;
 #endif
 
 #ifndef MATLAB

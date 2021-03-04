@@ -64,10 +64,10 @@ struct KOEFF koeff={ 2500, ///*00*/	int IFMAX;		//аварийная уставка фазного тока
 		0, ///*30*/	int cUgen;
 		0, ///*31*/	int WriteKoeff;
 		0, ///*32*/	int WriteDacs;
-		5, ///*33*/	int K7;
+		2, ///*33*/	int K7;
 		10, ///*34*/	int K8;
 		10, ///*35*/	int K9;
-		16, ///*36*/	int K10;
+		6, ///*36*/	int K10;
 		50, ///*37*/	int K11;
 		10, ///*38*/	int K12;
 		0, ///*39*/	int K13;
@@ -75,7 +75,7 @@ struct KOEFF koeff={ 2500, ///*00*/	int IFMAX;		//аварийная уставка фазного тока
 		10, ///*41*/	int K15;
 		30, ///*42*/	int K16;
 		4, ///*43*/	int K17;
-		2000, ///*44*/	int K18;
+		3000, ///*44*/	int K18;
 		50, ///*45*/	int K19;
 		0, ///*46*/	int K20;
 		1, ///*47*/	int K21;
@@ -324,6 +324,8 @@ int fHoldZero=0;
 
 float kDiff=10.0;
 
+int kChop = 5;
+
 void RegLToZero()
 {
 
@@ -431,6 +433,8 @@ float CruizeDriveL=0;
 	int DeltaSpeedLCruize=0;
 	int SpeedLzCruize =0;
 	
+int KSI=3;
+
 void SpeedRegL()
 {
 
@@ -507,8 +511,8 @@ void SpeedRegL()
 	}
 
 	
-	if(koeff.K18 > 2500)
-		koeff.K18 = 2500;
+	if(koeff.K18 > 3000)
+		koeff.K18 = 3000;
 	if(koeff.K18 < 100)
 		koeff.K18 = 100;
 
@@ -666,7 +670,7 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 void RegL(){
 
 #ifdef MATLAB
-	PowerMax=800000;
+	PowerMax=700000;
 #endif
 
 #ifndef MATLAB
@@ -967,7 +971,7 @@ GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/
 		ChopRegX=0;
 	}
 
-	ChopReg += (ChopRegX - ChopReg)/10;
+	ChopReg += (ChopRegX - ChopReg)/kChop;
 
 	if(ChopReg < ChopRegX) ChopReg = ChopRegX;
 

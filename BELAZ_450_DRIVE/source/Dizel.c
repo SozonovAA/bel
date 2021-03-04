@@ -39,7 +39,12 @@ void DizelOutPowerMax(){
 		if(fPowerMAX == 2)
 			PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState];
 		if(fPowerMAX == 0)
-			PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] - dPower;
+			{
+				if(RPMDiz < 1600)
+				PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] - dPower - 50;
+				else
+					PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] - dPower;
+			}
 
 		if(!fTestStabSpeed)
 		SumPower = PowerL16 + PowerR16;

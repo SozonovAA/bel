@@ -228,8 +228,8 @@ Out_R[0].AlphaR = AlphaR;
 Out_R[0].PowerR = PowerR;
 Out_R[0].PowerR16 = PowerR16;
 
-SpeedLz = FromKabine[0]*20;
-SpeedRz = FromKabine[0]*20;
+SpeedLz = FromKabine[0]*30;
+SpeedRz = FromKabine[0]*30;
 Brake = FromKabine[1];
 
 SpeedHolding = FromKabine[2];

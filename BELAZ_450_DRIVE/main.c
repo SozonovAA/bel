@@ -20,7 +20,7 @@ add strings to see what changed in git history on CCS5*/
 
 #include "hfa.h"
 
-#define TMS_VERSION 10142
+#define TMS_VERSION 10143
 
 typedef struct {
      Uint16 *StartAddr;
