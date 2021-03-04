@@ -435,6 +435,10 @@ float CruizeDriveL=0;
 	
 int KSI=5;
 
+float SummSpeedBackL=0;
+float SummSpeedBackR=0;
+float kB=5.0;
+
 void SpeedRegL()
 {
 
@@ -588,9 +592,16 @@ void SpeedRegL()
 
 			IqSummInBrakeL = IqzL;
 		}
+
+		SummSpeedBackL=0;
 	}
 	if(cmd.DNR == REVERSE)
 	{
+
+		SummSpeedBackL += (float)DeltaSpeedL1/kB;
+
+		MinMaxLimitFloat(-DeltaSpeedL1*4,DeltaSpeedL1*4,&SummSpeedBackL);
+
 		if(Brake > 13 && SpeedL < 40)
 		{
 			if(IqzL < ((Brake-13)*20))
@@ -601,7 +612,7 @@ void SpeedRegL()
 			SpeedLz1 = SpeedL;
 		}
 		else
-			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0;
+			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedBackL;
 	}
 
 	SpeedLz1_16 = SpeedLz1;

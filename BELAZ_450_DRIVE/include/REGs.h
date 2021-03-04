@@ -394,6 +394,10 @@ extern int sdERint;
 
 extern int KSI;
 
+extern float SummSpeedBackL;
+extern float SummSpeedBackR;
+extern float kB;
+
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

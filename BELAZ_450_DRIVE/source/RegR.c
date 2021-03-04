@@ -403,9 +403,17 @@ void SpeedRegR()
 			}			
 			IqSummInBrakeR = IqzR;
 		}
+
+		SummSpeedBackR=0;
+
 	}
 	if(cmd.DNR == REVERSE)
 	{
+
+		SummSpeedBackR += (float)DeltaSpeedR1/kB;
+
+		MinMaxLimitFloat(-DeltaSpeedR1*4,DeltaSpeedR1*4,&SummSpeedBackR);
+
 		if(Brake > 13 && SpeedR < 40)
 		{
 			if(IqzR < ((Brake-13)*20))
@@ -416,7 +424,7 @@ void SpeedRegR()
 			SpeedRz1 = SpeedR;
 		}
 		else
-			IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0;
+			IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedBackR;
 	}
 
 	SpeedRz1_16 = SpeedRz1;
