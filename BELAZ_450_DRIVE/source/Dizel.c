@@ -19,7 +19,7 @@ int fPowerMAX=0;
 int fTestStabSpeed=0;
 extern unsigned int ControllerID;
 
-int dPower=150;
+int dPower=200;
 
 void DizelOutPowerMax(){
 

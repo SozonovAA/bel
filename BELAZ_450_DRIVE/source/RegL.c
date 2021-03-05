@@ -218,7 +218,7 @@ float DeltaIdzLx=0;
 
 int dEL=0;
 float sdEL=0;
-int sdEXMAX=600;
+int sdEXMAX=750;
 
 int sdELint;
 int sdERint;
@@ -438,6 +438,7 @@ int KSI=5;
 float SummSpeedBackL=0;
 float SummSpeedBackR=0;
 float kB=5.0;
+int fBackTest=0;
 
 void SpeedRegL()
 {
@@ -532,6 +533,8 @@ void SpeedRegL()
 
 	//if(Brake < 13) Brake = 13;
 
+
+
 	if(cmd.DNR == DRIVE)
 	{
 		if(Brake > 13 )
@@ -580,7 +583,7 @@ void SpeedRegL()
 		else
 		{
 			fHoldZero = 0;
-			if(!SpeedHolding)//круизконтроль
+			if(!SpeedHolding || data_from_KK->DIN.bit.bDRIVE)
 				IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedL;
 			else{
 				//CruizeDriveL += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
@@ -598,9 +601,9 @@ void SpeedRegL()
 	if(cmd.DNR == REVERSE)
 	{
 
-		SummSpeedBackL += (float)DeltaSpeedL1/kB;
+		SummSpeedBackL += fBackTest*((float)DeltaSpeedL1/kB);
 
-		MinMaxLimitFloat(-DeltaSpeedL1*4,DeltaSpeedL1*4,&SummSpeedBackL);
+		MinMaxLimitFloat(-abs(DeltaSpeedL1*4),abs(DeltaSpeedL1*4),&SummSpeedBackL);
 
 		if(Brake > 13 && SpeedL < 40)
 		{
@@ -612,7 +615,17 @@ void SpeedRegL()
 			SpeedLz1 = SpeedL;
 		}
 		else
-			IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedBackL;
+		{
+			if(data_from_KK->DIN.bit.bDRIVE)
+				IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedBackL;
+		}
+	}
+
+	if(data_from_KK->DIN.bit.bDRIVE == 0)
+	{
+		IqzLnf = 0;
+		IqzL += (IqzLnf - IqzL)/25.0;
+		SpeedLz1 = SpeedL;
 	}
 
 	SpeedLz1_16 = SpeedLz1;

@@ -393,7 +393,7 @@ void SpeedRegR()
 		else
 		{
 			fHoldZero = 0;
-			if(!SpeedHolding)
+			if(!SpeedHolding || data_from_KK->DIN.bit.bDRIVE)
 				IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedR;
 			else{
 				//IqzR = DeltaSpeedR1*kphold + SummSpeedR;
@@ -410,9 +410,9 @@ void SpeedRegR()
 	if(cmd.DNR == REVERSE)
 	{
 
-		SummSpeedBackR += (float)DeltaSpeedR1/kB;
+		SummSpeedBackR += fBackTest*((float)DeltaSpeedR1/kB);
 
-		MinMaxLimitFloat(-DeltaSpeedR1*4,DeltaSpeedR1*4,&SummSpeedBackR);
+		MinMaxLimitFloat(-abs(DeltaSpeedR1*4),abs(DeltaSpeedR1*4),&SummSpeedBackR);
 
 		if(Brake > 13 && SpeedR < 40)
 		{
@@ -424,7 +424,17 @@ void SpeedRegR()
 			SpeedRz1 = SpeedR;
 		}
 		else
-			IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedBackR;
+		{
+			if(data_from_KK->DIN.bit.bDRIVE)
+				IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedBackR;
+		}
+	}
+
+	if(data_from_KK->DIN.bit.bDRIVE == 0)
+	{
+		IqzRnf = 0;
+		IqzR += (IqzRnf - IqzR)/25.0;
+		SpeedRz1 = SpeedR;
 	}
 
 	SpeedRz1_16 = SpeedRz1;

@@ -398,6 +398,8 @@ extern float SummSpeedBackL;
 extern float SummSpeedBackR;
 extern float kB;
 
+extern int fBackTest;
+
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50
