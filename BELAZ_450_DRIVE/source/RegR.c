@@ -414,17 +414,29 @@ void SpeedRegR()
 
 		MinMaxLimitFloat(-abs(DeltaSpeedR1*4),abs(DeltaSpeedR1*4),&SummSpeedBackR);
 
-		if(Brake > 13 && SpeedR < 40)
+		if(Brake > 13)
 		{
-			if(IqzR < ((Brake-13)*20))
-				IqzR++;
-			else
-				IqzR--;
+			if(SpeedR < -limitZeroSpeed && !fHoldZero)
+			{
+				if(IqzR < ((Brake-13)*20))
+					IqzR++;
+				else
+					IqzR--;
 
-			SpeedRz1 = SpeedR;
+				SpeedRz1 = SpeedR;
+
+			}
+			else
+				fHoldZero = 1;
+
+			if(fHoldZero)
+			{
+				IqzRnf = (0-SpeedR)*kpz + fTryBrakeDiff*SummSpeedR;
+			}
 		}
 		else
 		{
+			fHoldZero = 0;
 			if(data_from_KK->DIN.bit.bDRIVE)
 				IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedBackR;
 		}

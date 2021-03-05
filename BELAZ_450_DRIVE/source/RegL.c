@@ -430,9 +430,9 @@ int otfCruize=0;
 int kphold=20;
 int IqzLCruize=0;
 float CruizeDriveL=0;
-	int DeltaSpeedLCruize=0;
-	int SpeedLzCruize =0;
-	
+int DeltaSpeedLCruize=0;
+int SpeedLzCruize =0;
+
 int KSI=5;
 
 float SummSpeedBackL=0;
@@ -515,7 +515,7 @@ void SpeedRegL()
 		SpeedRzCruize = AverageCarSpeed;
 	}
 
-	
+
 	if(koeff.K18 > 3000)
 		koeff.K18 = 3000;
 	if(koeff.K18 < 100)
@@ -553,20 +553,20 @@ void SpeedRegL()
 			}
 			else
 				if(SpeedL > limitZeroSpeed && ! fHoldZero)
-			{
-				if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
-				else
 				{
-					if(IqSummInBrakeL > -(Brake-13)*20)
-						IqSummInBrakeL -= 0.1*kBrake;
-					if(IqSummInBrakeL < -(Brake-13)*20)
-						IqSummInBrakeL += 0.1*kBrake;
-				}
+					if(PowerL < PowerBrakeMax) IqSummInBrakeL += 0.1*kBrake;
+					else
+					{
+						if(IqSummInBrakeL > -(Brake-13)*20)
+							IqSummInBrakeL -= 0.1*kBrake;
+						if(IqSummInBrakeL < -(Brake-13)*20)
+							IqSummInBrakeL += 0.1*kBrake;
+					}
 
-				IqzLnf = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
-			}
-			else
-				fHoldZero = 1;//IqzL = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
+					IqzLnf = IqSummInBrakeL + fTryBrakeDiff*SummSpeedL;
+				}
+				else
+					fHoldZero = 1;//IqzL = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
 
 			if(fHoldZero)
 			{
@@ -578,7 +578,7 @@ void SpeedRegL()
 			SpeedLzCruize = AverageCarSpeed;
 
 			//else SpeedLz1 = AverageCarSpeed;
-			
+
 		}
 		else
 		{
@@ -605,17 +605,29 @@ void SpeedRegL()
 
 		MinMaxLimitFloat(-abs(DeltaSpeedL1*4),abs(DeltaSpeedL1*4),&SummSpeedBackL);
 
-		if(Brake > 13 && SpeedL < 40)
+		if(Brake > 13)
 		{
-			if(IqzL < ((Brake-13)*20))
-				IqzL++;
-			else
-				IqzL--;
+			if(SpeedL < -limitZeroSpeed && !fHoldZero)
+			{
+				if(IqzL < ((Brake-13)*20))
+					IqzL++;
+				else
+					IqzL--;
 
-			SpeedLz1 = SpeedL;
+				SpeedLz1 = SpeedL;
+
+			}
+			else
+				fHoldZero = 1;
+
+			if(fHoldZero)
+			{
+				IqzLnf = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
+			}
 		}
 		else
 		{
+			fHoldZero = 0;
 			if(data_from_KK->DIN.bit.bDRIVE)
 				IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedBackL;
 		}
