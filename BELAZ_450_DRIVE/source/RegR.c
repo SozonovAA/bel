@@ -435,6 +435,7 @@ void SpeedRegR()
 		IqzRnf = 0;
 		IqzR += (IqzRnf - IqzR)/25.0;
 		SpeedRz1 = SpeedR;
+		SpeedRz = SpeedR;
 	}
 
 	SpeedRz1_16 = SpeedRz1;
