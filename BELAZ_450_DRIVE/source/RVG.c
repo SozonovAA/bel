@@ -87,7 +87,19 @@ void RVG(void)
 	if(PRD < 1250000)
 	{
 //TODO должна быть средн€€ скорость
-		if(RPMDiz < (abs(speedMax)*2.235))
+//		if(RPMDiz < (abs(speedMax)*2.235))
+//		{
+//
+//			Udz = F_(RPMDiz)/1.6;
+//
+//		}
+//		else{
+//
+//			Udz = F_(abs(speedMax))*1.4;
+//
+//		}
+
+		if(RPMDiz < (abs(speedMax)*1.946))
 		{
 
 			Udz = F_(RPMDiz)/1.6;
@@ -95,10 +107,9 @@ void RVG(void)
 		}
 		else{
 
-			Udz = F_(abs(speedMax))*1.4;
+			Udz = F_(abs(speedMax))*1.217;
 
 		}
-
 
 	if(!otf.rsrv1)
 	{
