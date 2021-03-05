@@ -623,6 +623,7 @@ void SpeedRegL()
 			if(fHoldZero)
 			{
 				IqzLnf = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
+				IqzL += (IqzLnf - IqzL)/25.0;
 			}
 		}
 		else

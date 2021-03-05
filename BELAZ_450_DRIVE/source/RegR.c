@@ -432,6 +432,7 @@ void SpeedRegR()
 			if(fHoldZero)
 			{
 				IqzRnf = (0-SpeedR)*kpz + fTryBrakeDiff*SummSpeedR;
+				IqzR += (IqzRnf - IqzR)/25.0;
 			}
 		}
 		else
