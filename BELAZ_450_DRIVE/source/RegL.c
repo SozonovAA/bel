@@ -437,8 +437,8 @@ int KSI=5;
 
 float SummSpeedBackL=0;
 float SummSpeedBackR=0;
-float kB=5.0;
-int fBackTest=0;
+float kB=2500.0;
+int fBackTest=1;
 
 void SpeedRegL()
 {
