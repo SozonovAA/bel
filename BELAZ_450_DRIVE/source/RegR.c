@@ -594,7 +594,7 @@ void RegR(){
 
 		// ##### IdReg bgn
 
-		MinMaxLimitInt(5,900,&IdzR);
+		MinMaxLimitInt(5,1050,&IdzR);
 
 		DeltaIdR = IdzR - IdR;
 		SIdR += (float)(DeltaIdR*koeff.Ki)/25.0;

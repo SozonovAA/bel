@@ -822,7 +822,7 @@ void RegL(){
 
 		// ##### IdReg bgn
 
-		MinMaxLimitInt(5,900,&IdzL);
+		MinMaxLimitInt(5,1050,&IdzL);
 
 		//IdzL *=fkIqL;
 
