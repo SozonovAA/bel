@@ -845,8 +845,8 @@ void RegL(){
 
 		SpeedRegL();
 
-		if(abs(SpeedL) > 150)
-			MinMaxLimitInt(-1500,abs(IqLCurLim),&IqzL);
+		if(abs(SpeedL) > 150  && Brake < 13)
+			MinMaxLimitInt(-abs(IqLCurLim),abs(IqLCurLim),&IqzL);
 
 		if(UUqL > UUqLMAX) kIqL = (float)15500/(float)UUqL;
 		else kIqL = 1;
