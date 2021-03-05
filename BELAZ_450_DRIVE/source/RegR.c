@@ -430,7 +430,7 @@ void SpeedRegR()
 		}
 	}
 
-	if(data_from_KK->DIN.bit.bDRIVE == 0)
+	if(data_from_KK->DIN.bit.bDRIVE == 0  && Brake < 13)
 	{
 		IqzRnf = 0;
 		IqzR += (IqzRnf - IqzR)/25.0;
