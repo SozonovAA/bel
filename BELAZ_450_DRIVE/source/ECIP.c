@@ -37,6 +37,10 @@ extern Uint16 ChopOpen;
 
 int messVal=0;
 
+int active = 1;
+int frontAxleAngle = 0;
+int rearAxleAngle = 0;
+
 void AssemblyECIPMess()
 {
 
@@ -46,6 +50,9 @@ void AssemblyECIPMess()
 
 	Drive = data_from_KK->Drive;
 	Brake = data_from_KK->Brake;
+
+	frontAxleAngle = data_from_KK->AAGF;
+	rearAxleAngle = data_from_KK->AAGR;
 
 	if(Brake == 13) Brake = 0;
 
@@ -117,6 +124,7 @@ FaultsC[0]		FaultsD_INV[0]	FaultsD_CHOP[0]	DIN[0]
 			ptrPK12->TxData[0] = ChopOpen;
 			ptrPK12->TxData[1] = Udz;
 			ptrPK12->TxData[2] = zRPMDiz;
+			ptrPK12->TxData[2] = active << ControllerID;
 			ptrPK12->MessFlag++;
 
 			SendMessToKK++;

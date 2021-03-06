@@ -42,6 +42,8 @@ struct data_for_transmit{
 	int SpeedFR;
 	int SpeedRL;
 	int SpeedRR;
+	int AAGR;
+	int AAGF;
 };
 
 
