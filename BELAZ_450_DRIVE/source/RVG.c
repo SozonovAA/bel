@@ -178,7 +178,7 @@ void RVG(void)
 
 	 	 fUgen += (Ugen - fUgen)/15.0;
 
-	 	 MinMaxLimitInt(400,940,&Udz);
+	 	 MinMaxLimitInt(500,940,&Udz);
 
 	 	 if(Ud>(Ugen-koeff.K22))
 		 dUd = Udz - Ugen;

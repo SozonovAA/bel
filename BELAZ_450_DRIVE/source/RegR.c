@@ -213,8 +213,8 @@ void CalcDeltaIdR()
 	E_MaxR = fE_MaxR*fkIqR;
 	E_LineR = (float)(abs(SpeedR))*0.0686*koeff.K15;
 
-	if(E_LineR < 50) E_LineR=50;
-	if(E_MaxR < 200) E_MaxR=200;
+	if(E_LineR < 100) E_LineR = 100;
+	if(E_MaxR < 200) E_MaxR = 200;
 
 	if(E_LineR<E_MaxR)
 
@@ -594,7 +594,7 @@ void RegR(){
 
 		// ##### IdReg bgn
 
-		MinMaxLimitInt(5,1050,&IdzR);
+		MinMaxLimitInt(5,1100,&IdzR);
 
 		DeltaIdR = IdzR - IdR;
 		SIdR += (float)(DeltaIdR*koeff.Ki)/25.0;

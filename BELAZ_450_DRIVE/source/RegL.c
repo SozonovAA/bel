@@ -218,7 +218,7 @@ float DeltaIdzLx=0;
 
 int dEL=0;
 float sdEL=0;
-int sdEXMAX=750;
+int sdEXMAX=1100;
 
 int sdELint;
 int sdERint;
@@ -372,8 +372,8 @@ void CalcDeltaIdL()
 	E_MaxL = fE_MaxL*fkIqL;
 	E_LineL = (float)(abs(SpeedL))*0.0686*koeff.K15;
 
-	if(E_LineL < 50) E_LineL=50;
-	if(E_MaxL < 200) E_MaxL=200;
+	if(E_LineL < 100) E_LineL = 100;
+	if(E_MaxL < 200) E_MaxL = 200;
 
 	if(E_LineL<E_MaxL)
 		dEL = E_LineL - E_ampL;
@@ -687,14 +687,20 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 	//DAT2=1;
 	MagneticSaturation(IdL,&MPL.LM);
 	//DAT2=0;
-
+#ifdef MATLAB
+	fIdLf += (((0.003*IdzL - fIdLf)/0.5)*dt);
+#else
 	//	A
 	fIdLf += (((MPL.LM*IdzL - fIdLf)/MPL.TR)*dt);
 	//fIdLf = MPL.LM*IdzL;
+#endif
 
+#ifdef MATLAB
 	//	1/Sec	equal	rad/sec
+	DeltaOmegaSlipL = (0.003*(float)(IqzL)*((float)(koeff.K9)/10.0))/(fIdLf*0.5 + 0.001);
+#else
 	DeltaOmegaSlipL = (MPL.LM*(float)(IqzL)*((float)(koeff.K9)/10.0))/(fIdLf*MPL.TR + 0.001);
-
+#endif
 	//  rad
 	ThetaSlipL += DeltaOmegaSlipL*dt;
 
@@ -830,7 +836,7 @@ void RegL(){
 
 		// ##### IdReg bgn
 
-		MinMaxLimitInt(5,1050,&IdzL);
+		MinMaxLimitInt(5,1100,&IdzL);
 
 		//IdzL *=fkIqL;
 
@@ -1004,6 +1010,7 @@ GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/
 	//	if(Debug == 4)
 	//	ChopReg = Slider.s6;
 
+	if( Ud > 700)
 	dUdChop = (Ud - Udz);
 
 	if(dUdChop > 50)
