@@ -231,6 +231,7 @@ Out_R[0].PowerR16 = PowerR16;
 SpeedLz = FromKabine[0]*30;
 SpeedRz = FromKabine[0]*30;
 Brake = FromKabine[1];
+drivePedalON = FromKabine[0];
 
 SpeedHolding = FromKabine[2];
 

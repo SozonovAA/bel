@@ -448,6 +448,10 @@ void SpeedRegL()
 #ifdef MATLAB
 	cmd.DNR = 1;
 	AverageCarSpeed = (SpeedR + SpeedL)/2;
+
+	if(drivePedalON > 13) drivePedalON = 1;
+	else
+		drivePedalON = 0;
 #else
 	drivePedalON = data_from_KK->DIN.bit.bDRIVE;
 #endif
