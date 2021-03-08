@@ -393,7 +393,7 @@ void SpeedRegR()
 		else
 		{
 			fHoldZero = 0;
-			if(!SpeedHolding || data_from_KK->DIN.bit.bDRIVE)
+			if(!SpeedHolding || drivePedalON)
 				IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedR;
 			else{
 				//IqzR = DeltaSpeedR1*kphold + SummSpeedR;
@@ -438,12 +438,12 @@ void SpeedRegR()
 		else
 		{
 			fHoldZero = 0;
-			if(data_from_KK->DIN.bit.bDRIVE)
+			if(drivePedalON)
 				IqzR = (float)(DeltaSpeedR1*koeff.K10)/4.0 + SummSpeedBackR;
 		}
 	}
 
-	if(data_from_KK->DIN.bit.bDRIVE == 0  && Brake < 13)
+	if(drivePedalON == 0  && Brake < 13)
 	{
 		IqzRnf = 0;
 		IqzR += (IqzRnf - IqzR)/25.0;

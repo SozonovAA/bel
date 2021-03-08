@@ -400,6 +400,8 @@ extern float kB;
 
 extern int fBackTest;
 
+extern int drivePedalON;
+
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

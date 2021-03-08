@@ -326,6 +326,8 @@ float kDiff=10.0;
 
 int kChop = 15;
 
+int drivePedalON=0;
+
 void RegLToZero()
 {
 
@@ -446,6 +448,8 @@ void SpeedRegL()
 #ifdef MATLAB
 	cmd.DNR = 1;
 	AverageCarSpeed = (SpeedR + SpeedL)/2;
+#else
+	drivePedalON = data_from_KK->DIN.bit.bDRIVE;
 #endif
 	//Дифференциал
 	/*int  DeltaAxleSpeedL=0; 		// Разность скорости левого колеса и средней скорости по оси
@@ -583,7 +587,7 @@ void SpeedRegL()
 		else
 		{
 			fHoldZero = 0;
-			if(!SpeedHolding || data_from_KK->DIN.bit.bDRIVE)
+			if(!SpeedHolding || drivePedalON)
 				IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedL;
 			else{
 				//CruizeDriveL += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
@@ -629,12 +633,12 @@ void SpeedRegL()
 		else
 		{
 			fHoldZero = 0;
-			if(data_from_KK->DIN.bit.bDRIVE)
+			if(drivePedalON)
 				IqzL = (float)(DeltaSpeedL1*koeff.K10)/4.0 + SummSpeedBackL;
 		}
 	}
 
-	if(data_from_KK->DIN.bit.bDRIVE == 0 && Brake < 13)
+	if(drivePedalON == 0 && Brake < 13)
 	{
 		IqzLnf = 0;
 		IqzL += (IqzLnf - IqzL)/25.0;
