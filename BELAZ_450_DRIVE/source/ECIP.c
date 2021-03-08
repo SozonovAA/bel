@@ -34,6 +34,7 @@ int Drive=0;
 int Brake=0;
 
 extern Uint16 ChopOpen;
+extern int  PowerUvtr;
 
 int messVal=0;
 
@@ -121,10 +122,12 @@ FaultsC[0]		FaultsD_INV[0]	FaultsD_CHOP[0]	DIN[0]
 
 		case	MESS_3:
 
-			ptrPK12->TxData[0] = ChopOpen;
-			ptrPK12->TxData[1] = Udz;
-			ptrPK12->TxData[2] = zRPMDiz;
-			ptrPK12->TxData[2] = active << ControllerID;
+						ptrPK12->TxData[0] = CHOP_CONTROL_PIN;
+			 			ptrPK12->TxData[1] = Udz;
+			 			ptrPK12->TxData[2] = zRPMDiz;
+						ptrPK12->TxData[3] = active << ControllerID;
+						ptrPK12->TxData[4] =ChopOpen;
+						ptrPK12->TxData[5] = PowerUvtr;
 			ptrPK12->MessFlag++;
 
 			SendMessToKK++;
