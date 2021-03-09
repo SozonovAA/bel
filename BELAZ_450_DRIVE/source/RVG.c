@@ -78,7 +78,9 @@ int16 speedMax=0;
 
 float dUd_old=0;
 float derUd=0;
-float kd=0.1;
+float kd=0.04;
+
+int UdzMIN = 650;
 
 void RVG(void)
 {
@@ -182,7 +184,7 @@ void RVG(void)
 
 	 	 fUgen += (Ugen - fUgen)/15.0;
 
-	 	 MinMaxLimitInt(500,940,&Udz);
+	 	 MinMaxLimitInt(UdzMIN,940,&Udz);
 
 	 	 if(Ud>(Ugen-koeff.K22))
 		 dUd = Udz - Ugen;
