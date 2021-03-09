@@ -1010,7 +1010,6 @@ GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/
 	//	if(Debug == 4)
 	//	ChopReg = Slider.s6;
 
-	if( Ud > 700)
 	dUdChop = (Ud - Udz);
 
 	if(dUdChop > 50)
