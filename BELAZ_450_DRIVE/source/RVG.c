@@ -76,6 +76,10 @@ int16 SummRVG16=0;
 
 int16 speedMax=0;
 
+float dUd_old=0;
+float derUd=0;
+float kd=0.1;
+
 void RVG(void)
 {
 
@@ -193,7 +197,11 @@ void RVG(void)
 	 	KpRVG16 = F_(dUd*koeff.Kp_Rvg)/100.0;
 	 	SummRVG16 = Summ_dUd;
 
-	 	 alpha = F_(dUd*koeff.Kp_Rvg)/100.0 + Summ_dUd;
+
+	 	derUd = dUd - dUd_old;
+	 	dUd_old = dUd;
+
+	 	 alpha = F_(dUd*koeff.Kp_Rvg)/100.0 + Summ_dUd + derUd*kd;
 	 }
 	 else
 	 {
