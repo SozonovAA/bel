@@ -7,6 +7,7 @@ void SpeedAndAngleL();
 
 int16 SpeedLz=0;
 int16 SpeedL=0;			// скорость левого колеса в об/мин
+int16 SpeedLold=0;			// скорость левого колеса в об/мин
 float FSpeedL=0;
 int16 FinalSpeedL=0;			// скорость левого колеса в об/мин
 int16 OldSpeedL=0;
@@ -128,6 +129,8 @@ void SpeedAndAngleL()
 			PosArrCountL = 0;
 		}
 
+		//if(SByDelta_L > 4000)
+
 		if(GS.STATE.bit.DriveDirL == FORWARD)
 		{
 			if(SByDelta_L < 20)
@@ -142,6 +145,11 @@ void SpeedAndAngleL()
 			else
 				SpeedL = -SByPRD_L;
 		}
+
+		if(abs(SpeedL) > 4000)	//явно скачек
+			SpeedL = SpeedLold;
+
+		SpeedLold = SpeedL;
 
 		if(abs(SpeedL) > koeff.K14)
 		{

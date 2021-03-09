@@ -5,6 +5,7 @@ void SpeedAndAngleR();
 
 int16 SpeedRz=0;
 int16 SpeedR=0;			// скорость левого колеса в об/мин
+int16 SpeedRold=0;
 float FSpeedR=0;
 int16 FinalSpeedR=0;			// скорость левого колеса в об/мин
 int16 OldSpeedR=0;
@@ -139,6 +140,11 @@ void SpeedAndAngleR()
 			else
 				SpeedR = -SByPRD_R;
 		}
+
+		if(abs(SpeedR) > 4000)	//явно скачек
+			SpeedR = SpeedRold;
+
+		SpeedRold = SpeedR;
 
 		if(abs(SpeedR) > koeff.K14)
 		{
