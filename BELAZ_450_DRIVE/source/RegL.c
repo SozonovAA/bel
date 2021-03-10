@@ -324,7 +324,7 @@ int fHoldZero=0;
 
 float kDiff=10.0;
 
-int kChop = 15;
+int kChop = 10;
 
 int drivePedalON=0;
 
@@ -581,7 +581,11 @@ void SpeedRegL()
 				IqzLnf = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
 			}
 
-			IqzL += (IqzLnf - IqzL)/25.0;
+			//IqzL += (IqzLnf - IqzL)/25.0;
+
+			if(IqzL < IqzLnf) IqzL++;
+			else IqzL--;
+
 			SpeedLz1 = SpeedL;
 			SpeedLzCruize = AverageCarSpeed;
 
@@ -631,7 +635,10 @@ void SpeedRegL()
 			if(fHoldZero)
 			{
 				IqzLnf = (0-SpeedL)*kpz + fTryBrakeDiff*SummSpeedL;
-				IqzL += (IqzLnf - IqzL)/25.0;
+				//IqzL += (IqzLnf - IqzL)/25.0;
+
+				if(IqzL < IqzLnf) IqzL++;
+				else IqzL--;
 			}
 		}
 		else
@@ -645,7 +652,12 @@ void SpeedRegL()
 	if(drivePedalON == 0 && Brake < 13)
 	{
 		IqzLnf = 0;
-		IqzL += (IqzLnf - IqzL)/25.0;
+
+		//IqzL += (IqzLnf - IqzL)/25.0;
+
+		if(IqzL < IqzLnf) IqzL++;
+		else IqzL--;
+
 		SpeedLz1 = SpeedL;
 		SpeedLz = SpeedL;
 	}

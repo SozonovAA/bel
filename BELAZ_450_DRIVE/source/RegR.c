@@ -384,7 +384,10 @@ void SpeedRegR()
 				IqzRnf = (0-SpeedR)*kpz + fTryBrakeDiff*SummSpeedR;
 			}
 
-			IqzR += (IqzRnf - IqzR)/25.0;
+			//IqzR += (IqzRnf - IqzR)/25.0;
+
+			if(IqzR < IqzRnf) IqzR++;
+			else IqzR--;
 
 			SpeedRz1 = SpeedR;
 			SpeedRzCruize = AverageCarSpeed;
@@ -432,7 +435,9 @@ void SpeedRegR()
 			if(fHoldZero)
 			{
 				IqzRnf = (0-SpeedR)*kpz + fTryBrakeDiff*SummSpeedR;
-				IqzR += (IqzRnf - IqzR)/25.0;
+				//IqzR += (IqzRnf - IqzR)/25.0;
+				if(IqzR < IqzRnf) IqzR++;
+				else IqzR--;
 			}
 		}
 		else
@@ -446,7 +451,11 @@ void SpeedRegR()
 	if(drivePedalON == 0  && Brake < 13)
 	{
 		IqzRnf = 0;
-		IqzR += (IqzRnf - IqzR)/25.0;
+		//IqzR += (IqzRnf - IqzR)/25.0;
+
+		if(IqzR < IqzRnf) IqzR++;
+		else IqzR--;
+
 		SpeedRz1 = SpeedR;
 		SpeedRz = SpeedR;
 	}
