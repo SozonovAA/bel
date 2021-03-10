@@ -402,6 +402,8 @@ extern int fBackTest;
 
 extern int drivePedalON;
 
+extern float klt;
+
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50

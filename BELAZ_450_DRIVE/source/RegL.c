@@ -679,7 +679,7 @@ void SpeedRegL()
 
 	}
 }
-
+float klt=1.0;
 void LookerL(){
 
 	TCN++;
@@ -703,7 +703,7 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 	fIdLf += (((0.003*IdzL - fIdLf)/0.5)*dt);
 #else
 	//	A
-	fIdLf += (((MPL.LM*IdzL - fIdLf)/MPL.TR)*dt);
+	fIdLf += (((MPL.LM*IdzL - fIdLf)/(MPL.TR*klt))*dt);
 	//fIdLf = MPL.LM*IdzL;
 #endif
 
@@ -711,7 +711,7 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
 	//	1/Sec	equal	rad/sec
 	DeltaOmegaSlipL = (0.003*(float)(IqzL)*((float)(koeff.K9)/10.0))/(fIdLf*0.5 + 0.001);
 #else
-	DeltaOmegaSlipL = (MPL.LM*(float)(IqzL)*((float)(koeff.K9)/10.0))/(fIdLf*MPL.TR + 0.001);
+	DeltaOmegaSlipL = (MPL.LM*(float)(IqzL)*((float)(koeff.K9)/10.0))/(fIdLf*(MPL.TR*klt) + 0.001);
 #endif
 	//  rad
 	ThetaSlipL += DeltaOmegaSlipL*dt;

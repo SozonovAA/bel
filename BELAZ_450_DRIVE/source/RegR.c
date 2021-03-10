@@ -484,11 +484,11 @@ IqR --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipR)
 	//DAT2=0;
 
 	//	A
-	fIdRf += (((MPR.LM*IdzR - fIdRf)/MPR.TR)*dt);
+	fIdRf += (((MPR.LM*IdzR - fIdRf)/(MPR.TR*klt))*dt);
 	//fIdRf = MPR.RM*IdzR;
 
 	//	1/Sec	equal	rad/sec
-	DeltaOmegaSlipR = (MPR.LM*(float)(IqzR)*((float)(koeff.K9)/10.0))/(fIdRf*MPR.TR + 0.001);
+	DeltaOmegaSlipR = (MPR.LM*(float)(IqzR)*((float)(koeff.K9)/10.0))/(fIdRf*(MPR.TR*klt) + 0.001);
 
 	//  rad
 	ThetaSlipR += DeltaOmegaSlipR*dt;
