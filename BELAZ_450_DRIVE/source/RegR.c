@@ -625,7 +625,7 @@ void RegR(){
 		if(Brake < 13)
 		IqRMAX = (PowerMax*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
 		else
-		IqRMAX = (abs((long)PowerBrakeMax)*666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
+		IqRMAX = (5*PowerMax*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
 
 		MinMaxLimitInt(-2000,2500,&IqRMAX);
 

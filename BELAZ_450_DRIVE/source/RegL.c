@@ -873,7 +873,7 @@ void RegL(){
 		if(Brake < 13)
 		IqLMAX = (PowerMax*0.666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
 		else
-		IqLMAX = (abs((long)PowerBrakeMax)*666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
+		IqLMAX = (5*PowerMax*0.666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
 
 		MinMaxLimitInt(-2000,2500,&IqLMAX);
 
