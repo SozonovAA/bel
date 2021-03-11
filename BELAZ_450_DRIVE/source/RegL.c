@@ -877,9 +877,9 @@ void RegL(){
 
 		MinMaxLimitInt(-2000,2500,&IqLMAX);
 
-		IqLCurLim = abs(fIqLMAX);
-
 		fIqLMAX += (IqLMAX - fIqLMAX)/koeff.KFiltIq;
+
+		IqLCurLim = abs(fIqLMAX);
 
 		// @@@@@ —читаем ток отсечки end
 

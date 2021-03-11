@@ -97,7 +97,7 @@ void InitAddrArray()
 	AddrArray[20] = (Uint16)&E_MaxL;
 	AddrArray[21] = (Uint16)&E_LineL;
 	AddrArray[22] = (Uint16)&E_ampL;
-	AddrArray[23] = (Uint16)&IqLMAX;
+	AddrArray[23] = (Uint16)&IqLCurLim;
 	AddrArray[24] = (Uint16)&fUmL;
 	AddrArray[25] = (Uint16)&UkdL;
 	AddrArray[26] = (Uint16)&UkqL;
@@ -131,7 +131,7 @@ void InitAddrArray()
 	AddrArray[50] = (Uint16)&E_MaxR;
 	AddrArray[51] = (Uint16)&E_LineR;
 	AddrArray[52] = (Uint16)&E_ampR;
-	AddrArray[53] = (Uint16)&IqRMAX;
+	AddrArray[53] = (Uint16)&IqRCurLim;
 	AddrArray[54] = (Uint16)&fUmR;
 	AddrArray[55] = (Uint16)&sdELint;
 	AddrArray[56] = (Uint16)&sdERint;
