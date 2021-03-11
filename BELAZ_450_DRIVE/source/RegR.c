@@ -342,6 +342,13 @@ void SpeedRegR()
 	if(SpeedRz1 < -500)
 		SpeedRz1 = -500; //SpeedRz;
 
+	if(Brake > 13 )
+	{
+
+		SpeedRz1 = SpeedR;
+		SpeedRz = SpeedR;
+	}
+
 	DeltaSpeedR1 = SpeedRz1 - SpeedR;
 	DeltaSpeedRCruize = SpeedRzCruize - AverageCarSpeed;
 
@@ -351,9 +358,6 @@ void SpeedRegR()
 	{
 		if(Brake > 13 )
 		{
-
-			SpeedRz1 = SpeedR;
-			SpeedRz = SpeedR;
 
 			//левая ось
 			DeltaSpeedRABS=AverageCarSpeed -SpeedR;
@@ -408,7 +412,7 @@ void SpeedRegR()
 				if (IqzR<IqzRCruize) IqzR+=20;
 				else IqzR-=20;
 			}			
-			IqSummInBrakeR = IqzR;
+			IqSummInBrakeR = 0;
 		}
 
 		SummSpeedBackR=0;
@@ -629,7 +633,7 @@ void RegR(){
 		if(Brake < 13)
 		IqRMAX = (PowerMax*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
 		else
-		IqRMAX = (5*PowerMax*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
+		IqRMAX = ((1000000)*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
 
 		MinMaxLimitInt(-2000,2500,&IqRMAX);
 

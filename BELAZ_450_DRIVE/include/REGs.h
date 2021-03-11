@@ -404,6 +404,9 @@ extern int drivePedalON;
 
 extern float klt;
 
+extern float IqSummInBrakeL;
+extern float IqSummInBrakeR;
+
 // структуры
 //extern struct ALTERA_REGS altera_regs;
 #define NUM_OF_KOEFF 50
