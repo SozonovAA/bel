@@ -832,8 +832,6 @@ void RegL(){
 		if(Debug == 0)
 		{
 
-			IqLCurLim = abs(fIqLMAX);
-
 			if(Drive < 13) Drive = 13;
 #ifndef MATLAB
 			if(cmd.DNR == DRIVE)
@@ -872,9 +870,14 @@ void RegL(){
 		if(UqSIL < 0 && UqSIL > -10)
 			UqSIL = -10;
 
+		if(Brake < 13)
 		IqLMAX = (PowerMax*0.666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
+		else
+		IqLMAX = (abs((long)PowerBrakeMax)*666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
 
 		MinMaxLimitInt(-2000,2500,&IqLMAX);
+
+		IqLCurLim = abs(fIqLMAX);
 
 		fIqLMAX += (IqLMAX - fIqLMAX)/koeff.KFiltIq;
 

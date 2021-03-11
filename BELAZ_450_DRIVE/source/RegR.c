@@ -586,8 +586,6 @@ void RegR(){
 		if(Debug == 0)
 		{
 
-			IqRCurLim = abs(fIqRMAX);
-
 			if(Drive < 13) Drive = 13;
 
 #ifndef MATLAB
@@ -624,11 +622,16 @@ void RegR(){
 		if(UqSIR < 0 && UqSIR > -10)
 			UqSIR = -10;
 
+		if(Brake < 13)
 		IqRMAX = (PowerMax*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
+		else
+		IqRMAX = (abs((long)PowerBrakeMax)*666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
 
 		MinMaxLimitInt(-2000,2500,&IqRMAX);
 
 		fIqRMAX += (IqRMAX - fIqRMAX)/koeff.KFiltIq;
+
+		IqRCurLim = abs(fIqRMAX);
 
 		// @@@@@ —читаем ток отсечки end
 

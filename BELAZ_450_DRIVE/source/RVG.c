@@ -78,7 +78,7 @@ int16 speedMax=0;
 
 float dUd_old=0;
 float derUd=0;
-float kd=0.04;
+float kd=0.00;
 
 int UdzMIN = 650;
 
