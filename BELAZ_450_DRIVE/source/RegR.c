@@ -351,6 +351,10 @@ void SpeedRegR()
 	{
 		if(Brake > 13 )
 		{
+
+			SpeedRz1 = SpeedR;
+			SpeedRz = SpeedR;
+
 			//левая ось
 			DeltaSpeedRABS=AverageCarSpeed -SpeedR;
 #ifdef MATLAB

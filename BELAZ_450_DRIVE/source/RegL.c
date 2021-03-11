@@ -454,6 +454,9 @@ void SpeedRegL()
 		drivePedalON = 0;
 #else
 	drivePedalON = data_from_KK->DIN.bit.bDRIVE;
+
+	if(Brake > 13)
+		drivePedalON = 0;
 #endif
 	//Дифференциал
 	/*int  DeltaAxleSpeedL=0; 		// Разность скорости левого колеса и средней скорости по оси
@@ -547,6 +550,10 @@ void SpeedRegL()
 	{
 		if(Brake > 13 )
 		{
+
+			SpeedLz1 = SpeedL;
+			SpeedLz = SpeedL;
+
 			//левая ось
 			DeltaSpeedLABS=AverageCarSpeed -SpeedL;
 #ifdef MATLAB
