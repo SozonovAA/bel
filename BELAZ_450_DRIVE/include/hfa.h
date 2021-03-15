@@ -781,7 +781,29 @@ struct GS_ //GLOBAL_STRUCT
 
 extern struct GS_ GS;
 
+//-----------------------------------------------------------------------------------------------//
+// Данные команды от ЭПП
+//-----------------------------------------------------------------------------------------------//
 
+
+struct comand{
+unsigned reset:1;			//0 Сбросить Ошибки
+unsigned ONYVTR:1;			//1 Войти в режим нагрузки дизеля на УВТР
+unsigned OnOffChop:1;		//2 Включить/Выключить чоперы
+unsigned OnOffDiezlF:1;		//3 Дизель передней оси
+unsigned OnOffDiezlR:1;		//4 Дизель Задней оси
+unsigned rsrv:3;		//6-15
+
+};
+
+union _COM
+{
+   int     		all;
+   struct comand 	bit;
+};
+
+extern union _COM COMEPP; //
+extern int UDZ_YVTR;// НАпряжение задания в Режиме УВТР
 /*
 struct ALTERA_REGS
 {

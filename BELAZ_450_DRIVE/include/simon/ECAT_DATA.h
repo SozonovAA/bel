@@ -27,6 +27,9 @@ union KKuDIN{
 extern struct TIME_AND_DATE time_and_date;
 extern struct data_for_transmit *data_transmit;
 extern struct data_for_receive *data_receive;
+
+
+
 //-----------------------------------------------------------------------------------------------//
 // Данные на передачу из ЦК к слэйвам
 //-----------------------------------------------------------------------------------------------//
@@ -44,6 +47,8 @@ struct data_for_transmit{
 	int SpeedRR;
 	int AAGR;
 	int AAGF;
+	int ComandEPP;
+	int UDZ;
 };
 
 
