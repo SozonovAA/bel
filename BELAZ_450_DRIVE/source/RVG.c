@@ -80,7 +80,7 @@ float dUd_old=0;
 float derUd=0;
 float kd=0.00;
 
-int UdzMIN = 650;
+int UdzMIN = 700;
 
 void RVG(void)
 {
