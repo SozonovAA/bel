@@ -708,7 +708,7 @@ IqL --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipL)
         |______|                     |_____|
 	 */
 	//DAT2=1;
-	MagneticSaturation(IdL,&MPL.LM);
+	MagneticSaturation(IdzL,&MPL.LM);
 	//DAT2=0;
 #ifdef MATLAB
 	fIdLf += (((0.003*IdzL - fIdLf)/0.5)*dt);

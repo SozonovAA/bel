@@ -488,7 +488,7 @@ IqR --->| ---- |----------->DIV----->| --- |---------> (ThetaSlipR)
         |______|                     |_____|
 	 */
 	//DAT2=1;
-	MagneticSaturation(IdR,&MPR.LM);
+	MagneticSaturation(IdzR,&MPR.LM);
 	//DAT2=0;
 
 	//	A
