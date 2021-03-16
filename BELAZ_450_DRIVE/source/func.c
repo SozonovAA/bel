@@ -173,7 +173,7 @@ void MagneticSaturation(int Id,float *Lm)
 
 	if(*Lm < 0.0067) *Lm = 0.0067;
 	if(Id < 495 && Id >= 145) *Lm = -0.00001*Id+0.008;
-	if(Id < 1000 && Id >= 495) *Lm = -0.0000032*Id+0.0046;
+	if(Id < 1200 && Id >= 495) *Lm = -0.0000032*Id+0.0046;
 	if(*Lm < 0.0022) *Lm = 0.0022;
 
 }
