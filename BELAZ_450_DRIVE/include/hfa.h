@@ -804,6 +804,8 @@ union _COM
 
 extern union _COM COMEPP; //
 extern int UDZ_YVTR;// НАпряжение задания в Режиме УВТР
+
+extern int PowerHudrF,PowerHudrR;
 /*
 struct ALTERA_REGS
 {

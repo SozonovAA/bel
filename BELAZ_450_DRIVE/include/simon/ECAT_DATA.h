@@ -49,6 +49,8 @@ struct data_for_transmit{
 	int AAGF;
 	int ComandEPP;
 	int UDZ;
+	int PowerHydrF;
+	int	PowerHydrR;
 };
 
 
