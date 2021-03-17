@@ -304,6 +304,8 @@ float deltaAxleProcentMAX=0.3;	// Текущий допустимый процент разности скоростей
 float SummSpeedL=0;				// Интегратор РС
 int   LimitSummSpeedL=0;		// Ограничение интегратора РС
 
+int TaskUDZYVTR=400;
+
 int SummSpeedLint=0;
 
 float oldThetaL=0;
@@ -1055,6 +1057,24 @@ GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/
 
 	if(Debug == 2 || Debug == 5)
 		ChopReg = Slider.s3;
+	////////Режим УВТР с ЭПП/////////
+//	if(COMEPP.bit.ONYVTR)
+//	{
+//		Udz=TaskUDZYVTR;
+//		if((ControllerID==2 && COMEPP.bit.OnOffDiezlF) || (ControllerID==3 && COMEPP.bit.OnOffDiezlR) )
+//		{
+//			if(COMEPP.bit.OnOffChop)
+//			{
+//				ChopReg=25000;
+//			}
+//			else ChopReg=0;
+//			if(UDZ_YVTR>=400) TaskUDZYVTR=UDZ_YVTR;
+//		}
+//
+//	}
+//	else TaskUDZYVTR=400;
+
+
 
 	//	if( Debug == 5)
 	//	{}

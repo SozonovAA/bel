@@ -184,8 +184,10 @@ void RVG(void)
 
 	 	 fUgen += (Ugen - fUgen)/15.0;
 
+//	 	 if(COMEPP.bit.ONYVTR) MinMaxLimitInt(400,940,&Udz);
+//
+//	 	 else  MinMaxLimitInt(UdzMIN,940,&Udz);
 	 	 MinMaxLimitInt(UdzMIN,940,&Udz);
-
 	 	 if(Ud>(Ugen-koeff.K22))
 		 dUd = Udz - Ugen;
 	 	 else
