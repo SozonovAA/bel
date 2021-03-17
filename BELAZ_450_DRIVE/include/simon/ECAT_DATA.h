@@ -12,7 +12,8 @@ struct KKsDIN{
 	unsigned int bSTAB :1; 			//SA3 (Стаб скор)
 	unsigned int bHANDLE_BRAKE :1; 	//Стояночный тормоз
 	unsigned int bDRIVE :1; 		//Drive (педаль газа)
-	unsigned int bRSRVD :11; 		//(резерв)
+	unsigned int bBody:1;
+	unsigned int bRSRVD :10; 		//(резерв)
 
 };
 
@@ -49,8 +50,7 @@ struct data_for_transmit{
 	int AAGF;
 	int ComandEPP;
 	int UDZ;
-	int PowerHydrF;
-	int	PowerHydrR;
+
 };
 
 

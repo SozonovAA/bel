@@ -58,8 +58,7 @@ void AssemblyECIPMess()
 	rearAxleAngle = data_from_KK->AAGR;
 	COMEPP.all = data_from_KK->ComandEPP;
 	UDZ_YVTR =data_from_KK->UDZ;
-	PowerHudrF = data_from_KK->PowerHydrF;
-	PowerHudrR = data_from_KK->PowerHydrR;
+
 	if(Brake == 13) Brake = 0;
 
 
