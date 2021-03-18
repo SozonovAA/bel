@@ -321,6 +321,8 @@ extern		void SpeedAndAngleL();
 
 //-------------------------RegL.c------------------------
 
+extern 		int TaskUDZYVTR;
+
 extern		void SpeedAndAngleR();
 
 //-------------------------RegR.c------------------------

@@ -117,6 +117,11 @@ void RVG(void)
 
 		}
 
+//		if(COMEPP.bit.ONYVTR)
+//		{
+//			Udz=TaskUDZYVTR;
+//		}
+
 	if(!otf.rsrv1)
 	{
 
