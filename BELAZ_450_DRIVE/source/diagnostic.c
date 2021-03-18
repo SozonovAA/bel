@@ -371,7 +371,7 @@ void StateMachine(){
 		}
 	}
 
-	if(cmd.Reset)
+	if(cmd.Reset||COMEPP.bit.reset)
 	Reset();
 
 	if(koeff.WriteKoeff)
