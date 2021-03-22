@@ -44,6 +44,10 @@ int rearAxleAngle = 0;
 union _COM COMEPP; //
 int UDZ_YVTR=0;
 int PowerHudrF=0,PowerHudrR=0;
+///// переменные для проверки связи.
+int ONYVTR=0;
+int ComChop=0;
+int DIZF=0,DIZR=0;
 void AssemblyECIPMess()
 {
 
@@ -60,6 +64,13 @@ void AssemblyECIPMess()
 	UDZ_YVTR =data_from_KK->UDZ;
 
 	if(Brake == 13) Brake = 0;
+///////// Проверка связи потом удалить
+
+	ONYVTR = COMEPP.bit.ONYVTR;
+	ComChop = COMEPP.bit.OnOffChop;
+	DIZF = COMEPP.bit.OnOffDiezlF;
+	DIZR =  COMEPP.bit.OnOffDiezlR;
+
 
 
 #ifdef MacroProj_PK12
