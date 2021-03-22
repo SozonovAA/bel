@@ -293,7 +293,7 @@ extern float kBrake;
 int UUqLMAX;
 float kIqL=1.0;
 float fkIqL=1.0;
-
+//Дифференциал
 int  DeltaAxleSpeedL=0; 		// Разность скорости левого колеса и средней скорости по оси
 int  DeltaAxleSpeedR=0; 		// Разность скорости правого колеса и средней скорости по оси
 int  AverageAxleSpeed=0;		// Средняя скорость оси
@@ -475,20 +475,7 @@ void SpeedRegL()
 	if(Brake > 13)
 		drivePedalON = 0;
 #endif
-	//Дифференциал
-	/*int  DeltaAxleSpeedL=0; 		// Разность скорости левого колеса и средней скорости по оси
-	int  DeltaAxleSpeedR=0; 		// Разность скорости правого колеса и средней скорости по оси
-	int  AverageAxleSpeed=0;		// Средняя скорость оси
-
-	float deltaAxleProcent=0; 		// Текущий процент разности скоростей
-	float deltaAxleProcentMAX=0.1;	// Текущий допустимый процент разности скоростей
-
-	float SummSpeedL=0;				// Интегратор РС
-	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
-
-
-
-	//------------------------ DIFF ----------------------------
+//ограничение скорости
 	if(cmd.DNR == DRIVE)
 	{
 		//ограничение скорости движения
@@ -526,7 +513,7 @@ void SpeedRegL()
 		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
 	}
 
-
+		//------------------------ DIFF ----------------------------
 
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
 	DeltaAxleSpeedL = AverageAxleSpeed - SpeedL;

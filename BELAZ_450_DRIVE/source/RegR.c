@@ -274,20 +274,11 @@ void SpeedRegR()
 	cmd.DNR = 1;
 #endif
 
-	//Дифференциал
-	/*int  DeltaAxleSpeedL=0; 		// Разность скорости левого колеса и средней скорости по оси
-	int  DeltaAxleSpeedR=0; 		// Разность скорости правого колеса и средней скорости по оси
-	int  AverageAxleSpeed=0;		// Средняя скорость оси
 
-	float deltaAxleProcent=0; 		// Текущий процент разности скоростей
-	float deltaAxleProcentMAX=0.1;	// Текущий допустимый процент разности скоростей
-
-	float SummSpeedL=0;				// Интегратор РС
-	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
-
+	//ограничение скорости движения
 	if(cmd.DNR == DRIVE)
 	{
-		//ограничение скорости движения
+
 		//Созонов 22.03
 		deltaSpeedMAX=AverageCarSpeed-SpeedMAXFront;
 		MinMaxLimitInt(0,100,&deltaSpeedMAX);
@@ -322,7 +313,7 @@ void SpeedRegR()
 		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
 	}
 
-
+	//Дифференциал
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
 	DeltaAxleSpeedR = AverageAxleSpeed - SpeedR;
 
@@ -397,22 +388,22 @@ void SpeedRegR()
 
 	if(cmd.DNR == DRIVE)
 	{
-//		//ограничение скорости движения
-//		//Созонов 22.03
-//		deltaSpeedMAX=AverageCarSpeed-SpeedMAXFront;
-//		MinMaxLimitInt(0,100,&deltaSpeedMAX);
-//
-//
-//		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
-//		if(BrakeSpeedMAX>13) {
-//			fToKKSpeedMAX=1;
-//			fABS=0;
-//		}
-//		else{
-//			fToKKSpeedMAX=0;
-//			fABS=1;
-//		}
-//		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
+		//		//ограничение скорости движения
+		//		//Созонов 22.03
+		//		deltaSpeedMAX=AverageCarSpeed-SpeedMAXFront;
+		//		MinMaxLimitInt(0,100,&deltaSpeedMAX);
+		//
+		//
+		//		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
+		//		if(BrakeSpeedMAX>13) {
+		//			fToKKSpeedMAX=1;
+		//			fABS=0;
+		//		}
+		//		else{
+		//			fToKKSpeedMAX=0;
+		//			fABS=1;
+		//		}
+		//		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
 
 		if(Brake > 13 )
 		{
@@ -478,20 +469,20 @@ void SpeedRegR()
 	}
 	if(cmd.DNR == REVERSE)
 	{
-//		//ограничение скорости движения
-//		//Созонов 22.03
-//		deltaSpeedMAX=abs(AverageCarSpeed)-SpeedMAXRevers;
-//		MinMaxLimitInt(0,100,&deltaSpeedMAX);
-//
-//
-//		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
-//		if(BrakeSpeedMAX>13) {
-//			fToKKSpeedMAX=1;
-//		}
-//		else{
-//			fToKKSpeedMAX=0;
-//		}
-//		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
+		//		//ограничение скорости движения
+		//		//Созонов 22.03
+		//		deltaSpeedMAX=abs(AverageCarSpeed)-SpeedMAXRevers;
+		//		MinMaxLimitInt(0,100,&deltaSpeedMAX);
+		//
+		//
+		//		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
+		//		if(BrakeSpeedMAX>13) {
+		//			fToKKSpeedMAX=1;
+		//		}
+		//		else{
+		//			fToKKSpeedMAX=0;
+		//		}
+		//		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
 
 		SummSpeedBackR += fBackTest*((float)DeltaSpeedR1/kB);
 
