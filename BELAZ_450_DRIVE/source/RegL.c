@@ -444,7 +444,8 @@ float CruizeDriveL=0;
 int DeltaSpeedLCruize=0;
 int SpeedLzCruize =0;
 //ограничение скорости движения
-int SpeedMAX=2000; //максимальная допустимая скорость
+int SpeedMAXFront=2000; //максимальная допустимая скорость вперед
+int SpeedMAXRevers=400;//максимальная допустимая скорость назад
 float kpSpeedMAX=1; //пропорциональный коэфициент на который домножаем разность скоростей
 int BrakeSpeedMAX=0; //тормозное усилие от ограничения скорости
 int deltaSpeedMAX=0;//разница между текущей и максимальной скоростью
@@ -486,26 +487,46 @@ void SpeedRegL()
 	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
 
 
-	//ограничение скорости движения
-	//Созонов 22.03
-	deltaSpeedMAX=AverageCarSpeed-SpeedMAX;
-	MinMaxLimitInt(0,100,&deltaSpeedMAX);
-
-
-	BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
-	if(BrakeSpeedMAX>13) {
-		fToKKSpeedMAX=1;
-		fABS=0;
-	}
-	else{
-		fToKKSpeedMAX=0;
-		fABS=1;
-	}
-
-	Brake+=BrakeSpeedMAX*fUseSpeedMAX;
-
 
 	//------------------------ DIFF ----------------------------
+	if(cmd.DNR == DRIVE)
+	{
+		//ограничение скорости движения
+		//Созонов 22.03
+		deltaSpeedMAX=AverageCarSpeed-SpeedMAXFront;
+		MinMaxLimitInt(0,100,&deltaSpeedMAX);
+
+
+		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
+		if(BrakeSpeedMAX>13) {
+			fToKKSpeedMAX=1;
+			fABS=0;
+		}
+		else{
+			fToKKSpeedMAX=0;
+			fABS=1;
+		}
+		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
+	}
+	if(cmd.DNR == REVERSE)
+	{
+		//ограничение скорости движения
+		//Созонов 22.03
+		deltaSpeedMAX=abs(AverageCarSpeed)-SpeedMAXRevers;
+		MinMaxLimitInt(0,100,&deltaSpeedMAX);
+
+
+		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
+		if(BrakeSpeedMAX>13) {
+			fToKKSpeedMAX=1;
+		}
+		else{
+			fToKKSpeedMAX=0;
+		}
+		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
+	}
+
+
 
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
 	DeltaAxleSpeedL = AverageAxleSpeed - SpeedL;
@@ -591,6 +612,24 @@ void SpeedRegL()
 
 	if(cmd.DNR == DRIVE)
 	{
+//		//ограничение скорости движения
+//		//Созонов 22.03
+//		deltaSpeedMAX=AverageCarSpeed-SpeedMAXFront;
+//		MinMaxLimitInt(0,100,&deltaSpeedMAX);
+//
+//
+//		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
+//		if(BrakeSpeedMAX>13) {
+//			fToKKSpeedMAX=1;
+//			fABS=0;
+//		}
+//		else{
+//			fToKKSpeedMAX=0;
+//			fABS=1;
+//		}
+//		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
+
+
 		if(Brake > 13 )
 		{
 
@@ -659,6 +698,20 @@ void SpeedRegL()
 	}
 	if(cmd.DNR == REVERSE)
 	{
+//		//ограничение скорости движения
+//		//Созонов 22.03
+//		deltaSpeedMAX=abs(AverageCarSpeed)-SpeedMAXRevers;
+//		MinMaxLimitInt(0,100,&deltaSpeedMAX);
+//
+//
+//		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
+//		if(BrakeSpeedMAX>13) {
+//			fToKKSpeedMAX=1;
+//		}
+//		else{
+//			fToKKSpeedMAX=0;
+//		}
+//		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
 
 		SummSpeedBackL += fBackTest*((float)DeltaSpeedL1/kB);
 
@@ -919,9 +972,9 @@ void RegL(){
 			UqSIL = -10;
 
 		if(Brake < 13)
-		IqLMAX = (PowerMax*0.666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
+			IqLMAX = (PowerMax*0.666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
 		else
-		IqLMAX = ((1000000)*0.666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
+			IqLMAX = ((1000000)*0.666 - (long)(UdSIL)*(long)(IdzL))/(long)(UqSIL);
 
 		MinMaxLimitInt(-2000,2500,&IqLMAX);
 
@@ -984,8 +1037,8 @@ void RegL(){
 
 		if(fUseDeltaTheta)
 			fThetaL += deltaThetaL*0.8;
-//учет сокльжения в зависимости от скорости (для больших скоростей)
-//Созонов 22.03
+		//учет сокльжения в зависимости от скорости (для больших скоростей)
+		//Созонов 22.03
 		deltaThetaSlipL=koefThetaSlip*((float)SpeedL/1050);
 		if(fUseDeltaThetaSlip) fThetaL-=deltaThetaSlipL;
 
@@ -1099,33 +1152,33 @@ GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/
 	if(Debug == 2 || Debug == 5)
 		ChopReg = Slider.s3;
 	////////Режим УВТР с ЭПП/////////
-//	if(COMEPP.bit.ONYVTR)YVTRREZ=1;
-//
-//	if(YVTRREZ)
-//	{
-//
-//		if((ControllerID==2 && COMEPP.bit.OnOffDiezlF) || (ControllerID==3 && COMEPP.bit.OnOffDiezlR) )
-//		{
-//			if(COMEPP.bit.OnOffChop)
-//			{
-//				ChopReg=25000;
-//				PowerUvtr = (Ud >> 5)*(Ud >> 5)*2.73;
-//			}
-//			else {ChopReg=0; PowerUvtr=0;}
-//			if(UDZ_YVTR>=400) TaskUDZYVTR=UDZ_YVTR;
-			//MinMaxLimitInt(400,MAXUYVTR,&TaskUDZYVTR);
-//		}
-//
-//	}
-//	else TaskUDZYVTR=400;
-//	if(YVTRREZ==1 && COMEPP.bit.ONYVTR=0)
-//	{
-//
-//		ChopReg=0;
-//		YVTRREZ=1;
-//		PowerUvtr=0;
-//
-//	}
+	//	if(COMEPP.bit.ONYVTR)YVTRREZ=1;
+	//
+	//	if(YVTRREZ)
+	//	{
+	//
+	//		if((ControllerID==2 && COMEPP.bit.OnOffDiezlF) || (ControllerID==3 && COMEPP.bit.OnOffDiezlR) )
+	//		{
+	//			if(COMEPP.bit.OnOffChop)
+	//			{
+	//				ChopReg=25000;
+	//				PowerUvtr = (Ud >> 5)*(Ud >> 5)*2.73;
+	//			}
+	//			else {ChopReg=0; PowerUvtr=0;}
+	//			if(UDZ_YVTR>=400) TaskUDZYVTR=UDZ_YVTR;
+	//MinMaxLimitInt(400,MAXUYVTR,&TaskUDZYVTR);
+	//		}
+	//
+	//	}
+	//	else TaskUDZYVTR=400;
+	//	if(YVTRREZ==1 && COMEPP.bit.ONYVTR=0)
+	//	{
+	//
+	//		ChopReg=0;
+	//		YVTRREZ=1;
+	//		PowerUvtr=0;
+	//
+	//	}
 
 
 	//	if( Debug == 5)

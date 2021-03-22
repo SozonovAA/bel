@@ -388,7 +388,8 @@ extern 	int SpeedRzCruize;
 extern 	int IqzLCruize;
 extern 	int IqzRCruize;
 //ограничение скорости
-extern 	int SpeedMAX; //максимальная допустимая скорость
+extern 	int SpeedMAXFront; //максимальная допустимая скорость
+extern 	int SpeedMAXRevers; //максимальная допустимая скорость
 extern 	float kpSpeedMAX; //пропорциональный коэфициент на который домножаем разность скоростей
 extern 	int BrakeSpeedMAX; //тормозное усилие от ограничения скорости
 extern 	int deltaSpeedMAX;//разница между текущей и максимальной скоростью
