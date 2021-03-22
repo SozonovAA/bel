@@ -329,6 +329,11 @@ float kDiff=10.0;
 int kChop = 10;
 
 int drivePedalON=0;
+//учет скольжения в зависимости от скорости
+int fUseDeltaThetaSlip=0; //флаг о том что учитываем скольжение в угле
+float koefThetaSlip=0.000322; //коэфициент скольжения (по коду понятно за что отвечает)
+
+float deltaThetaSlipL=0; //изменение угла от скольжения
 
 void RegLToZero()
 {
@@ -436,6 +441,13 @@ int IqzLCruize=0;
 float CruizeDriveL=0;
 int DeltaSpeedLCruize=0;
 int SpeedLzCruize =0;
+//ограничение скорости движения
+int SpeedMAX=600; //максимальная допустимая скорость
+float kpSpeedMAX=1; //пропорциональный коэфициент на который домножаем разность скоростей
+int BrakeSpeedMAX=0; //тормозное усилие от ограничения скорости
+int deltaSpeedMAX=0;//разница между текущей и максимальной скоростью
+int fUseSpeedMAX=0; //флаг на использование ограничения скорости
+int fToKKSpeedMAX=0;//флаг который отправяем в КК о том что работает ограничение скорости
 
 int KSI=5;
 
@@ -470,6 +482,26 @@ void SpeedRegL()
 
 	float SummSpeedL=0;				// Интегратор РС
 	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
+
+
+	//ограничение скорости движения
+	//Созонов 22.03
+	deltaSpeedMAX=AverageCarSpeed-SpeedMAX;
+	MinMaxLimitInt(0,100,&deltaSpeedMAX);
+
+
+	BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
+	if(BrakeSpeedMAX>13) {
+		fToKKSpeedMAX=1;
+		fABS=0;
+	}
+	else{
+		fToKKSpeedMAX=0;
+		fABS=1;
+	}
+
+	Brake+=BrakeSpeedMAX*fUseSpeedMAX;
+
 
 	//------------------------ DIFF ----------------------------
 
@@ -949,12 +981,18 @@ void RegL(){
 
 		if(fUseDeltaTheta)
 			fThetaL += deltaThetaL*0.8;
+//учет сокльжения в зависимости от скорости (для больших скоростей)
+//Созонов 22.03
+		deltaThetaSlipL=koefThetaSlip*((float)SpeedL/1050);
+		if(fUseDeltaThetaSlip) fThetaL+=deltaThetaSlipL;
 
 		InvPark(&UAlphaL,&UBetaL,UUdL,UUqL,fThetaL);
 		InvClark(&UUAL,&UUBL,&UUCL,UAlphaL,UBetaL);
 
 		if(fUseDeltaTheta)
 			fThetaL -= deltaThetaL*0.8;
+		//учет сокльжения в зависимости от скорости (для больших скоростей)
+		if(fUseDeltaThetaSlip) fThetaL-=deltaThetaSlipL;
 
 		if(fCalcEByZ)
 		{

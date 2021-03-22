@@ -387,6 +387,19 @@ extern 	int DeltaSpeedRCruize;
 extern 	int SpeedRzCruize;
 extern 	int IqzLCruize;
 extern 	int IqzRCruize;
+//ограничение скорости
+extern 	int SpeedMAX; //максимальная допустимая скорость
+extern 	float kpSpeedMAX; //пропорциональный коэфициент на который домножаем разность скоростей
+extern 	int BrakeSpeedMAX; //тормозное усилие от ограничения скорости
+extern 	int deltaSpeedMAX;//разница между текущей и максимальной скоростью
+extern 	int fUseSpeedMAX; //флаг на использование ограничения скорости
+extern 	int fToKKSpeedMAX;//флаг который отправяем в КК о том что работает ограничение скорости
+
+//учет скольжения в зависимости от скорости
+extern int fUseDeltaThetaSlip;
+extern float koefThetaSlip;
+extern float deltaThetaSlipL; //изменение угла от скольжения
+extern float deltaThetaSlipR; //изменение угла от скольжения
 
 extern int sdEXMAX;
 extern int sdELint;

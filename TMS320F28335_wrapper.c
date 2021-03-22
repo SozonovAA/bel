@@ -53,6 +53,8 @@ ElectricAngleR = Rpars[3];
 Ud = Rpars[4];
 SpeedR = Rpars[6];
 
+Out_L[0].deltaSpeedMAX = deltaSpeedMAX;
+Out_L[0].deltaThetaSlipL = deltaThetaSlipL;
 Out_L[0].IqSummInBrakeL = IqSummInBrakeL;
 Out_L[0].AverageCarSpeed=AverageCarSpeed;
 Out_L[0].DeltaSpeedLCruize = DeltaSpeedLCruize; 
@@ -153,6 +155,7 @@ Out_L[0].IfRMSL = IfRMSL;
 Out_L[0].AmplL = AmplL;
 Out_L[0].AlphaL = AlphaL;
 
+Out_R[0].deltaThetaSlipR = deltaThetaSlipR;
 Out_R[0].IqSummInBrakeR = IqSummInBrakeR;
 Out_R[0].DeltaSpeedRCruize = DeltaSpeedRCruize; 
 Out_R[0].SpeedRzCruize = SpeedRzCruize; 

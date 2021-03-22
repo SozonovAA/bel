@@ -170,6 +170,9 @@ float fkIqR=1.0;
 float oldThetaR=0;
 float deltaThetaR=0;
 
+//учет скольжения в зависимости от скорости
+float deltaThetaSlipR=0;
+
 void RegRToZero()
 {
 	sdER=0;
@@ -281,6 +284,22 @@ void SpeedRegR()
 
 	float SummSpeedL=0;				// Интегратор РС
 	int   LimitSummSpeedL=0;		// Ограничение интегратора РС*/
+
+	deltaSpeedMAX=AverageCarSpeed-SpeedMAX;
+		MinMaxLimitInt(0,100,&deltaSpeedMAX);
+
+
+		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
+		if(BrakeSpeedMAX>13) {
+			fToKKSpeedMAX=1;
+			fABS=0;
+		}
+		else{
+			fToKKSpeedMAX=0;
+			fABS=1;
+		}
+
+		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
 
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
 	DeltaAxleSpeedR = AverageAxleSpeed - SpeedR;
@@ -631,9 +650,9 @@ void RegR(){
 			UqSIR = -10;
 
 		if(Brake < 13)
-		IqRMAX = (PowerMax*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
+			IqRMAX = (PowerMax*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
 		else
-		IqRMAX = ((1000000)*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
+			IqRMAX = ((1000000)*0.666 - (long)(UdSIR)*(long)(IdzR))/(long)(UqSIR);
 
 		MinMaxLimitInt(-2000,2500,&IqRMAX);
 
@@ -696,12 +715,18 @@ void RegR(){
 
 		if(fUseDeltaTheta )
 			fThetaR += deltaThetaR*0.8;
+		//учет сокльжения в зависимости от скорости (для больших скоростей)
+		//Созонов 22.03
+		deltaThetaSlipR=koefThetaSlip*((float)SpeedR/1050);
+		if(fUseDeltaThetaSlip) fThetaR+=deltaThetaSlipR;
 
 		InvPark(&UAlphaR,&UBetaR,UUdR,UUqR,fThetaR);
 		InvClark(&UUAR,&UUBR,&UUCR,UAlphaR,UBetaR);
 
 		if(fUseDeltaTheta)
 			fThetaR -= deltaThetaR*0.8;
+		//учет сокльжения в зависимости от скорости (для больших скоростей)
+		if(fUseDeltaThetaSlip) fThetaR-=deltaThetaSlipR;
 
 		if(fCalcEByZ)
 		{
