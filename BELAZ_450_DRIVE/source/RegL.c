@@ -335,6 +335,8 @@ float koefThetaSlip=0.000322; //коэфициент скольжения (по коду понятно за что от
 
 float deltaThetaSlipL=0; //изменение угла от скольжения
 
+int YVTRREZ=0;
+
 void RegLToZero()
 {
 
@@ -725,6 +727,7 @@ void SpeedRegL()
 	}
 }
 float klt=1.0;
+int MAXUYVTR=500;
 void LookerL(){
 
 	TCN++;
@@ -1096,7 +1099,9 @@ GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/
 	if(Debug == 2 || Debug == 5)
 		ChopReg = Slider.s3;
 	////////Режим УВТР с ЭПП/////////
-//	if(COMEPP.bit.ONYVTR)
+//	if(COMEPP.bit.ONYVTR)YVTRREZ=1;
+//
+//	if(YVTRREZ)
 //	{
 //
 //		if((ControllerID==2 && COMEPP.bit.OnOffDiezlF) || (ControllerID==3 && COMEPP.bit.OnOffDiezlR) )
@@ -1108,11 +1113,19 @@ GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/
 //			}
 //			else {ChopReg=0; PowerUvtr=0;}
 //			if(UDZ_YVTR>=400) TaskUDZYVTR=UDZ_YVTR;
+			//MinMaxLimitInt(400,MAXUYVTR,&TaskUDZYVTR);
 //		}
 //
 //	}
 //	else TaskUDZYVTR=400;
-
+//	if(YVTRREZ==1 && COMEPP.bit.ONYVTR=0)
+//	{
+//
+//		ChopReg=0;
+//		YVTRREZ=1;
+//		PowerUvtr=0;
+//
+//	}
 
 
 	//	if( Debug == 5)
