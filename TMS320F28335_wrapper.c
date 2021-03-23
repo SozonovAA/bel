@@ -53,6 +53,7 @@ ElectricAngleR = Rpars[3];
 Ud = Rpars[4];
 SpeedR = Rpars[6];
 
+Out_L[0].drivePedalON = drivePedalON;
 Out_L[0].deltaSpeedMAX = deltaSpeedMAX;
 Out_L[0].deltaThetaSlipL = deltaThetaSlipL;
 Out_L[0].IqSummInBrakeL = IqSummInBrakeL;

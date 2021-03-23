@@ -387,6 +387,10 @@ extern 	int DeltaSpeedRCruize;
 extern 	int SpeedRzCruize;
 extern 	int IqzLCruize;
 extern 	int IqzRCruize;
+extern 	int kReactCruise;
+extern 	int fCruiseBrake;		//флаг на тип работы тормоза в круизе.
+				   	    		//1-при торможении уставка скорости снижается
+								//0 - уставка скорости не меняется, после отпуск. педали круиз отрабатывает изначал. скор.
 //ограничение скорости
 extern 	int SpeedMAXFront; //максимальная допустимая скорость
 extern 	int SpeedMAXRevers; //максимальная допустимая скорость

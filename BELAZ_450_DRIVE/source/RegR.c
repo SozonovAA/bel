@@ -355,12 +355,10 @@ void SpeedRegR()
 		MinMaxLimitFloat(-1500,1500,&SummSpeedR);
 
 	DeltaSpeedR = (SpeedRz - IqzR)/KSI;
+	SpeedRz1 += (float)(DeltaSpeedR)*((float)(koeff.K7)/2500.0);
+	//if(!SpeedHolding){
 
-
-
-	if(!SpeedHolding){
-		SpeedRz1 += (float)(DeltaSpeedR)*((float)(koeff.K7)/2500.0);
-	}
+	//}
 
 
 	if(koeff.K18 > 3000)
@@ -447,7 +445,7 @@ void SpeedRegR()
 			else IqzR--;
 
 			SpeedRz1 = SpeedR;
-			SpeedRzCruize = AverageCarSpeed;
+			if(fCruiseBrake) SpeedRzCruize = AverageCarSpeed;
 
 		}
 		else
@@ -458,8 +456,8 @@ void SpeedRegR()
 			else{
 				//IqzR = DeltaSpeedR1*kphold + SummSpeedR;
 				IqzRCruize = DeltaSpeedRCruize*kphold + SummSpeedR;
-				if (IqzR<IqzRCruize) IqzR+=20;
-				else IqzR-=20;
+				if (IqzR<IqzRCruize) IqzR+=kReactCruise;
+				else IqzR-=kReactCruise;
 			}			
 			IqSummInBrakeR = 0;
 		}

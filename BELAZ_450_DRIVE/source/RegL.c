@@ -443,6 +443,11 @@ int IqzLCruize=0;
 float CruizeDriveL=0;
 int DeltaSpeedLCruize=0;
 int SpeedLzCruize =0;
+int kReactCruise=5;
+int fCruiseBrake=1;		//флаг на тип работы тормоза в круизе.
+				   	    //1-при торможении уставка скорости снижается
+						//0 - уставка скорости не меняется, после отпуск. педали круиз отрабатывает изначал. скор.
+
 //ограничение скорости движения
 int SpeedMAXFront=2000; //максимальная допустимая скорость вперед
 int SpeedMAXRevers=400;//максимальная допустимая скорость назад
@@ -560,8 +565,9 @@ void SpeedRegL()
 
 	DeltaSpeedL = (SpeedLz - IqzL)/5;
 
+	SpeedLz1 += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
 	if(!SpeedHolding){
-		SpeedLz1 += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
+		//SpeedLz1 += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
 		otfCruize=0;
 	}
 	else if(!otfCruize){
@@ -660,7 +666,8 @@ void SpeedRegL()
 			else IqzL--;
 
 			SpeedLz1 = SpeedL;
-			SpeedLzCruize = AverageCarSpeed;
+
+			if(fCruiseBrake) SpeedLzCruize = AverageCarSpeed;
 
 			//else SpeedLz1 = AverageCarSpeed;
 
@@ -674,8 +681,8 @@ void SpeedRegL()
 				//CruizeDriveL += (float)(DeltaSpeedL)*((float)(koeff.K7)/2500.0);
 				//MinMaxLimitInt(0,1500,&CruizeDriveL);
 				IqzLCruize = DeltaSpeedLCruize*kphold ;//+ SummSpeedL;
-				if (IqzL<IqzLCruize) IqzL+=20;
-				else IqzL-=20;
+				if (IqzL<IqzLCruize) IqzL+=kReactCruise;
+				else IqzL-=kReactCruise;
 			}
 
 			IqSummInBrakeL = 0;
