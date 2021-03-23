@@ -445,8 +445,8 @@ int DeltaSpeedLCruize=0;
 int SpeedLzCruize =0;
 int kReactCruise=2;
 int fCruiseBrake=1;		//флаг на тип работы тормоза в круизе.
-				   	    //1-при торможении уставка скорости снижается
-						//0 - уставка скорости не меняется, после отпуск. педали круиз отрабатывает изначал. скор.
+//1-при торможении уставка скорости снижается
+//0 - уставка скорости не меняется, после отпуск. педали круиз отрабатывает изначал. скор.
 
 //ограничение скорости движения
 int SpeedMAXFront=2000; //максимальная допустимая скорость вперед
@@ -480,7 +480,7 @@ void SpeedRegL()
 	if(Brake > 13)
 		drivePedalON = 0;
 #endif
-//ограничение скорости
+	//ограничение скорости
 	if(cmd.DNR == DRIVE)
 	{
 		//ограничение скорости движения
@@ -518,7 +518,7 @@ void SpeedRegL()
 		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
 	}
 
-		//------------------------ DIFF ----------------------------
+	//------------------------ DIFF ----------------------------
 
 	AverageAxleSpeed = (SpeedL + SpeedR) >> 1;
 	DeltaAxleSpeedL = AverageAxleSpeed - SpeedL;
@@ -605,22 +605,22 @@ void SpeedRegL()
 
 	if(cmd.DNR == DRIVE)
 	{
-//		//ограничение скорости движения
-//		//Созонов 22.03
-//		deltaSpeedMAX=AverageCarSpeed-SpeedMAXFront;
-//		MinMaxLimitInt(0,100,&deltaSpeedMAX);
-//
-//
-//		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
-//		if(BrakeSpeedMAX>13) {
-//			fToKKSpeedMAX=1;
-//			fABS=0;
-//		}
-//		else{
-//			fToKKSpeedMAX=0;
-//			fABS=1;
-//		}
-//		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
+		//		//ограничение скорости движения
+		//		//Созонов 22.03
+		//		deltaSpeedMAX=AverageCarSpeed-SpeedMAXFront;
+		//		MinMaxLimitInt(0,100,&deltaSpeedMAX);
+		//
+		//
+		//		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
+		//		if(BrakeSpeedMAX>13) {
+		//			fToKKSpeedMAX=1;
+		//			fABS=0;
+		//		}
+		//		else{
+		//			fToKKSpeedMAX=0;
+		//			fABS=1;
+		//		}
+		//		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
 
 
 		if(Brake > 13 )
@@ -692,20 +692,20 @@ void SpeedRegL()
 	}
 	if(cmd.DNR == REVERSE)
 	{
-//		//ограничение скорости движения
-//		//Созонов 22.03
-//		deltaSpeedMAX=abs(AverageCarSpeed)-SpeedMAXRevers;
-//		MinMaxLimitInt(0,100,&deltaSpeedMAX);
-//
-//
-//		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
-//		if(BrakeSpeedMAX>13) {
-//			fToKKSpeedMAX=1;
-//		}
-//		else{
-//			fToKKSpeedMAX=0;
-//		}
-//		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
+		//		//ограничение скорости движения
+		//		//Созонов 22.03
+		//		deltaSpeedMAX=abs(AverageCarSpeed)-SpeedMAXRevers;
+		//		MinMaxLimitInt(0,100,&deltaSpeedMAX);
+		//
+		//
+		//		BrakeSpeedMAX=deltaSpeedMAX*kpSpeedMAX;
+		//		if(BrakeSpeedMAX>13) {
+		//			fToKKSpeedMAX=1;
+		//		}
+		//		else{
+		//			fToKKSpeedMAX=0;
+		//		}
+		//		Brake+=BrakeSpeedMAX*fUseSpeedMAX;
 
 		SummSpeedBackL += fBackTest*((float)DeltaSpeedL1/kB);
 
@@ -1169,7 +1169,7 @@ GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/
 	//	{
 	//
 	//		ChopReg=0;
-	//		YVTRREZ=1;
+	//		YVTRREZ=0;
 	//		PowerUvtr=0;
 	//
 	//	}
@@ -1196,10 +1196,13 @@ GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/
 
 	if(Debug == 0)
 	{
-		//сброс напряжения при установке нейтрали
-		if(Ud > koeff.UdChStop && Ud < (koeff.UdInvStop + 10) && !EX_CONTROL_PIN)
+		//if(COMEPP.bit.ONYVTR==0)
 		{
-			ChopReg = 1000;
+			//сброс напряжения при установке нейтрали
+			if(Ud > koeff.UdChStop && Ud < (koeff.UdInvStop + 10) && !EX_CONTROL_PIN)
+			{
+				ChopReg = 1000;
+			}
 		}
 	}
 
