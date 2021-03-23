@@ -443,7 +443,7 @@ int IqzLCruize=0;
 float CruizeDriveL=0;
 int DeltaSpeedLCruize=0;
 int SpeedLzCruize =0;
-int kReactCruise=5;
+int kReactCruise=2;
 int fCruiseBrake=1;		//флаг на тип работы тормоза в круизе.
 				   	    //1-при торможении уставка скорости снижается
 						//0 - уставка скорости не меняется, после отпуск. педали круиз отрабатывает изначал. скор.
