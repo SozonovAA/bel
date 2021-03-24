@@ -563,7 +563,7 @@ interrupt void adc_isr(void)
 		}
 	}
 
-	CheckN();
+	if(!COMEPP.bit.ONYVTR)CheckN();
 
 /**********************************************************************/
 
