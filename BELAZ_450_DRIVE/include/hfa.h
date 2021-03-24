@@ -57,6 +57,9 @@ typedef char BYTE;
 
 #define X17		data_from_KK->DIN.bit.bHANDLE_BRAKE
 
+#define X18 	COMEPP.bit.ONYVTR
+
+
 /*
  * 	union _UC		COMMANDS;
 	union _UC		MAIN_COMMANDS;
@@ -808,6 +811,7 @@ extern union _COM COMEPP; //
 extern int UDZ_YVTR;// НАпряжение задания в Режиме УВТР
 
 extern int PowerHudrF,PowerHudrR;
+
 /*
 struct ALTERA_REGS
 {
