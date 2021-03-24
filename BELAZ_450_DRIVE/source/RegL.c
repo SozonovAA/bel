@@ -1151,17 +1151,18 @@ GetMIN(UUAL-HALF_PWM_HEIGHT,GetMIN(UUBL-HALF_PWM_HEIGHT,UUCL-HALF_PWM_HEIGHT)))/
 		if(YVTRREZ)
 		{
 
-			if((ControllerID==2 && COMEPP.bit.OnOffDiezlF) || (ControllerID==3 && COMEPP.bit.OnOffDiezlR) )
+			 if((ControllerID==2 && COMEPP.bit.OnOffDiezlF) || (ControllerID==3 && COMEPP.bit.OnOffDiezlR) )
 			{
-				if(COMEPP.bit.OnOffChop)
+				 if(COMEPP.bit.OnOffChop)
 				{
 					ChopReg=25000;
 					PowerUvtr = (Ud >> 5)*(Ud >> 5)*2.73;
 				}
 				else {ChopReg=0; PowerUvtr=0;}
 				if(UDZ_YVTR>=400) TaskUDZYVTR=UDZ_YVTR;
-	MinMaxLimitInt(400,MAXUYVTR,&TaskUDZYVTR);
+				MinMaxLimitInt(400,MAXUYVTR,&TaskUDZYVTR);
 			}
+
 
 		}
 		else TaskUDZYVTR=400;

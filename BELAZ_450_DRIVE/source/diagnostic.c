@@ -464,30 +464,18 @@ void StateOfControlPins()
 		x18 Ðåæèì ÓÂÒÐ
 
 */
-	if(ControllerID==1)
-	{
-	EX_CONTROL_PIN 			= !X15&&!X1&&X5&&(!X13&&X8||X13);
+
+	EX_CONTROL_PIN 			= (!X15||X18)&&!X1&&X5&&(!X13&&X8||X13);
 	_PAUSE(2);
-	LEFT_INV_CONTROL_PIN 	= !X2&&X6&&(!X13&&!X11&&X10&&!X17||X13&&X14||X18&&COMEPP.bit.OnOffDiezlF);
+	LEFT_INV_CONTROL_PIN 	= !X2&&X6&&(!X13&&!X11&&X10&&!X17||X13&&X14);
 	_PAUSE(2);
-	RIGHT_INV_CONTROL_PIN 	= !X3&&X7&&(!X13&&!X11&&X10&&!X17||X13&&X14||X18&&COMEPP.bit.OnOffDiezlF);
+	RIGHT_INV_CONTROL_PIN 	= !X3&&X7&&(!X13&&!X11&&X10&&!X17||X13&&X14);
 	_PAUSE(2);
-	CHOP_CONTROL_PIN		= !X4&&(!X13&&!X12||X13&&X14||X18&&COMEPP.bit.OnOffDiezlF);
+	CHOP_CONTROL_PIN		= !X4&&(!X13&&!X12||X13&&X14);
 	_PAUSE(2);
-	KM_Switch				= !X15&&!X8&&!X16;
-	}
-	else if(ControllerID==2)
-	{
-		EX_CONTROL_PIN 			= !X15&&!X1&&X5&&(!X13&&X8||X13);
-		_PAUSE(2);
-		LEFT_INV_CONTROL_PIN 	= !X2&&X6&&(!X13&&!X11&&X10&&!X17||X13&&X14||X18&&COMEPP.bit.OnOffDiezlR);
-		_PAUSE(2);
-		RIGHT_INV_CONTROL_PIN 	= !X3&&X7&&(!X13&&!X11&&X10&&!X17||X13&&X14||X18&&COMEPP.bit.OnOffDiezlR);
-		_PAUSE(2);
-		CHOP_CONTROL_PIN		= !X4&&(!X13&&!X12||X13&&X14||X18&&COMEPP.bit.OnOffDiezlR);
-		_PAUSE(2);
-		KM_Switch				= !X15&&!X8&&!X16;
-	}
+	KM_Switch				= (!X15||X18)&&!X8&&!X16;
+
+
 
 	QF_STate=altera_regs.DIN.bit.QF_POWER;
 	KM_State=altera_regs.DIN.bit.KM;
