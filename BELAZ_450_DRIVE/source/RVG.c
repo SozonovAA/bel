@@ -117,10 +117,10 @@ void RVG(void)
 
 		}
 
-//		if(COMEPP.bit.ONYVTR)
-//		{
-//			Udz=TaskUDZYVTR;
-//		}
+		if(COMEPP.bit.ONYVTR)
+		{
+			Udz=TaskUDZYVTR;
+		}
 
 	if(!otf.rsrv1)
 	{
@@ -189,10 +189,10 @@ void RVG(void)
 
 	 	 fUgen += (Ugen - fUgen)/15.0;
 
-//	 	 if(COMEPP.bit.ONYVTR) MinMaxLimitInt(400,940,&Udz);
-//
-//	 	 else  MinMaxLimitInt(UdzMIN,940,&Udz);
-	 	 MinMaxLimitInt(UdzMIN,940,&Udz);
+	 	 if(COMEPP.bit.ONYVTR) MinMaxLimitInt(400,940,&Udz);
+
+	 	 else  MinMaxLimitInt(UdzMIN,940,&Udz);
+	 	// MinMaxLimitInt(UdzMIN,940,&Udz);
 	 	 if(Ud>(Ugen-koeff.K22))
 		 dUd = Udz - Ugen;
 	 	 else

@@ -48,6 +48,9 @@ int PowerHudrF=0,PowerHudrR=0;
 int ONYVTR=0;
 int ComChop=0;
 int DIZF=0,DIZR=0;
+////// Proverka skorosti
+int SpeedZADR=0;
+int SpeedZADL=0;
 void AssemblyECIPMess()
 {
 
