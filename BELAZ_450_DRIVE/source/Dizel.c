@@ -20,6 +20,7 @@ int fTestStabSpeed=0;
 extern unsigned int ControllerID;
 
 int dPower=200;
+int dPowerCruize=300;
 
 void DizelOutPowerMax(){
 
@@ -46,8 +47,9 @@ void DizelOutPowerMax(){
 					PowerMax = RPMDiz*KDIS[DisState] + BDIS[DisState] - dPower;
 			}
 
+
 		if(!fTestStabSpeed)
-		SumPower = PowerL16 + PowerR16;
+		SumPower = PowerL16 + PowerR16+dPowerCruize;
 
 		if(SumPower < 1280) DisState = 0;
 		else DisState = 1;
