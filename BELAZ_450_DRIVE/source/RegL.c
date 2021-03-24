@@ -330,7 +330,7 @@ int kChop = 10;
 
 int drivePedalON=0;
 //учет скольжения в зависимости от скорости
-int fUseDeltaThetaSlip=0; //флаг о том что учитываем скольжение в угле
+int fUseDeltaThetaSlip=1; //флаг о том что учитываем скольжение в угле
 float koefThetaSlip=0.000322; //коэфициент скольжения (по коду понятно за что отвечает)
 
 float deltaThetaSlipL=0; //изменение угла от скольжения
@@ -446,7 +446,7 @@ int SpeedLzCruize =0;
 int kReactCruise=2;
 int fCruiseBrake=1;		//флаг на тип работы тормоза в круизе.
 //1-при торможении уставка скорости снижается
-//0 - уставка скорости не меняется, после отпуск. педали круиз отрабатывает изначал. скор.
+//0 - уставка скорости не меняется, после отпуск. педали круиз отрабатывает изначал. скор.(плохо работает...)
 
 //ограничение скорости движения
 int SpeedMAXFront=2000; //максимальная допустимая скорость вперед
@@ -1034,7 +1034,7 @@ void RegL(){
 		//учет сокльжения в зависимости от скорости (для больших скоростей)
 		//Созонов 22.03
 		deltaThetaSlipL=koefThetaSlip*((float)SpeedL/1050);
-		if(fUseDeltaThetaSlip) fThetaL-=deltaThetaSlipL;
+		if(fUseDeltaThetaSlip) fThetaL+=deltaThetaSlipL;
 
 		InvPark(&UAlphaL,&UBetaL,UUdL,UUqL,fThetaL);
 		InvClark(&UUAL,&UUBL,&UUCL,UAlphaL,UBetaL);
@@ -1042,7 +1042,7 @@ void RegL(){
 		if(fUseDeltaTheta)
 			fThetaL -= deltaThetaL*0.8;
 		//учет сокльжения в зависимости от скорости (для больших скоростей)
-		if(fUseDeltaThetaSlip) fThetaL+=deltaThetaSlipL;
+		if(fUseDeltaThetaSlip) fThetaL-=deltaThetaSlipL;
 
 		if(fCalcEByZ)
 		{

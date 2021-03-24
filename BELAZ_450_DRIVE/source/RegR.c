@@ -760,7 +760,7 @@ void RegR(){
 		//учет сокльжения в зависимости от скорости (для больших скоростей)
 		//Созонов 22.03
 		deltaThetaSlipR=koefThetaSlip*((float)SpeedR/1050);
-		if(fUseDeltaThetaSlip) fThetaR-=deltaThetaSlipR;
+		if(fUseDeltaThetaSlip) fThetaR+=deltaThetaSlipR;
 
 		InvPark(&UAlphaR,&UBetaR,UUdR,UUqR,fThetaR);
 		InvClark(&UUAR,&UUBR,&UUCR,UAlphaR,UBetaR);
@@ -768,7 +768,7 @@ void RegR(){
 		if(fUseDeltaTheta)
 			fThetaR -= deltaThetaR*0.8;
 		//учет сокльжения в зависимости от скорости (для больших скоростей)
-		if(fUseDeltaThetaSlip) fThetaR+=deltaThetaSlipR;
+		if(fUseDeltaThetaSlip) fThetaR-=deltaThetaSlipR;
 
 		if(fCalcEByZ)
 		{
