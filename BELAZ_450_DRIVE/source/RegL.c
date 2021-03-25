@@ -376,7 +376,10 @@ void CalcDeltaIdL()
 	Udz = 940;
 #endif
 
+	if(fUdUdz)
 	fE_MaxL += (((float)(Udz)*kEamp/2.0) - fE_MaxL)/koeff.K17;
+	else
+	fE_MaxL += (((float)(Ud)*kEamp/2.0) - fE_MaxL)/koeff.K17;
 
 	E_MaxL = fE_MaxL*fkIqL;
 	E_LineL = (float)(abs(SpeedL))*0.0686*koeff.K15;
@@ -456,6 +459,9 @@ int BrakeSpeedMAX=0; //тормозное усилие от ограничения скорости
 int deltaSpeedMAX=0;//разница между текущей и максимальной скоростью
 int fUseSpeedMAX=0; //флаг на использование ограничения скорости
 int fToKKSpeedMAX=0;//флаг который отправяем в КК о том что работает ограничение скорости
+//замыкание по Ud
+int fUdUdz=1;//флаг на замыкание по Ud(1-Udz/0-Ud)
+
 
 int KSI=5;
 

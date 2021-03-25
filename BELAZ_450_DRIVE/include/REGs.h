@@ -406,6 +406,9 @@ extern float koefThetaSlip;
 extern float deltaThetaSlipL; //изменение угла от скольжения
 extern float deltaThetaSlipR; //изменение угла от скольжения
 
+//замыкание по Ud
+extern int fUdUdz;//флаг на замыкание расчетов по Ud(1-Udz/0-Ud)
+
 extern int sdEXMAX;
 extern int sdELint;
 extern int sdERint;

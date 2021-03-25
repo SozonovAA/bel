@@ -192,8 +192,11 @@ void HeatWinding(float *Rs)
 
 int ConvertVParamToSI(int Param)
 {
-
+	if(fUdUdz)
 	Param = (Param / (float)(HALF_PWM_HEIGHT))*(Udz/2.0);
+	else
+	Param = (Param / (float)(HALF_PWM_HEIGHT))*(Ud/2.0);
+
 
 	return(Param);
 }

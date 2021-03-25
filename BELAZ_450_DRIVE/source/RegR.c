@@ -211,7 +211,11 @@ void CalcDeltaIdR()
 
 	fUmR += (UmR - fUmR)/25;
 
+	if(fUdUdz)
 	fE_MaxR += (((float)(Udz)*kEamp/2.0) - fE_MaxR)/koeff.K17;
+	else
+	fE_MaxR += (((float)(Ud)*kEamp/2.0) - fE_MaxR)/koeff.K17;
+
 
 	E_MaxR = fE_MaxR*fkIqR;
 	E_LineR = (float)(abs(SpeedR))*0.0686*koeff.K15;
