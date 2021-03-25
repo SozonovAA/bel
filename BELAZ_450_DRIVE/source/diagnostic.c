@@ -353,7 +353,7 @@ void StateMachine(){
 		UNSET(bm.UdInvStart);
 	}
 
-	if(GS.MAIN_COMMANDS.bit.DNR == NEUTRAL)
+	if(GS.MAIN_COMMANDS.bit.DNR == NEUTRAL &&!COMEPP.bit.ONYVTR)
 	{
 		SET(bm.N);
 		UNSET(bm.ExTimeOver);
