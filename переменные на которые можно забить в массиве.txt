@@ -1,0 +1,40 @@
+Переменные, на которые можно забить.
+
+AddrArray[8] = (Uint16)&TestV;
+AddrArray[65] = (Uint16)&EAlphaInstL;
+AddrArray[66] = (Uint16)&EBetaInstL;
+AddrArray[67] = (Uint16)&EAlphaInstR;
+AddrArray[68] = (Uint16)&EBetaInstR;
+AddrArray[79] = (Uint16)&UBetaSIR ;//RLM;
+AddrArray[84] = (Uint16)&UAlphaSIL;//LL1;
+AddrArray[85] = (Uint16)&UBetaSIL ;//RL1;
+AddrArray[93] = (Uint16)&IfRMSL;
+
+//------------------------------------------------------
+
+Уже есть переменные.
+
+	file - ECIP.c
+
+	DFKK = data_from_KK->DIN.all & 0x003F;
+	Drive = data_from_KK->Drive;
+	Brake = data_from_KK->Brake;
+
+//------------------------------------------------------
+
+Ввести новые переменные
+
+int DIN=0;
+int DOUT=0;
+
+	DIN  = altera_regs.DIN.all;
+	DOUT = altera_regs.DOUT.all;	
+
+//------------------------------------------------------
+Добавить в массив
+
+	DFKK 
+	Drive 
+	Brake
+	DIN 
+	DOUT 	
