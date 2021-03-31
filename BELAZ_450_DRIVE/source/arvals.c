@@ -68,9 +68,14 @@ extern int RTR;
 extern int RLM;
 
 extern int M1;
+int HELP_BITS=0;
+int COMEPP_MASS=0;
 
 void InitAddrArray()
 {
+
+	COMEPP_MASS=COMEPP.all;
+	HELP_BITS=GS.HELP_BITS.all;
 
 		//____________________________________
 	AddrArray[0] = (Uint16)&array_step;
@@ -168,7 +173,7 @@ void InitAddrArray()
 	AddrArray[82] = (Uint16)&SpeedLzCruize;//LK2;
 	AddrArray[83] = (Uint16)&SpeedRzCruize;//RK2;
 	AddrArray[84] = (Uint16)&fCalcUdz;//LL1;
-	AddrArray[85] = (Uint16)&COMEPP.all;//RL1;
+	AddrArray[85] = (Uint16)&COMEPP_MASS;//RL1;
 	AddrArray[86] = (Uint16)&IqzLCruize;//LTS;
 	AddrArray[87] = (Uint16)&IqzRCruize;//RTS;
 	AddrArray[88] = (Uint16)&SummSpeedLint;//LTR;
@@ -177,7 +182,7 @@ void InitAddrArray()
 	AddrArray[90] = (Uint16)&PowerUvtr;
 	AddrArray[91] = (Uint16)&DeltaSpeedLCruize;
 	AddrArray[92] = (Uint16)&DeltaSpeedRCruize;
-	AddrArray[93] = (Uint16)&GS.HELP_BITS.all;
+	AddrArray[93] = (Uint16)&HELP_BITS;
 	AddrArray[94] = (Uint16)&iffL;
 	AddrArray[95] = (Uint16)&Faults1;
 	AddrArray[96] = (Uint16)&Faults2;
