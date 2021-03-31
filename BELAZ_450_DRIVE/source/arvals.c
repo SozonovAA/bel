@@ -167,7 +167,7 @@ void InitAddrArray()
 	AddrArray[81] = (Uint16)&fUseDeltaThetaSlip;//RK1;
 	AddrArray[82] = (Uint16)&SpeedLzCruize;//LK2;
 	AddrArray[83] = (Uint16)&SpeedRzCruize;//RK2;
-	AddrArray[84] = (Uint16)&UAlphaSIL;//LL1;
+	AddrArray[84] = (Uint16)&fCalcUdz;//LL1;
 	AddrArray[85] = (Uint16)&COMEPP.all;//RL1;
 	AddrArray[86] = (Uint16)&IqzLCruize;//LTS;
 	AddrArray[87] = (Uint16)&IqzRCruize;//RTS;

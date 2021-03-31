@@ -82,6 +82,7 @@ float kd=0.00;
 
 int UdzMIN = 650;
 
+int fCalcUdz=0; //флаг на проверку того условия, по которому ситаем Udz (1-сокрость генератора, 2-Скорость самосвала, 3 - УВТР)
 void RVG(void)
 {
 
@@ -109,17 +110,18 @@ void RVG(void)
 		{
 
 			Udz = F_(RPMDiz)/1.6;
-
+			fCalcUdz=1;
 		}
 		else{
 
 			Udz = F_(abs(speedMax))*1.217;
-
+			fCalcUdz=2;
 		}
 
 		if(COMEPP.bit.ONYVTR)
 		{
 			Udz=TaskUDZYVTR;
+			fCalcUdz=3;
 		}
 
 	if(!otf.rsrv1)

@@ -446,6 +446,8 @@ extern struct data_for_receive *data_for_KK;
 extern int DIN;
 extern int DOUT;
 extern Uint16 DFKK;
+extern int fCalcUdz; //флаг на проверку того условия, по которому ситаем Udz (1-сокрость генератора, 2-Скорость самосвала, 3 - УВТР)
+
 
 
 
