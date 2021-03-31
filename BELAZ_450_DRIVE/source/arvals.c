@@ -14,6 +14,8 @@ void InitAddrArray();
 Uint16 AddrArray[NUM_OF_VARIABLES];
 int TestV=1234;
 
+
+
 /*
 int16 IaL=0;
 int16 IbL=0;
@@ -79,7 +81,7 @@ void InitAddrArray()
 	AddrArray[5] = (Uint16)&Iv;
 	AddrArray[6] = (Uint16)&Igen;
 	AddrArray[7] = (Uint16)&alpha16;
-	AddrArray[8] = (Uint16)&TestV;
+	AddrArray[8] = (Uint16)&DFKK;
 	AddrArray[9] = (Uint16)&ChopReg;
 //____________________________________
 	AddrArray[10] = (Uint16)&UUAL;
@@ -144,10 +146,10 @@ void InitAddrArray()
 	AddrArray[62] = (Uint16)&DeltaSpeedR;
 	AddrArray[63] = (Uint16)&SpeedR;
 	AddrArray[64] = (Uint16)&SpeedRz;
-	AddrArray[65] = (Uint16)&EAlphaInstL;
-	AddrArray[66] = (Uint16)&EBetaInstL;
-	AddrArray[67] = (Uint16)&EAlphaInstR;
-	AddrArray[68] = (Uint16)&EBetaInstR;
+	AddrArray[65] = (Uint16)&Drive;
+	AddrArray[66] = (Uint16)&Brake;
+	AddrArray[67] = (Uint16)&DIN;
+	AddrArray[68] = (Uint16)&DOUT;
 	AddrArray[69] = (Uint16)&AverageCarSpeed;
 //____________________________________
 	AddrArray[70] = (Uint16)&M1;//phi_int;
@@ -166,7 +168,7 @@ void InitAddrArray()
 	AddrArray[82] = (Uint16)&SpeedLzCruize;//LK2;
 	AddrArray[83] = (Uint16)&SpeedRzCruize;//RK2;
 	AddrArray[84] = (Uint16)&UAlphaSIL;//LL1;
-	AddrArray[85] = (Uint16)&UBetaSIL ;//RL1;
+	AddrArray[85] = (Uint16)&COMEPP.all;//RL1;
 	AddrArray[86] = (Uint16)&IqzLCruize;//LTS;
 	AddrArray[87] = (Uint16)&IqzRCruize;//RTS;
 	AddrArray[88] = (Uint16)&SummSpeedLint;//LTR;
@@ -175,7 +177,7 @@ void InitAddrArray()
 	AddrArray[90] = (Uint16)&PowerUvtr;
 	AddrArray[91] = (Uint16)&DeltaSpeedLCruize;
 	AddrArray[92] = (Uint16)&DeltaSpeedRCruize;
-	AddrArray[93] = (Uint16)&IfRMSL;
+	AddrArray[93] = (Uint16)&GS.HELP_BITS.all;
 	AddrArray[94] = (Uint16)&iffL;
 	AddrArray[95] = (Uint16)&Faults1;
 	AddrArray[96] = (Uint16)&Faults2;

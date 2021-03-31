@@ -442,6 +442,11 @@ extern int Brake;
 extern struct data_for_transmit *data_from_KK;
 extern struct data_for_receive *data_for_KK;
 
+//переменные для массива
+extern int DIN;
+extern int DOUT;
+extern Uint16 DFKK;
+
 
 
 //**************************************************************************//

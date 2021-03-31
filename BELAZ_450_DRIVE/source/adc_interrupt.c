@@ -106,6 +106,10 @@ int eCatExchCount=0;
 	int16 CS0=0;
 #endif
 
+//переменные для массива
+int DIN=0;
+int DOUT=0;
+
 interrupt void adc_isr(void)
 {
 	int i;
@@ -116,6 +120,9 @@ interrupt void adc_isr(void)
 		i2cDacs();
 	}
 
+	//переменные для массива
+	DIN  = altera_regs.DIN.all;
+	DOUT = altera_regs.DOUT.all;
 //*********************************************************
 //TODO
 //	calculate zero_shift for currents
